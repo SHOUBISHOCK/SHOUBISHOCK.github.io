@@ -1,0 +1,2 @@
+# SHOUBISHOCK.github.io
+ MOTD
