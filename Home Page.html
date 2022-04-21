@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+	<link rel="stylesheet" href="Home%20Page_files/styles.css">
+	<link rel="stylesheet" href="Home%20Page_files/buttons.css">
+	
+	<script src="Home%20Page_files/jquery-2.js"></script>
+	<script src="Home%20Page_files/expansion.js"></script>
+	
+	<title>Home Page</title>
+	<meta charset="utf-8">
+</head>
+
+<body>
+<div id="container">	
+
+	<!-- Logo and welcome text goes here -->
+	<header>
+		<h2>Welcome to Redstone! A Nuclear Dawn Community Server!</h2>
+		<h2>Pick up games between friday and sunday around 19:00 GMT</h2>
+	</header>
+	
+	<!-- Navigation buttoms bellow pages go here -->
+	<nav>		
+		<!--<ul>
+			<li><a href="index.html" class="btn">Home</a></li>
+			<li><a href="mods.html" class="btn">Mods</a></li>
+			<li><a href="faqs.html" class="btn">FAQs</a></li>
+		</ul>-->
+	</nav>
+	
+	<!-- The content of the webpage goes here -->
+	<main>	
+		<h3 class="btn">Redstone Code of Conduct</h3>
+		<div class="">		
+		<ol>
+			<li>Everyone has the right not to be harassed or discriminated against.</li>
+			<li>Players shall not ruin games, spam/advertise, bomb or use hacks/exploits.</li>
+			<li>Avoid the usage of advertisements, to intimidate or deceive people.</li>
+			<li>Commanders shall not violate section i-iii), use build exploits, 
+sell all the spawns or intentionally ruin/throw a populated game.</li>
+			<li>Frequently stacking on one faction is not acceptable. It strains 
+the quality of games for everyone on the server in pursuit of personal 
+gain.</li>		
+		</ol>
+		</div>
+		
+		<h3 class="btn">Click Here - FAQs</h3>
+		<div class="hide">
+			<h4>What does 100 trick-rate mean?</h4>
+			<ul>
+				<li>Redstone runs a 100 tickrate to improve responsiveness.</li>
+				<li>The server updates 100 times per second of 66 times.</li>
+				<li>This improves everyone's responsive time by 10ms.</li>
+			</ul>
+			
+			<h4>What hardware is this server hosted on?</h4>
+			<ul>
+				<li>Redstone is hosted on a dedicated i7-4790K with 16GB of ram.</li>
+				<li>Server performance is always 100% at 32 players with this hardware.</li>
+			</ul>
+		</div>
+		
+		<h3 class="btn">Click Here - List of Plugins</h3>
+		<div class="hide">
+			<p><b>AFK Manager:</b> Automatically moves afk players to spectate. Kicks them when the server is almost full.</p>
+			<p><b>Dont Shout:</b> Automatically converts chat messages in all upper-case to lower-case.</p>
+			<p><b>GameMe:</b> Records server statisitics to rank.xenogamers.com/players/nd.</p>
+			<p><b>HP Left:</b> Shows health of person who killed you. Enable/Disable via !settings menu.</p>
+			<p><b>Map Plugins:</b> Create a list of maps to vote from based on the player count.</p>
+			<p><b>ND Adjust Weights:</b> Allows the skill values of smurf accounts to be adjusted.</p>
+			<p><b>ND Advertise:</b> Advertises RedstoneND steam group, to everyone not in it.</p>
+			<p><b>ND Bot Features:</b> Allows a high amount of bots with less than 8 players, without effecting team balance.</p>
+			<p><b>ND Building Fixes:</b> Destorys a wall when built inside a relay tower or wireless reapeater.</p>
+			<p><b>ND Commander Ban:</b> Allows a server admin to ban someone from using commander.</p>
+			<p><b>ND Commander Chair:</b> Removes the waiting period for commander applications. Creates a delay to enter the chair instead.</p>
+			<p><b>ND Commander Checklist:</b> Creates a task list of important items for new players to complete.</p>
+			<p><b>ND Commander Deprioritize:</b> Allows a server admin to deprioritize someone from commanding.</p>
+			<p><b>ND Commander Restrictions:</b> Gives experienced commanders first pick, when the server is full of veterans.</p>
+			<p><b>ND Commander Tips:</b> Displays a list of commander tips for new player. Only when they are commanding.</p>
+			<p><b>ND Gernade Trails:</b> Renders gernade trails for players, spectators and commanders. Enable/Disable via !settings menu.</p>
+			<p><b>ND Kill Bots:</b> Allows commanders to type !KillBots in chat, if they are all stuck.</p>
+			<p><b>ND Managed Slots:</b> Adjusts the sever slot count based on the map and average player skill.</p>
+			<p><b>ND Off Map Fixes:</b> Fixes most exploitable building locations in unfair or unintended locations.</p>
+			<p><b>ND Player Skill:</b> Gives each player a skill value. Used to balance teams and enhance server plugins.</p>
+			<p><b>ND Player Tips:</b> Triggers tips for new players, when they do something wrong.</p>
+			<p><b>ND Pull Bots:</b> Allows players to type !PullBot in chat to unstuck a bot.</p>
+			<p><b>ND Radio Controls:</b> Prevents a player who is silenced from spamming radio commands.</p>
+			<p><b>ND Resource Messages:</b> Displays how resource generation works, when a player captures a resource point.</p>
+			<p><b>ND Resource Spawner:</b> Improves game balance by adding or removing tertaries in select locations.</p>
+			<p><b>ND Rock The Vote:</b> Creates a customized !rtv command, to allow players to vote the change the map.</p>
+			<p><b>ND Round Restart:</b> Allows players to vote to restart current round, by typing !restart in chat.</p>
+			<p><b>ND Set Language:</b> Sets server language automatically based on client ip. Enable/Disable via !settings menu.</p>
+			<p><b>ND Spawn Colours:</b> Changes the colour of a player currently under spawn protection.</p>
+			<p><b>ND Suicide Controls:</b> Prevents players from absuing the suicide command "becuase it's faster than dieing."</p>
+			<p><b>ND Surrender:</b> Allows players to type !surrender in chat to vote to surrender.</p>
+			<p><b>ND Team Balance:</b> Automatically places players on team, based on the skill difference.</p>
+			<p><b>ND Team Breakdown:</b> Displays on the HUD a breakdown of important troop counts for the team.</p>
+			<p><b>ND Team Picking:</b> Allows server admins to activate team-pick mode, where commanders pick teams.</p>
+			<p><b>ND Team Shuffle:</b> Automatically shuffles teams at round start, to evenly distribute skill.</p>
+			<p><b>ND Team Diff Display:</b> Displays the team difference in small hint text bellow the time.</p>
+			<p><b>ND Time Limit:</b> Allows players to vote extend the match. Creates unlimited time limit with less than 8 players.</p>
+			<p><b>ND Unit Limit:</b> Allows commander to limit the amount of certain classes allowed at one time.</p>
+			<p><b>ND Warmup:</b> Creates a warmup round to give everyone a chance to connect to the server.</p>
+			<p><b>Next Map:</b> Allows players to check the next map by typing nextmap in chat.</p>
+			<p><b>Show Damage:</b> Shows how much damage your bullets are dealing. Enable/Disable via !settings menu.</p>
+			<p><b>SM Parachutes:</b> Adds parachutes to the game. Hold the spacebar to deploy.</p>
+			<ul>
+				<li>Parachute fall speed increases by 20% per Infantry Boost Level.</li>
+			</ul>	
+			<p><b>SMAC:</b> Renders an additional anti-cheat engine on the server, to detect hackers.</p>
+			<p><b>Structure Messages:</b> Displays a message in chat when structures are destoryed. Enable/Disable via !settings menu.</p>
+			<p><b>Updater Plugin:</b> Automatically updates server plugins from the Public Redstone ND Github Repo.</p>
+		</div>
+		
+	</main>
+	
+	<!-- The ending footer goes here -->
+	<footer>	
+		<!--&copy; Copyright 2020. All Rights Reserved.<br>
+		<a href="http://steamcommunity.com/id/stickz">Server Operated by Vertex</a><br>
+		<a href="http://steamcommunity.com/groups/RedstoneND">Join the Steam Group!</a>-->
+	</footer>
+
+</div>
+
+</body></html>

@@ -1,0 +1,101 @@
+/* Style sheet for Redstone MOTD */
+
+div.hide {
+	display: none;
+}
+
+/* Set background colour of document */
+body { background-color: #efd086; }
+/*background-color: #D6D5D2;*/
+
+header h2 { color: #f21550;}
+.subTitle { color: #f21550;}
+
+/* Styling for the navigation section */
+nav {
+	font-family: Georgia, "Times New Roman", serif;
+	font-size: 1.15em;
+	font-weight: bold;
+}
+nav li {
+	display: block;
+	list-style-type: none;
+	margin: 0;
+	padding: 0.4em;
+	text-align: center;
+}
+nav li a { text-decoration: none; }
+
+nav ul {
+	margin-left: -3.5em;
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+li { margin-bottom: 0.5em; }
+
+h3 { margin-top: 1.5em; }
+
+/* css div classes */
+.boldface { font-weight: bold; }
+.noBorder { border: none; }
+.smallWidth { display: inline;}
+.largeWidth { display: none;}
+
+.tList { 
+	margin-bottom: 0.15em; 
+	margin-top: 0.15em;
+}
+
+.tUL {
+	margin-top: 0.35em;
+	margin-bottom: 0.35em;
+}
+
+/* Style for tablet element */
+table {
+	border: 0.1em solid #000000;
+	border-collapse: collapse;
+	margin-left: 0.5em;
+	min-width: 515px;
+	max-width: 750px;
+	width: 90%;
+}
+
+/* Style speciies border and padding for th and td elements */
+th, td {
+	border: 0em solid #000000;
+	padding: 0.25em;	
+}
+
+.fixBullet { list-style-type: none; }
+
+/* Blow up table values with a larger screen */
+@media only screen and (min-width: 715px) {
+	.smallWidth { display: none;}
+	.largeWidth { display: inline;}
+	
+	table { margin-left: 2em;}	
+	
+	nav li {
+		display: inline;
+		list-style-type: none;
+		margin: 0;
+		padding: 0;
+		margin-right: 1em;
+	}
+	
+	nav ul {
+		margin-left: -1em;		
+	}
+}
+
+/* Blow up font sizes, with a larger screen */
+@media only screen and (min-width: 1150px) {
+	.fixBullet { font-size: 1em; list-style-type: none; }	
+	footer { font-size: 1.18em;}
+	li, th, h4, p { font-size: 1.25em; }	
+	h3 { font-size: 1.5em; }	
+	h2 { font-size: 1.75em; }	
+	h1 { font-size: 2em; }
+}
