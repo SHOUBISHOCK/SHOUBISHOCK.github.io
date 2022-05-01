@@ -1,0 +1,47 @@
+/* Style sheet for MOTD buttons */
+
+.btn {
+  background: #f5e15d;
+  background-image: -webkit-linear-gradient(top, #f5e15d, #f2c874);
+  background-image: -moz-linear-gradient(top, #f5e15d, #f2c874);
+  background-image: -ms-linear-gradient(top, #f5e15d, #f2c874);
+  background-image: -o-linear-gradient(top, #f5e15d, #f2c874);
+  background-image: linear-gradient(to bottom, #f5e15d, #f2c874);
+  font-family: Arial;
+  color: #000000;
+  font-size: 13px;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-right: 47.5%;
+  padding-left: 47.5%;
+  text-decoration: none;
+}
+
+.btn:hover {
+  background: #faae3c;
+  background-image: -webkit-linear-gradient(top, #faae3c, #d97934);
+  background-image: -moz-linear-gradient(top, #faae3c, #d97934);
+  background-image: -ms-linear-gradient(top, #faae3c, #d97934);
+  background-image: -o-linear-gradient(top, #faae3c, #d97934);
+  background-image: linear-gradient(to bottom, #faae3c, #d97934);
+  text-decoration: none;
+}
+
+/* Blow up font sizes, with a larger screen */
+@media only screen and (min-width: 715px) {
+	.btn {
+		padding: 8px 16px 8px 16px;
+		-webkit-border-radius: 28;
+		-moz-border-radius: 28;
+		border-radius: 28px;
+		font-size: 14px;
+	} 
+}
+
+/* Blow up font sizes, with a larger screen */
+@media only screen and (min-width: 1150px) {
+	.btn { 
+		font-size: 18px; 
+		padding: 10px 20px 10px 20px;
+	}	
+}
