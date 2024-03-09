@@ -1,0 +1,286 @@
+body {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    font-family: sans-serif;
+    background: #000;
+}
+
+.block {
+	display: block;
+}
+
+.image {
+    width: 500px;
+    height: 350px;
+    transition: 0.5s;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-image: url(./images/reboot.png);
+    background-position: center;
+    background-size: cover;
+    object-fit: contain;
+}
+
+.image p {
+    opacity: 0;
+    transform: scale(0);
+    transition: 0.8s;
+    font-size: 2rem;
+    color: #fff;
+}
+
+.image:hover {
+    box-shadow: 0 0 0 200px rgba(0, 0, 0, 0.6) inset;
+}
+
+.image:hover p {
+    opacity: 1;
+    transform: scale(1);
+}
+
+
+
+.image2 {
+    width: 500px;
+    height: 350px;
+    transition: 0.5s;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-image: url(./images/vpsstuff.png);
+    background-position: center;
+    background-size: cover;
+    object-fit: contain;
+}
+
+.image2 p {
+    opacity: 0;
+    transform: scale(0);
+    transition: 0.8s;
+    font-size: 2rem;
+    color: #fff;
+}
+
+.image2:hover {
+    box-shadow: 0 0 0 200px rgba(0, 0, 0, 0.6) inset;
+}
+
+.image2:hover p {
+    opacity: 1;
+    transform: scale(1);
+}
+
+
+.image3 {
+    width: 500px;
+    height: 350px;
+    transition: 0.5s;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-image: url(./images/webstuff.png);
+    background-position: fill;
+    background-size: cover;
+}
+
+.image3 p {
+    opacity: 0;
+    transform: scale(0);
+    transition: 0.8s;
+    font-size: 2rem;
+    color: #fff;
+}
+
+.image3:hover {
+    box-shadow: 0 0 0 200px rgba(0, 0, 0, 0.6) inset;
+}
+
+.image3:hover p {
+    opacity: 1;
+    transform: scale(1);
+}
+
+
+.image4 {
+    width: 500px;
+    height: 350px;
+    transition: 0.5s;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-image: url(./images/mge.png);
+    background-position: center;
+    background-size: cover;
+}
+
+.image4 p {
+    opacity: 0;
+    transform: scale(0);
+    transition: 0.8s;
+    font-size: 2rem;
+    color: #fff;
+}
+
+.image4:hover {
+    box-shadow: 0 0 0 200px rgba(0, 0, 0, 0.6) inset;
+}
+
+.image4:hover p {
+    opacity: 1;
+    transform: scale(1);
+}
+
+
+.image5 {
+    width: 500px;
+    height: 350px;
+    transition: 0.5s;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-image: url(./images/gfme.png);
+    background-position: center;
+    background-size: cover;
+}
+
+.image5 p {
+    opacity: 0;
+    transform: scale(0);
+    transition: 0.8s;
+    font-size: 2rem;
+    color: #fff;
+}
+
+.image5:hover {
+    box-shadow: 0 0 0 200px rgba(0, 0, 0, 0.6) inset;
+}
+
+.image5:hover p {
+    opacity: 1;
+    transform: scale(1);
+}
+
+
+.image6 {
+    width: 500px;
+    height: 350px;
+    transition: 0.5s;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-image: url(./images/doshdoshdosh.jpg);
+    background-position: center;
+    background-size: cover;
+}
+
+.image6 p {
+    opacity: 0;
+    transform: scale(0);
+    transition: 0.8s;
+    font-size: 2rem;
+    color: #fff;
+}
+
+.image6:hover {
+    box-shadow: 0 0 0 200px rgba(0, 0, 0, 0.6) inset;
+}
+
+.image6:hover p {
+    opacity: 1;
+    transform: scale(1);
+}
+
+
+.image7 {
+    width: 500px;
+    height: 350px;
+    transition: 0.5s;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-image: url(https://i.imgur.com/0hP8EKF.gif);
+    background-position: center;
+    background-size: cover;
+}
+
+.image7 p {
+    opacity: 0;
+    transform: scale(0);
+    transition: 0.8s;
+    font-size: 2rem;
+    color: #fff;
+}
+
+.image7:hover {
+    box-shadow: 0 0 0 200px rgba(0, 0, 0, 0.6) inset;
+}
+
+.image7:hover p {
+    opacity: 1;
+    transform: scale(1);
+}
+
+
+.image8 {
+    width: 500px;
+    height: 350px;
+    transition: 0.5s;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-image: url(./images/dosh.png);
+    background-position: center;
+    background-size: cover;
+}
+
+.image8 p {
+    opacity: 0;
+    transform: scale(0);
+    transition: 0.8s;
+    font-size: 2rem;
+    color: #fff;
+}
+
+.image8:hover {
+    box-shadow: 0 0 0 200px rgba(0, 0, 0, 0.6) inset;
+}
+
+.image8:hover p {
+    opacity: 1;
+    transform: scale(1);
+}
+
+
+
+.image9 {
+    width: 500px;
+    height: 350px;
+    transition: 0.5s;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-image: url(./images/stats.png);
+    background-position: center;
+    background-size: cover;
+    object-fit: contain;
+}
+
+.image9 p {
+    opacity: 0;
+    transform: scale(0);
+    transition: 0.8s;
+    font-size: 2rem;
+    color: #fff;
+}
+
+.image9:hover {
+    box-shadow: 0 0 0 200px rgba(0, 0, 0, 0.6) inset;
+}
+
+.image9:hover p {
+    opacity: 1;
+    transform: scale(1);
+}
