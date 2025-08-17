@@ -1,0 +1,706 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta property="og:title" content="My Gaming Edge - Crazy side project">
+    <meta property="og:type" content="website">
+    <meta property="og:image" content="https://raw.githubusercontent.com/SHOUBISHOCK/SHOUBISHOCK.github.io/refs/heads/main/images/crazy.png">
+    <meta property="og:url" content="https://mygamingedge.online/">
+    <meta property="og:description" content="A hosting group consisting of players who deserve respect for both their skills and integrity.">
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+    <link rel="icon" type="image/x-icon" href="images/favicon.ico">
+    <title>INSURGENCY CRAZY WARFARE</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vanta@latest/dist/vanta.net.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.4/gsap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/three@0.132.2/build/three.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/three@0.132.2/examples/js/controls/OrbitControls.js"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&display=swap');
+        
+        body {
+            font-family: 'Orbitron', sans-serif;
+            overflow-x: hidden;
+            color: #00ff00;
+            background-color: #000;
+        }
+        
+        .glitch {
+            position: relative;
+        }
+        
+        .glitch::before, .glitch::after {
+            content: attr(data-text);
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
+        
+        .glitch::before {
+            left: 2px;
+            text-shadow: -2px 0 #ff00ff;
+            clip: rect(44px, 450px, 56px, 0);
+            animation: glitch-anim-1 2s infinite linear alternate-reverse;
+        }
+        
+        .glitch::after {
+            left: -2px;
+            text-shadow: -2px 0 #00ffff;
+            clip: rect(44px, 450px, 56px, 0);
+            animation: glitch-anim-2 2s infinite linear alternate-reverse;
+        }
+        
+        @keyframes glitch-anim-1 {
+            0% { clip: rect(32px, 9999px, 76px, 0); }
+            20% { clip: rect(8px, 9999px, 14px, 0); }
+            40% { clip: rect(66px, 9999px, 87px, 0); }
+            60% { clip: rect(23px, 9999px, 89px, 0); }
+            80% { clip: rect(64px, 9999px, 34px, 0); }
+            100% { clip: rect(90px, 9999px, 53px, 0); }
+        }
+        
+        @keyframes glitch-anim-2 {
+            0% { clip: rect(95px, 9999px, 15px, 0); }
+            20% { clip: rect(13px, 9999px, 44px, 0); }
+            40% { clip: rect(77px, 9999px, 72px, 0); }
+            60% { clip: rect(42px, 9999px, 29px, 0); }
+            80% { clip: rect(82px, 9999px, 52px, 0); }
+            100% { clip: rect(11px, 9999px, 98px, 0); }
+        }
+        
+        .pulse {
+            animation: pulse 2s infinite;
+        }
+        
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+        
+        .scanlines {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(
+                rgba(0, 255, 0, 0.1) 1px,
+                transparent 1px
+            );
+            background-size: 100% 3px;
+            pointer-events: none;
+            z-index: 9999;
+        }
+        
+        .flicker {
+            animation: flicker 0.5s infinite alternate;
+        }
+        
+        @keyframes flicker {
+            0% { opacity: 0.7; }
+            100% { opacity: 1; }
+        }
+        
+        .rainbow-text {
+            background: linear-gradient(
+                to right,
+                #ff0000,
+                #ff7f00,
+                #ffff00,
+                #00ff00,
+                #0000ff,
+                #4b0082,
+                #9400d3
+            );
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            background-size: 400% 400%;
+            animation: rainbow 8s ease infinite;
+        }
+        
+        @keyframes rainbow {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+        
+        .video-container {
+            position: relative;
+            padding-bottom: 56.25%;
+            height: 0;
+            overflow: hidden;
+            border: 3px solid #00ff00;
+            box-shadow: 0 0 20px #00ff00, 0 0 40px #ff00ff;
+        }
+        
+        .video-container:hover .video-controls {
+            opacity: 1;
+        }
+        
+        .video-container iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
+        
+        .donation-box {
+            border: 2px solid #00ff00;
+            box-shadow: 0 0 15px #00ff00, 0 0 30px #ff00ff;
+            background: rgba(0, 0, 0, 0.7);
+            backdrop-filter: blur(5px);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .donation-box::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(ellipse at center, 
+                rgba(0,255,0,0.3) 0%, 
+                transparent 70%);
+            animation: box-smoke 15s linear infinite;
+            pointer-events: none;
+        }
+        
+        .server-box {
+            border: 2px solid #ff00ff;
+            box-shadow: 0 0 15px #ff00ff, 0 0 30px #00ffff;
+            background: rgba(0, 0, 0, 0.7);
+            backdrop-filter: blur(5px);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .server-box::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(ellipse at center, 
+                rgba(255,0,255,0.3) 0%, 
+                transparent 70%);
+            animation: box-smoke 12s linear infinite reverse;
+            pointer-events: none;
+        }
+        
+        @keyframes box-smoke {
+            0% { 
+                transform: rotate(0deg) translate(0, 0);
+                opacity: 0.3;
+            }
+            100% { 
+                transform: rotate(360deg) translate(50px, 50px);
+                opacity: 0;
+            }
+        }
+        
+        .terminal {
+            font-family: 'Courier New', monospace;
+            background-color: #000;
+            border: 2px solid #00ff00;
+            color: #00ff00;
+            padding: 1rem;
+            height: 300px;
+            overflow-y: scroll;
+        }
+        
+        .terminal-line {
+            animation: typewriter 4s steps(40) 1s 1 normal both,
+                       blinkTextCursor 500ms steps(40) infinite normal;
+        }
+        
+        @keyframes typewriter {
+            from { width: 0; }
+            to { width: 100%; }
+        }
+        
+        @keyframes blinkTextCursor {
+            from { border-right-color: rgba(0, 255, 0, 0.75); }
+            to { border-right-color: transparent; }
+        }
+        
+        #smoke-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
+            overflow: hidden;
+            opacity: 0.7;
+        }
+        
+        .smoke-particle {
+            position: absolute;
+            background: rgba(150, 150, 255, 0.4);
+            border-radius: 50%;
+            filter: blur(15px);
+            will-change: transform;
+        }
+
+
+        .pixel-corners {
+            clip-path: 
+                polygon(
+                    0% 5px, 5px 5px, 5px 0%, calc(100% - 5px) 0%, 
+                    calc(100% - 5px) 5px, 100% 5px, 100% calc(100% - 5px), 
+                    calc(100% - 5px) calc(100% - 5px), calc(100% - 5px) 100%, 
+                    5px 100%, 5px calc(100% - 5px), 0% calc(100% - 5px)
+                );
+        }
+
+        .smoke-text {
+            position: relative;
+            display: inline-block;
+            animation: smoke-pulse 8s infinite ease-in-out;
+        }
+
+        .smoke-text::before, .smoke-text::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 150%;
+            height: 150%;
+            background: radial-gradient(ellipse at center, 
+                rgba(255,255,255,0.9) 0%, 
+                rgba(255,255,255,0.3) 50%, 
+                transparent 70%);
+            transform: translate(-50%, -50%);
+            opacity: 0;
+            mix-blend-mode: overlay;
+            pointer-events: none;
+            border-radius: 50%;
+            filter: blur(15px);
+        }
+
+        .smoke-text::before {
+            animation: smoke-drift 7s infinite ease-in-out;
+        }
+
+        .smoke-text::after {
+            animation: smoke-drift 5s infinite ease-in-out reverse;
+            background: radial-gradient(ellipse at center, 
+                rgba(200,200,255,0.7) 0%, 
+                rgba(200,200,255,0.2) 50%, 
+                transparent 70%);
+        }
+
+        @keyframes smoke-drift {
+            0% { 
+                opacity: 0;
+                transform: translate(-50%, -50%) scale(0.3) rotate(0deg);
+            }
+            30% { 
+                opacity: 0.7;
+                transform: translate(-50%, -50%) scale(1) rotate(10deg);
+            }
+            60% { 
+                opacity: 0.4;
+                transform: translate(-50%, -50%) scale(1.5) rotate(20deg);
+            }
+            100% { 
+                opacity: 0;
+                transform: translate(-50%, -50%) scale(2) rotate(30deg);
+            }
+        }
+
+        @keyframes smoke-pulse {
+            0%, 100% { 
+                filter: drop-shadow(0 0 5px rgba(255,255,255,0.2));
+            }
+            50% { 
+                filter: drop-shadow(0 0 15px rgba(255,255,255,0.5));
+            }
+        }
+    </style>
+</head>
+<body class="relative">
+    <div id="vanta-bg"></div>
+    <div class="scanlines"></div>
+    <div id="smoke-container"></div>
+    
+    <div class="container mx-auto px-4 py-8 relative z-10">
+        <!-- Header -->
+        <header class="text-center mb-12">
+            <h1 class="glitch text-5xl md:text-7xl font-bold mb-4 rainbow-text smoke-text" data-text="INSURGENCY CRAZY WARFARE">INSURGENCY CRAZY WARFARE</h1>
+            <p class="text-xl md:text-2xl text-green-400 flicker smoke-text">CUSTOM SERVER HOSTING • MODERN INFANTRY COMBAT</p>
+        </header>
+        
+        <!-- Main Content -->
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 mb-12">
+            <!-- Video Section -->
+            <div class="lg:col-span-2">
+                <div class="video-container rounded-lg overflow-hidden">
+                    <iframe id="yt-video" src="https://www.youtube.com/embed/MJfPZgtAp3c?enablejsapi=1&mute=1&controls=0&loop=1&playlist=MJfPZgtAp3c" frameborder="0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                    <div class="video-controls absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/80 to-transparent p-4 flex flex-col space-y-2 opacity-0 hover:opacity-100 transition-opacity duration-300">
+                        <div class="w-full flex items-center space-x-2">
+                            <button onclick="toggleMute()" class="bg-purple-600 hover:bg-purple-700 text-white px-3 py-1 rounded">
+                                <span id="mute-btn">🔇 Muted</span>
+                            </button>
+                            <input type="range" id="time-slider" min="0" max="100" value="0" class="flex-1 h-2 bg-gray-700 rounded-lg appearance-none cursor-pointer">
+                            <span id="time-display" class="text-white text-xs w-16">0:00</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Donation Section -->
+            <div class="donation-box rounded-lg p-6 flex flex-col justify-center items-center">
+                <h2 class="text-3xl font-bold mb-6 text-purple-400 smoke-text">SUPPORT OUR SERVER</h2>
+                <a href="https://www.paypal.com/paypalme/INS2UMGE" target="_blank" class="w-3/4 bg-gradient-to-r from-purple-600 to-green-600 hover:from-purple-700 hover:to-green-700 text-white font-bold py-3 px-4 rounded text-center transition-all duration-300 transform hover:scale-105">
+                    DONATE VIA PAYPAL
+                </a>
+            </div>
+        </div>
+        
+        <!-- Server Info -->
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-12">
+            <div class="server-box rounded-lg p-6">
+                <h2 class="text-3xl font-bold mb-4 text-cyan-400 smoke-text">SERVER FEATURES</h2>
+                <ul class="space-y-3 text-green-300">
+                    <li class="flex items-start">
+                        <span class="text-purple-400 mr-2">✦</span>
+                        <span>Vanilla settiings!</span>
+                    </li>
+                    <li class="flex items-start">
+                        <span class="text-purple-400 mr-2">✦</span>
+                        <span>Dynamic bots support</span>
+                    </li>
+                    <li class="flex items-start">
+                        <span class="text-purple-400 mr-2">✦</span>
+                        <span>Custom maps selection available!</span>
+                    </li>
+                    <li class="flex items-start">
+                        <span class="text-purple-400 mr-2">✦</span>
+                        <span>AFK manager!</span>
+                    </li>
+                    <li class="flex items-start">
+                        <span class="text-purple-400 mr-2">✦</span>
+                        <span>Crazy Admins!</span>
+                    </li>
+                        <li class="flex items-start">
+                        <span class="text-purple-400 mr-2">✦</span>
+                        <span>Tickrates 128</span>
+                    </li>
+                        </li>
+                        <li class="flex items-start">
+                        <span class="text-purple-400 mr-2">✦</span>
+                        <span>Call votes enabled!</span>
+                    </li>
+                </ul>
+            </div>
+            
+            <div class="server-box rounded-lg p-6">
+                <h2 class="text-3xl font-bold mb-4 text-cyan-400 smoke-text">SERVER STATUS</h2>
+                <div class="mb-4">
+                    <div class="flex justify-between mb-1">
+                        <span class="text-green-300">US East Server</span>
+                        <span class="text-green-400">ONLINE</span>
+                    </div>
+                    <div class="w-full bg-gray-800 rounded-full h-4">
+                        <div class="bg-gradient-to-r from-green-500 to-blue-500 h-4 rounded-full" style="width: 78%"></div>
+                    </div>
+                    <p class="text-right text-xs text-green-300 mt-1">24 slots</p>
+                    <a href="https://gamemonitoring.net/servers/9475795" target="_blank">
+  <img src="https://widgets.gamemonitoring.net/servers/9475795/560x95.png" alt="Crazy 24/7 - Challenging Custom Maps - 128 Tick" title="Crazy 24/7 - Challenging Custom Maps - 128 Tick" />
+</a>
+                </div>
+                
+                
+                <div class="text-center mt-6">
+                    <a href="steam://connect/23.111.159.250:21515" class="bg-gradient-to-r from-purple-600 to-cyan-600 hover:from-purple-700 hover:to-cyan-700 text-white font-bold py-2 px-6 rounded-full transition-all duration-300 transform hover:scale-105 inline-block">
+                        JOIN SERVER
+                    </a>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Terminal Effect -->
+        <div class="terminal rounded-lg mb-12 smoke-text">
+            <div class="terminal-line">
+                <span class="text-purple-400">root@insurgency-psywar:~$</span> ./start_server.sh<br>
+                <span class="text-green-400">[OK]</span> Loading psychedelic warfare module...<br>
+                <span class="text-green-400">[OK]</span> Initializing trippy visual effects...<br>
+                <span class="text-green-400">[OK]</span> Spawning custom weapon entities...<br>
+                <span class="text-yellow-400">[WARN]</span> Player sanity levels fluctuating...<br>
+                <span class="text-green-400">[OK]</span> Server ready on port 27015<br>
+                <span class="text-purple-400">root@insurgency-psywar:~$</span> ./monitor_players.sh<br>
+                <span class="text-cyan-400">PLAYER</span> AcidSniper connected (ping: 42ms)<br>
+                <span class="text-cyan-400">PLAYER</span> TripWire connected (ping: 68ms)<br>
+                <span class="text-cyan-400">PLAYER</span> PsyOps connected (ping: 35ms)<br>
+                <span class="text-cyan-400">PLAYER</span> FractalFragger connected (ping: 55ms)<br>
+                <span class="text-purple-400">root@insurgency-psywar:~$</span> _<br>
+            </div>
+        </div>
+        
+    </div>
+    
+    <!-- Footer -->
+    <footer class="border-t border-green-900 py-6 text-center">
+        <div class="container mx-auto px-4">
+            <p class="text-green-400 mb-2">INSURGENCY CRAZY WARFARE 2025 -2026 - No Rights Reserved.</p>
+            <p class="text-green-500 text-sm">Built upon DeepSite site template designed by AI</p>
+        </div>
+    </footer>
+    
+    <script>
+        // Initialize optimized Vanta.js background
+        VANTA.NET({
+            el: "#vanta-bg",
+            mouseControls: false,
+            touchControls: false,
+            gyroControls: false,
+            minHeight: 200,
+            minWidth: 200,
+            scale: 1,
+            color: 0x00ff00,
+            backgroundColor: 0x0,
+            points: 6,
+            maxDistance: 20,
+            spacing: 15
+        });
+        
+        // Simplified glitch effect
+        function triggerGlitch() {
+            const heading = document.querySelector('h1');
+            heading.classList.add('glitch-effect');
+            setTimeout(() => {
+                heading.classList.remove('glitch-effect');
+            }, 300);
+        }
+        
+        setInterval(triggerGlitch, 3000);
+        
+        // Add terminal typing effect
+        let terminalText = [
+            "PLAYER RainbowReaper disconnected (timeout)",
+            "PLAYER VortexVanguard connected (ping: 72ms)",
+            "WARNING: Visual distortion levels increasing...",
+            "PLAYER NeuralNomad connected (ping: 48ms)",
+            "NOTICE: Server performing psychedelic maintenance",
+            "PLAYER DigitalDervish connected (ping: 55ms)"
+        ];
+        
+        let terminal = document.querySelector('.terminal');
+        let currentLine = 0;
+        
+        setInterval(() => {
+            if (currentLine < terminalText.length) {
+                let newLine = document.createElement('div');
+                newLine.className = 'terminal-line';
+                newLine.innerHTML = `<span class="text-purple-400">root@insurgency-psywar:~$</span> ${terminalText[currentLine]}<br><span class="text-purple-400">root@insurgency-psywar:~$</span> _`;
+                terminal.appendChild(newLine);
+                terminal.scrollTop = terminal.scrollHeight;
+                currentLine++;
+            } else {
+                currentLine = 0;
+                terminal.innerHTML = `
+                    <div class="terminal-line">
+                        <span class="text-purple-400">root@insurgency-psywar:~$</span> ./start_server.sh<br>
+                        <span class="text-green-400">[OK]</span> Loading psychedelic warfare module...<br>
+                        <span class="text-green-400">[OK]</span> Initializing trippy visual effects...<br>
+                        <span class="text-green-400">[OK]</span> Spawning custom weapon entities...<br>
+                        <span class="text-yellow-400">[WARN]</span> Player sanity levels fluctuating...<br>
+                        <span class="text-green-400">[OK]</span> Server ready on port 27015<br>
+                        <span class="text-purple-400">root@insurgency-psywar:~$</span> ./monitor_players.sh<br>
+                        <span class="text-cyan-400">PLAYER</span> AcidSniper connected (ping: 42ms)<br>
+                        <span class="text-cyan-400">PLAYER</span> TripWire connected (ping: 68ms)<br>
+                        <span class="text-cyan-400">PLAYER</span> PsyOps connected (ping: 35ms)<br>
+                        <span class="text-cyan-400">PLAYER</span> FractalFragger connected (ping: 55ms)<br>
+                        <span class="text-purple-400">root@insurgency-psywar:~$</span> _<br>
+                    </div>
+                `;
+            }
+        }, 5000);
+        
+        // YouTube Player API
+        let player;
+        let updateInterval;
+        
+        function onYouTubeIframeAPIReady() {
+            player = new YT.Player('yt-video', {
+                events: {
+                    'onReady': onPlayerReady,
+                    'onStateChange': onPlayerStateChange
+                }
+            });
+        }
+
+        function onPlayerReady(event) {
+            updateTimeDisplay();
+            updateInterval = setInterval(updateTimeDisplay, 1000);
+        }
+
+        function onPlayerStateChange(event) {
+            if (event.data === YT.PlayerState.ENDED) {
+                clearInterval(updateInterval);
+            }
+        }
+
+        function toggleMute() {
+            if(player.isMuted()) {
+                player.unMute();
+                document.getElementById('mute-btn').textContent = '🔊 Unmuted';
+            } else {
+                player.mute();
+                document.getElementById('mute-btn').textContent = '🔇 Muted';
+            }
+        }
+
+        function updateTimeDisplay() {
+            if (!player) return;
+            
+            const currentTime = player.getCurrentTime();
+            const duration = player.getDuration();
+            const slider = document.getElementById('time-slider');
+            const display = document.getElementById('time-display');
+            
+            if (!isNaN(duration)) {
+                const percent = (currentTime / duration) * 100;
+                slider.value = percent;
+                
+                // Format time display
+                const formatTime = (time) => {
+                    const mins = Math.floor(time / 60);
+                    const secs = Math.floor(time % 60);
+                    return `${mins}:${secs < 10 ? '0' : ''}${secs}`;
+                };
+                
+                display.textContent = `${formatTime(currentTime)} / ${formatTime(duration)}`;
+            }
+        }
+
+        // Setup slider event listeners
+        document.getElementById('time-slider').addEventListener('input', function() {
+            if (player && player.getDuration) {
+                const seekTo = player.getDuration() * (this.value / 100);
+                player.seekTo(seekTo, true);
+            }
+        });
+
+        // Load YouTube API
+        const tag = document.createElement('script');
+        tag.src = "https://www.youtube.com/iframe_api";
+        const firstScriptTag = document.getElementsByTagName('script')[0];
+        firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+
+        // Optimized smoke effect
+        const smokeContainer = document.getElementById('smoke-container');
+        const particleCount = 40; // Reduced for better performance
+        const particles = [];
+        let lastFrameTime = performance.now();
+
+        class Particle {
+            constructor() {
+                this.element = document.createElement('div');
+                this.element.className = 'smoke-particle';
+                smokeContainer.appendChild(this.element);
+                
+                this.reset();
+                this.size = 30 + Math.random() * 40;
+                this.life = 0;
+                this.maxLife = 4 + Math.random() * 6;
+                this.speed = 0.3 + Math.random() * 0.5;
+                
+                this.element.style.width = `${this.size}px`;
+                this.element.style.height = `${this.size}px`;
+                this.element.style.opacity = 0.4 + Math.random() * 0.3;
+                this.element.style.willChange = 'transform';
+            }
+            
+            reset() {
+                this.x = Math.random() * window.innerWidth;
+                this.y = window.innerHeight * 0.8 + Math.random() * 100;
+                this.velocityX = (Math.random() - 0.5) * 0.5;
+                this.velocityY = -0.5 - Math.random() * 0.3;
+                this.life = 0;
+            }
+            
+            update(delta) {
+                this.life += delta;
+                this.x += this.velocityX * this.speed;
+                this.y += this.velocityY * this.speed;
+                
+                const lifeProgress = this.life / this.maxLife;
+                const currentOpacity = 0.5 * (1 - lifeProgress);
+                const scaleFactor = 1 + lifeProgress * 1.5;
+                
+                this.element.style.opacity = currentOpacity;
+                this.element.style.transform = `translate(${this.x}px, ${this.y}px) scale(${scaleFactor})`;
+                
+                if (this.life > this.maxLife || this.y < -this.size) {
+                    this.reset();
+                }
+            }
+        }
+
+        function initSmoke() {
+            // Create particles in batches to avoid initial lag
+            function createBatch(start, count) {
+                for (let i = start; i < start + count && i < particleCount; i++) {
+                    particles.push(new Particle());
+                }
+                if (start + count < particleCount) {
+                    requestAnimationFrame(() => createBatch(start + count, 50));
+                }
+            }
+            createBatch(0, 50);
+        }
+
+        let animationRunning = true;
+        let frameCount = 0;
+        function animateSmoke(timestamp) {
+            const now = performance.now();
+            const delta = Math.min((now - lastFrameTime) / 1000, 0.1); // Cap delta to prevent jumps
+            lastFrameTime = now;
+            frameCount++;
+            
+            if (animationRunning) {
+                // Only update every other particle each frame (alternating)
+                const startIdx = frameCount % 2;
+                for (let i = startIdx; i < particles.length; i += 2) {
+                    particles[i].update(delta);
+                }
+            }
+            
+            requestAnimationFrame(animateSmoke);
+        }
+
+        initSmoke();
+        animateSmoke();
+
+        // Pause animations when tab is not visible
+        document.addEventListener('visibilitychange', () => {
+            animationRunning = !document.hidden;
+        });
+
+
+        // Performance monitoring
+        setInterval(() => {
+            const now = performance.now();
+            const fps = 1000 / ((now - lastFrameTime) || 1);
+            if (fps < 30 && particleCount > 100) {
+                particleCount = Math.max(100, particleCount - 10);
+            } else if (fps > 50 && particleCount < 200) {
+                particleCount = Math.min(200, particleCount + 10);
+            }
+        }, 2000);
+    </script>
+</body>
+</html>
