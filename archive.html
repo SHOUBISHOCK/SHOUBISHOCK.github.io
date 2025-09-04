@@ -1,0 +1,417 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+	<meta property="og:title" content="My Gaming Edge - Archives">
+	<meta property="og:type" content="website">
+	<meta property="og:image" content="https://raw.githubusercontent.com/SHOUBISHOCK/SHOUBISHOCK.github.io/refs/heads/main/images/archived.jpeg">
+	<meta property="og:url" content="https://mygamingedge.online/">
+	<meta property="og:description" content="A hosting group consisting of players who deserve respect for both their skills and integrity.">    
+    <title>Archived Projects | OLD</title>
+    <link rel="icon" type="image/x-icon" href="images/favicon.ico">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/feather-icons/dist/feather.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/animejs/lib/anime.iife.min.js"></script>
+    <script src="https://unpkg.com/feather-icons"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=VT323&display=swap');
+        body {
+            font-family: 'VT323', monospace;
+            background-color: #0a0a0a;
+            color: #00ff41;
+            background-image: 
+                linear-gradient(rgba(0, 255, 65, 0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(0, 255, 65, 0.03) 1px, transparent 1px);
+            background-size: 20px 20px;
+            letter-spacing: 1px;
+        }
+        .crt-effect {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                linear-gradient(rgba(18, 16, 16, 0.1) 50%, rgba(0, 0, 0, 0.2) 50%),
+                radial-gradient(circle, transparent 0%, rgba(0, 255, 65, 0.05) 100%),
+                repeating-radial-gradient(circle at center, rgba(0,255,65,0.02) 0%, transparent 0.5%);
+            background-size: 
+                100% 3px, 
+                100% 100%,
+                300px 300px;
+            z-index: 9999;
+            pointer-events: none;
+            animation: 
+                flicker 0.5s infinite alternate,
+                crt-pulse 15s infinite alternate;
+        }
+
+        @keyframes crt-pulse {
+            0% { opacity: 0.9; }
+            50% { opacity: 0.95; }
+            100% { opacity: 0.9; }
+        }
+
+        @keyframes flicker {
+            0% { opacity: 0.9; }
+            50% { opacity: 0.8; }
+            100% { opacity: 1; }
+        }
+
+        .scanlines {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                repeating-linear-gradient(
+                    to bottom,
+                    transparent 0%,
+                    rgba(0, 255, 65, 0.05) 0.5%,
+                    transparent 1%
+                ),
+                repeating-linear-gradient(
+                    to right,
+                    rgba(0, 30, 0, 0.1) 0%,
+                    rgba(0, 30, 0, 0.1) 0.1%,
+                    transparent 0.2%
+                );
+            z-index: 9998;
+            pointer-events: none;
+            animation: scan 8s linear infinite;
+        }
+
+        @keyframes scan {
+            from { background-position: 0 0; }
+            to { background-position: 0 100%; }
+        }
+
+        .glitch {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%"><filter id="noise"><feTurbulence type="fractalNoise" baseFrequency="0.8" numOctaves="4" stitchTiles="stitch"/></filter><rect width="100%" height="100%" filter="url(%23noise)" opacity="0.1"/></svg>'),
+                linear-gradient(to bottom, rgba(0,30,0,0.1) 0%, rgba(0,60,0,0.1) 100%);
+            z-index: 9997;
+            pointer-events: none;
+            mix-blend-mode: overlay;
+            animation: glitch-anim 5s infinite linear;
+        }
+
+        @keyframes glitch-anim {
+            0% { transform: translate(0); }
+            20% { transform: translate(-2px, 2px); }
+            40% { transform: translate(-2px, -2px); }
+            60% { transform: translate(2px, 2px); }
+            80% { transform: translate(2px, -2px); }
+            100% { transform: translate(0); }
+        }
+        .project-card {
+            border: 1px solid #1a3a1a;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        .project-card::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, #00ff41, transparent);
+            transform: translateX(-100%);
+            transition: transform 0.6s ease;
+        }
+        .project-card:hover {
+            border-color: #00ff41;
+            box-shadow: 0 0 20px rgba(0, 255, 65, 0.5);
+            background: rgba(0, 50, 20, 0.2);
+        }
+        .project-card:hover::before {
+            transform: translateX(100%);
+        }
+        .video-panel {
+            height: 0;
+            overflow: hidden;
+            transition: height 0.5s ease;
+        }
+        .video-panel.active {
+            height: auto;
+            padding-bottom: 1rem;
+        }
+        .video-container {
+            position: relative;
+            padding-bottom: 56.25%; /* 16:9 Aspect Ratio */
+            height: 0;
+            margin-bottom: 1rem;
+        }
+        .video-container iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
+        .terminal-line {
+            border-left: 2px solid #4CAF50;
+            padding-left: 1rem;
+            margin-bottom: 1rem;
+        }
+        .blinking-cursor {
+            animation: blink 1s step-end infinite;
+            color: #00ff41;
+        }
+        @keyframes blink {
+            from, to { opacity: 1; }
+            50% { opacity: 0; }
+        }
+    </style>
+</head>
+<body class="min-h-screen bg-gray-900">
+    <div class="crt-effect"></div>
+    <div class="scanlines"></div>
+    <div class="glitch"></div>
+    
+    <div class="container mx-auto px-4 py-12">
+        <header class="mb-12 text-center" data-aos="fade-down">
+            <h1 class="text-4xl md:text-5xl font-bold text-green-500 mb-2 tracking-wider" style="text-shadow: 0 0 5px #00ff41;">OLDER ARCHIVED PROJECTS</h1>
+            <div class="terminal-line">
+                <p class="text-green-400 italic" style="text-shadow: 0 0 3px #00ff41;">// CLOSED//OFFLINE<span class="blinking-cursor">|</span></p>
+            </div>
+        </header>
+
+        <main class="flex flex-col gap-8 max-w-3xl mx-auto">
+            <!-- INSURGENCY LUA's ZOMBIES -->
+            <div class="project-card bg-black border border-green-900 rounded-none p-6" data-aos="fade-up" style="box-shadow: 0 0 10px rgba(0, 255, 65, 0.1); background: linear-gradient(to right, rgba(0,20,0,0.3), rgba(0,40,0,0.1));">
+                <div class="flex items-center mb-4">
+                    <i data-feather="zap" class="text-yellow-400 mr-2"></i>
+                    <h3 class="text-xl font-semibold text-green-300">INSURGENCY LUA's ZOMBIES</h3>
+                </div>
+                <div class="text-green-400 mb-4 space-y-2">
+                    <p>>_ Modded zombie survival experience with custom LUA scripting</p>
+                    <p>>_ Developed by Freddo from Korea for Insurgency 2014</p>
+                    <p>>_ Features custom zombie AI, weapons, and progression system!</p>
+                </div>
+                <button onclick="toggleVideoPanel('panel1')" class="bg-black border border-green-900 hover:bg-green-900 text-green-400 px-4 py-2 rounded-none flex items-center transition-colors duration-300">
+                    <i data-feather="play" class="mr-2"></i> Show Videos
+                </button>
+                <div id="panel1" class="video-panel mt-4">
+                    <div class="video-container">
+                        <iframe src="https://www.youtube.com/embed/ZyTHss8Wgoo" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                    </div>
+                    <div class="video-container">
+                        <iframe src="https://www.youtube.com/embed/9VEwOtCR_b4" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                    </div>
+                    <div class="mt-4 grid grid-cols-2 gap-4">
+                        <div class="bg-black bg-opacity-50 p-4 border-l-4 border-green-500">
+                            <h4 class="text-green-400 font-bold mb-2">+ ASSETS</h4>
+                            <ul class="list-disc list-inside text-green-300 space-y-1">
+                                <li>Zombies!</li>
+                            </ul>
+                        </div>
+                        <div class="bg-black bg-opacity-50 p-4 border-l-4 border-red-500">
+                            <h4 class="text-red-400 font-bold mb-2">- CONS</h4>
+                            <ul class="list-disc list-inside text-red-300 space-y-1">
+                                <li>Often Crash due to INS & Sourcemod being unstable</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- MC-Astroblock 2 (Beta) -->
+            <div class="project-card bg-black rounded-none p-6" data-aos="fade-up" data-aos-delay="100" style="border-color: #004400; background: linear-gradient(to right, rgba(0,20,10,0.3), rgba(0,40,20,0.1));">
+                <div class="flex items-center mb-4">
+                    <i data-feather="box" class="text-blue-400 mr-2"></i>
+                    <h3 class="text-xl font-semibold text-green-300">MC-Astroblock 2 (Beta)</h3>
+                </div>
+                <div class="text-gray-300 mb-4 space-y-2">
+                    <p>>_ Space-themed Minecraft mod with custom blocks and mechanics</p>
+                </div>
+                <button onclick="toggleVideoPanel('panel2')" class="bg-gray-700 hover:bg-gray-600 text-gray-200 px-4 py-2 rounded flex items-center">
+                    <i data-feather="play" class="mr-2"></i> Show Videos
+                </button>
+                <div id="panel2" class="video-panel mt-4">
+                    <div class="video-container">
+                        <iframe src="https://www.youtube.com/embed/_D25tg7tV5M" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                    </div>
+                    <div class="video-container">
+                        <iframe src="https://www.youtube.com/embed/9OObCdvxbIU" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                    </div>
+                    <div class="mt-4 grid grid-cols-2 gap-4">
+                        <div class="bg-black bg-opacity-50 p-4 border-l-4 border-green-500">
+                            <h4 class="text-green-400 font-bold mb-2">+ ASSETS</h4>
+                            <ul class="list-disc list-inside text-green-300 space-y-1">
+                                <li>Custom mods and plugins!</li>
+                            </ul>
+                        </div>
+                        <div class="bg-black bg-opacity-50 p-4 border-l-4 border-red-500">
+                            <h4 class="text-red-400 font-bold mb-2">- CONS</h4>
+                            <ul class="list-disc list-inside text-red-300 space-y-1">
+                                <li>beta and lack of interest :-(</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- TF2-DM DUEL V1 CLASSIC -->
+            <div class="project-card bg-black rounded-none p-6" data-aos="fade-up" data-aos-delay="200" style="border-color: #003300; background: linear-gradient(to right, rgba(20,0,0,0.3), rgba(40,0,0,0.1));">
+                <div class="flex items-center mb-4">
+                    <i data-feather="target" class="text-red-400 mr-2"></i>
+                    <h3 class="text-xl font-semibold text-green-300">TF2-DM DUEL V1 CLASSIC</h3>
+                </div>
+                <div class="text-gray-300 mb-4 space-y-2">
+                    <p>>_ Team Fortress 2 deathmatch mod with classic duel v1!</p>
+                </div>
+                <button onclick="toggleVideoPanel('panel3')" class="bg-gray-700 hover:bg-gray-600 text-gray-200 px-4 py-2 rounded flex items-center">
+                    <i data-feather="play" class="mr-2"></i> Show Videos
+                </button>
+                <div id="panel3" class="video-panel mt-4">
+                    <div class="video-container">
+                        <iframe src="https://www.youtube.com/embed/cSOq9sAthpM" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                    </div>
+                    <div class="mt-4 grid grid-cols-2 gap-4">
+                        <div class="bg-black bg-opacity-50 p-4 border-l-4 border-green-500">
+                            <h4 class="text-green-400 font-bold mb-2">+ ASSETS</h4>
+                            <ul class="list-disc list-inside text-green-300 space-y-1">
+                                <li>a classic map old-school</li>
+                            </ul>
+                        </div>
+                        <div class="bg-black bg-opacity-50 p-4 border-l-4 border-red-500">
+                            <h4 class="text-red-400 font-bold mb-2">- CONS</h4>
+                            <ul class="list-disc list-inside text-red-300 space-y-1">
+                                <li>Almost non-existent player base due to Valve MatchMaking update :-(</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- NUCLEAR DAWN:--► [xG] Redstone -->
+            <div class="project-card bg-black rounded-none p-6" data-aos="fade-up" data-aos-delay="300" style="border-color: #224400; background: linear-gradient(to right, rgba(20,20,0,0.3), rgba(40,40,0,0.1));">
+                <div class="flex items-center mb-4">
+                    <i data-feather="radioactive" class="text-yellow-600 mr-2"></i>
+                    <i data-feather="alert-triangle" class="text-yellow-600 mr-2"></i>
+                    <h3 class="text-xl font-semibold text-green-300">NUCLEAR DAWN: [xG] Redstone</h3>
+                </div>
+                <div class="text-gray-300 mb-4 space-y-2">
+                    <p>>_ Post-apocalyptic RTS/FPS hybrid with custom faction</p>
+                    <p>>_ Includes custom maps and game modes balance tweaks!</p>
+                </div>
+                <button onclick="toggleVideoPanel('panel4')" class="bg-gray-700 hover:bg-gray-600 text-gray-200 px-4 py-2 rounded flex items-center">
+                    <i data-feather="play" class="mr-2"></i> Show Videos
+                </button>
+                <div id="panel4" class="video-panel mt-4">
+                    <div class="video-container">
+                        <iframe src="https://www.youtube.com/embed/YRA7WkV4KDk" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                    </div>
+                    <div class="video-container">
+                        <iframe src="https://www.youtube.com/embed/_s8QHWx38BA" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                    </div>
+                    <div class="mt-4 grid grid-cols-2 gap-4">
+                        <div class="bg-black bg-opacity-50 p-4 border-l-4 border-green-500">
+                            <h4 class="text-green-400 font-bold mb-2">+ ASSETS</h4>
+                            <ul class="list-disc list-inside text-green-300 space-y-1">
+                                <li>Pick up events for an essential gem!</li>
+                            </ul>
+                        </div>
+                        <div class="bg-black bg-opacity-50 p-4 border-l-4 border-red-500">
+                            <h4 class="text-red-400 font-bold mb-2">- CONS</h4>
+                            <ul class="list-disc list-inside text-red-300 space-y-1">
+                                <li>Steep learning curve</li>
+                                <li>Limited player base</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+
+        <footer class="mt-16 text-center text-gray-500" data-aos="fade-up">
+            <div class="terminal-line">
+                <p>// System status: ARCHIVED</p>
+                <p>// Last updated: <span id="current-date"></span></p>
+            </div>
+            <p class="mt-4">© <span id="current-year"></span> Archived Projects Repository</p>
+        </footer>
+    </div>
+
+    <script>
+        // Set current year and date
+        document.getElementById('current-year').textContent = new Date().getFullYear();
+        document.getElementById('current-date').textContent = new Date().toLocaleDateString('en-US', {
+            year: 'numeric',
+            month: 'short',
+            day: 'numeric'
+        });
+
+        // Video panel toggle function
+        function toggleVideoPanel(panelId) {
+            const panel = document.getElementById(panelId);
+            const allPanels = document.querySelectorAll('.video-panel');
+            
+            // Close all other panels first
+            allPanels.forEach(p => {
+                if (p.id !== panelId && p.classList.contains('active')) {
+                    p.classList.remove('active');
+                }
+            });
+            
+            // Toggle the clicked panel
+            panel.classList.toggle('active');
+            
+            // Scroll to the panel if opening
+            if (panel.classList.contains('active')) {
+                setTimeout(() => {
+                    panel.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+                }, 100);
+            }
+        }
+
+        // Initialize animations and icons
+        document.addEventListener('DOMContentLoaded', function() {
+            // Add vintage terminal boot effect
+            document.body.style.opacity = '0';
+            setTimeout(() => {
+                document.body.style.transition = 'opacity 1.5s ease-in';
+                document.body.style.opacity = '1';
+            }, 500);
+            
+            AOS.init({
+                duration: 800,
+                easing: 'ease-in-out',
+                once: true
+            });
+            
+            feather.replace();
+            
+            // Add vintage terminal typing effect to header
+            const terminalText = document.querySelector('.terminal-line p');
+            if (terminalText) {
+                const text = terminalText.textContent.replace('|', '');
+                terminalText.innerHTML = '';
+                
+                let i = 0;
+                const typing = setInterval(() => {
+                    if (i < text.length) {
+                        terminalText.innerHTML = text.substring(0, i+1) + '<span class="blinking-cursor">|</span>';
+                        i++;
+                    } else {
+                        clearInterval(typing);
+                        terminalText.innerHTML = text + '<span class="blinking-cursor">|</span>';
+                    }
+                }, 50);
+            }
+        });
+    </script>
+</body>
+</html>
