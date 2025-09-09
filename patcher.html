@@ -221,7 +221,6 @@
             style="border:none;width:250px;height:80px;border-radius:12px;overflow:hidden;"
     		sandbox="allow-same-origin allow-scripts">
 </iframe></div>
-                    <div class="text-2xl text-yellow-200 font-medium">Total Downloads</div>
                 </div>
             </div>
         </div>
@@ -260,25 +259,6 @@
 
         // Feather icons
         feather.replace();
-
-        // Simulate download counter (replace with actual GA integration)
-        let downloads = 5152;
-        const counterElement = document.getElementById('downloadCounter');
-        
-        function updateCounter() {
-            // In a real implementation, you would fetch this from GA
-            downloads += Math.floor(Math.random() * 10);
-            counterElement.textContent = downloads.toLocaleString() + '+';
-        }
-
-        // Update counter every 5 seconds
-        setInterval(updateCounter, 5000);
-
-        // Track downloads (basic implementation)
-        document.querySelector('.download-btn').addEventListener('click', function() {
-            // In a real implementation, you would send this to GA
-            console.log('Download initiated - would send to GA');
-        });
     </script>
 </body>
 </html>
