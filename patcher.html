@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta property="og:title" content="INS2DOI Community Patcher">
+	<meta property="og:type" content="website">
+	<meta property="og:image" content="https://raw.githubusercontent.com/SHOUBISHOCK/SHOUBISHOCK.github.io/refs/heads/main/images/patcher.png">
+	<meta property="og:url" content="https://mygamingedge.online/">
+	<meta property="og:description" content="A hosting group consisting of players who deserve respect for both their skills and integrity.">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+    <title>INS2DOI Community Patcher</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/feather-icons"></script>
+    <script src="https://cdn.jsdelivr.net/npm/feather-icons/dist/feather.min.js"></script>
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script src="https://cdn.eu.amplitude.com/script/770d27270566d5e326da02cbe879b894.js"></script><script>window.amplitude.add(window.sessionReplay.plugin({sampleRate: 1}));window.amplitude.init('770d27270566d5e326da02cbe879b894', {"fetchRemoteConfig":true,"serverZone":"EU","autocapture":{"attribution":true,"fileDownloads":true,"formInteractions":true,"pageViews":true,"sessions":true,"elementInteractions":true,"networkTracking":true,"webVitals":true,"frustrationInteractions":true}});</script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        primary: {
+                            50: '#f0fdf4',
+                            100: '#dcfce7',
+                            200: '#bbf7d0',
+                            300: '#86efac',
+                            400: '#4ade80',
+                            500: '#22c55e',
+                            600: '#16a34a',
+                            700: '#15803d',
+                            800: '#166534',
+                            900: '#14532d',
+                        },
+                        dark: {
+                            900: '#0f0c29',
+                            800: '#1a0d3a',
+                            700: '#241548',
+                            600: '#2f1c5c',
+                            500: '#3a2470',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        @keyframes scanline {
+            0% { transform: translateY(-100%); }
+            100% { transform: translateY(100vh); }
+        }
+        @keyframes flicker {
+            0% { opacity: 0.8; }
+            50% { opacity: 1; }
+            100% { opacity: 0.8; }
+        }
+        body {
+            background-color: #0f0c29;
+            background-image: 
+                linear-gradient(to right, #1a0d3a 1px, transparent 1px),
+                linear-gradient(to bottom, #1a0d3a 1px, transparent 1px);
+            background-size: 20px 20px;
+            animation: flicker 0.5s infinite alternate;
+            position: relative;
+            overflow-x: hidden;
+        }
+        body::after {
+            content: "";
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 100%;
+            background: linear-gradient(
+                rgba(15, 12, 41, 0) 50%, 
+                rgba(15, 12, 41, 0.5) 50%
+            );
+            background-size: 100% 4px;
+            z-index: 100;
+            pointer-events: none;
+            animation: scanline 8s linear infinite;
+        }
+        .glow {
+            box-shadow: 0 0 15px rgba(168, 85, 247, 0.5);
+        }
+        .hero-gradient {
+            background: linear-gradient(135deg, #0f0c29 0%, #1a0d3a 100%);
+        }
+        .download-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px -5px rgba(168, 85, 247, 0.4);
+            background-color: #bef264 !important;
+            color: #1a2e05 !important;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .bg-dark-700:hover {
+            box-shadow: 0 0 0 2px #bef264;
+            transform: scale(1.02);
+            transition: all 0.3s ease;
+        }
+        [data-feather]:hover {
+            color: #bef264 !important;
+            transform: scale(1.2);
+            transition: all 0.2s ease;
+        }
+        #downloadCounter:hover {
+            text-shadow: 0 0 10px #bef264;
+            transition: text-shadow 0.3s ease;
+        }
+        img:hover {
+            transform: scale(1.03);
+            transition: transform 0.3s ease;
+            filter: brightness(1.1) drop-shadow(0 0 8px #bef264);
+        }
+    </style>
+</head>
+<body class="text-yellow-200 min-h-screen">
+    <!-- Navigation -->
+    <nav class="bg-dark-800 border-b border-dark-700 py-4">
+        <div class="container mx-auto px-4 flex justify-between items-center">
+            <a href="https://mygamingedge.online/" class="flex items-center">
+                <img src="https://raw.githubusercontent.com/SHOUBISHOCK/SHOUBISHOCK.github.io/refs/heads/main/images/meta.png" alt="Home" class="w-10 h-10 rounded-full hover:opacity-80 transition-opacity glow">
+            </a>
+            <div class="flex items-center justify-center space-x-2 w-full">
+                <i data-feather="tool" class="text-primary-500"></i>
+                <span class="text-xl font-bold bg-gradient-to-r from-primary-400 to-primary-600 bg-clip-text text-transparent text-center">Community Patcher</span>
+            </div>
+            <button class="md:hidden">
+                <i data-feather="menu"></i>
+            </button>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <header class="hero-gradient py-20">
+        <div class="container mx-auto px-4 flex flex-col md:flex-row items-center">
+            <div class="md:w-1/2 mb-10 md:mb-0" data-aos="fade-right">
+                <h1 class="text-4xl md:text-5xl font-bold mb-4">Fix Your Game Crashes</h1>
+                <p class="text-lg text-gray-300 mb-8">
+                    Our community-developed patcher resolves critical crashes in two popular indie games. 
+                    Get back to playing with this simple, one-click solution.
+                </p>
+                <div class="flex flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-4">
+                    <a href="https://sbxlife.mygamingedge.online/tools/INS2DOI_Community_PatcherV3.exe" 
+                       class="download-btn bg-primary-600 hover:bg-primary-500 text-white font-bold py-3 px-6 rounded-lg transition duration-300 flex items-center justify-center">
+                        <i data-feather="download" class="mr-2"></i> Download Patcher v3.0
+                    </a>
+                    <button onclick="document.getElementById('features').scrollIntoView({behavior: 'smooth'})" class="border border-primary-500 text-primary-400 hover:bg-dark-700 font-medium py-3 px-6 rounded-lg transition duration-300 flex items-center justify-center">
+                        <i data-feather="info" class="mr-2"></i> Learn More
+                    </button>
+                </div>
+            </div>
+            <div class="md:w-1/2" data-aos="fade-left">
+                <div class="relative">
+                    <img src="https://raw.githubusercontent.com/SHOUBISHOCK/SHOUBISHOCK.github.io/refs/heads/main/images/patcher.png" alt="Game Screenshot" class="rounded-xl glow w-full">
+                    <div class="absolute -bottom-5 -right-5 bg-dark-800 p-3 rounded-lg shadow-lg">
+                        <div class="flex items-center">
+                            <div class="bg-primary-500 p-2 rounded-full">
+                                <i data-feather="check" class="text-white w-5 h-5"></i>
+                            </div>
+                            <div class="ml-3">
+                                <p class="text-sm font-medium">Compatible with</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Features Section -->
+    <section id="features" class="py-20 bg-dark-800">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-16" data-aos="fade-up">
+                <h2 class="text-3xl font-bold mb-4">Why Use Our Patcher?</h2>
+                <p class="text-gray-400 max-w-2xl mx-auto">A community-driven solution to persistent crash issues in your favorite indie games.</p>
+            </div>
+            <div class="grid md:grid-cols-3 gap-8">
+                <div class="bg-dark-700 p-6 rounded-xl hover:bg-dark-600 transition" data-aos="fade-up" data-aos-delay="100">
+                    <div class="bg-primary-500 bg-opacity-10 p-3 rounded-full w-12 h-12 flex items-center justify-center mb-4">
+                        <i data-feather="zap" class="text-primary-400"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-2">One-Click Fix</h3>
+                    <p class="text-gray-400 hover:text-green-200 transition-colors duration-300">Simple installation process that automatically detects and fixes common crash scenarios.</p>
+                </div>
+                <div class="bg-dark-700 p-6 rounded-xl hover:bg-dark-600 transition" data-aos="fade-up" data-aos-delay="200">
+                    <div class="bg-primary-500 bg-opacity-10 p-3 rounded-full w-12 h-12 flex items-center justify-center mb-4">
+                        <i data-feather="users" class="text-primary-400"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-2">Community Tested</h3>
+                    <p class="text-gray-400 hover:text-green-200 transition-colors duration-300">Developed by old timers and verified by testers experiencing the same issues.</p>
+                </div>
+                <div class="bg-dark-700 p-6 rounded-xl hover:bg-dark-600 transition" data-aos="fade-up" data-aos-delay="300">
+                    <div class="bg-primary-500 bg-opacity-10 p-3 rounded-full w-12 h-12 flex items-center justify-center mb-4">
+                        <i data-feather="shield" class="text-primary-400"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-2">Safe & Secure</h3>
+                    <p class="text-gray-400 hover:text-green-200 transition-colors duration-300">Base64 trusted zip archive encoding made by players for players.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Video Section -->
+    <section class="py-16 bg-dark-800">
+        <div class="container mx-auto px-4">
+            <div class="max-w-4xl mx-auto">
+                <div class="aspect-w-16 aspect-h-9">
+                    <iframe class="w-full h-96 rounded-xl glow" src="https://www.youtube.com/embed/wcLENbwsWcE" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Stats Section -->
+    <section class="py-20 bg-gradient-to-br from-dark-800 to-dark-900">
+        <div class="container mx-auto px-4 flex justify-center">
+            <div class="w-full md:w-1/2 lg:w-1/3 text-center">
+                <div class="bg-dark-700 bg-opacity-50 p-8 rounded-xl" data-aos="fade-up" data-aos-delay="300">
+                    <div class="text-5xl md:text-6xl font-bold text-green-400 mb-4" id="downloadCounter">5,152+</div>
+                    <div class="text-2xl text-yellow-200 font-medium">Total Downloads</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-dark-800 py-12 border-t border-dark-700">
+        <div class="container mx-auto px-4">
+            <div class="flex flex-col md:flex-row justify-between">
+                <div class="mb-8 md:mb-0">
+                    <div class="flex items-center space-x-2 mb-4">
+                        <i data-feather="tool" class="text-primary-500"></i>
+                        <span class="text-xl font-bold bg-gradient-to-r from-primary-400 to-primary-600 bg-clip-text text-transparent">Community Patcher</span>
+                    </div>
+                    <p class="text-gray-400 max-w-xs hover:text-green-200 transition-colors duration-300">A fan-made solution for indie game stability issues.</p>
+                </div>
+                <div class="grid grid-cols-2 md:grid-cols-3 gap-8">
+                </div>
+            </div>
+            <div class="border-t border-dark-700 mt-12 pt-8 flex flex-col md:flex-row justify-between items-center">
+                <p class="text-gray-500 mb-4 md:mb-0 hover:text-green-200 transition-colors duration-300">© 2023 Community Patcher. Not affiliated with any game developers.</p>
+                <a href="https://github.com/SHOUBISHOCK" target="_blank" class="text-gray-400 hover:text-primary-400 transition">
+                    <i data-feather="github"></i>
+                </a>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Initialize animations
+        AOS.init({
+            duration: 800,
+            easing: 'ease-in-out',
+            once: true
+        });
+
+        // Feather icons
+        feather.replace();
+
+        // Simulate download counter (replace with actual GA integration)
+        let downloads = 5152;
+        const counterElement = document.getElementById('downloadCounter');
+        
+        function updateCounter() {
+            // In a real implementation, you would fetch this from GA
+            downloads += Math.floor(Math.random() * 10);
+            counterElement.textContent = downloads.toLocaleString() + '+';
+        }
+
+        // Update counter every 5 seconds
+        setInterval(updateCounter, 5000);
+
+        // Track downloads (basic implementation)
+        document.querySelector('.download-btn').addEventListener('click', function() {
+            // In a real implementation, you would send this to GA
+            console.log('Download initiated - would send to GA');
+        });
+    </script>
+</body>
+</html>
