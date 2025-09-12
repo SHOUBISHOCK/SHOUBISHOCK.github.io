@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+    <title>Minecraft: Java Edition</title>
+ 	<meta property="og:title" content="My Gaming Edge">
+	<meta property="og:type" content="website">
+	<meta property="og:image" content="https://raw.githubusercontent.com/SHOUBISHOCK/SHOUBISHOCK.github.io/refs/heads/main/images/mcje-header.jpg">
+	<meta property="og:url" content="https://mygamingedge.online/mc">
+	<meta property="og:description" content="A hosting group consisting of players who deserve respect for both their skills and integrity.">   
+    <link rel="icon" type="image/x-icon" href="images/mc_fav.ico">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/feather-icons/dist/feather.min.js"></script>
+    <script src="https://unpkg.com/feather-icons"></script>
+    <style>
+        .video-background {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            overflow: hidden;
+            image-rendering: pixelated;
+        }
+        .video-background iframe {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transform: scale(1.5);
+            image-rendering: pixelated;
+        }
+        .overlay {
+            background: rgba(0, 0, 0, 0.6);
+            image-rendering: pixelated;
+        }
+        .minecraft-button {
+            background: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAQAAAAECAYAAACp8Z5+AAAAEklEQVQImWNgYGD4z0AswK4SAFXuAf8EPy+xAAAAAElFTkSuQmCC');
+            border: 4px solid #1e5e1e;
+            box-shadow: 0 8px 0 #1e5e1e;
+            transition: all 0.1s ease;
+            image-rendering: pixelated;
+        }
+        .minecraft-button:hover {
+            transform: translateY(4px);
+            box-shadow: 0 4px 0 #1e5e1e;
+        }
+        .minecraft-button:active {
+            transform: translateY(8px);
+            box-shadow: none;
+        }
+        .server-card {
+            background: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAQAAAAECAYAAACp8Z5+AAAAEklEQVQImWNgYGD4z0AswK4SAFXuAf8EPy+xAAAAAElFTkSuQmCC');
+            border: 4px solid #3a9c3a;
+            image-rendering: pixelated;
+        }
+        @media (max-width: 768px) {
+            .video-background iframe {
+                transform: scale(2.5);
+            }
+            .server-card {
+                padding: 1rem;
+            }
+            .minecraft-button {
+                padding: 8px 16px;
+                font-size: 14px;
+            }
+        }
+        @media (max-width: 480px) {
+            .grid {
+                grid-template-columns: 1fr !important;
+            }
+            .server-card {
+                padding: 0.5rem;
+            }
+        }
+        @font-face {
+            font-family: 'Minecraft';
+            src: url('https://assets.mojang.com/fonts/minecraft/1.8.woff2') format('woff2');
+            font-weight: 400;
+        }
+        @font-face {
+            font-family: 'Minecraft';
+            src: url('https://assets.mojang.com/fonts/minecraft/1.8_bold.woff2') format('woff2');
+            font-weight: 700;
+        }
+        body {
+            font-family: 'Minecraft', monospace;
+            font-weight: 400;
+            text-shadow: 4px 4px 0px #000000;
+            letter-spacing: 0;
+            image-rendering: pixelated;
+            image-rendering: -moz-crisp-edges;
+            image-rendering: crisp-edges;
+            -webkit-font-smoothing: none;
+            -moz-osx-font-smoothing: none;
+        }
+        h1, h2, h3, h4, h5, h6 {
+            font-weight: 700;
+            text-shadow: 4px 4px 0px #000000;
+            letter-spacing: 1px;
+        }
+        .minecraft-button, a {
+            text-shadow: 4px 4px 0px #000000;
+            letter-spacing: 1px;
+        }
+        input, button {
+            font-family: 'Minecraft', monospace;
+            image-rendering: pixelated;
+        }
+        img {
+            image-rendering: pixelated;
+        }
+    </style>
+</head>
+<body class="text-white">
+    <!-- Video Background with Audio -->
+    <div class="video-background">
+        <iframe id="bg-video" src="https://www.youtube.com/embed/3iV54pjmstA?autoplay=1&mute=0&loop=1&controls=0&playlist=3iV54pjmstA&rel=0&modestbranding=1&fs=0&disablekb=1" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+    </div>
+    <button id="mute-toggle" class="fixed bottom-4 right-4 bg-black bg-opacity-90 p-3 rounded-sm z-50 hover:bg-opacity-100 transition-all border-2 border-white" title="Toggle Sound" style="image-rendering: pixelated;">
+        <i data-feather="volume-2" class="w-8 h-8" style="image-rendering: pixelated;"></i>
+    </button>
+
+    <!-- Hero Section -->
+    <section class="min-h-screen flex items-center justify-center overlay">
+        <div class="container mx-auto px-6 text-center" data-aos="fade-up">
+            <div class="flex flex-col md:flex-row justify-center gap-4">
+                <a href="#server" class="minecraft-button py-4 px-8 text-xl hover:bg-green-600 transition-all" style="image-rendering: pixelated;">LEARN MORE</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Server Info Section -->
+    <section id="server" class="py-20 px-6 bg-black bg-opacity-90">
+        <div class="container mx-auto max-w-6xl">
+            <h2 class="text-4xl font-bold text-center mb-16" data-aos="fade-up" style="letter-spacing: 0;">SERVER INFORMATION</h2>
+            
+            <div class="server-card p-4 mb-16" data-aos="fade-up" style="border-width: 4px;">
+                <iframe src="https://ismygameserver.online/minecraft/45.142.115.53:25565" width="100%" height="500" frameborder="0" style="border: 4px solid #3a9c3a; image-rendering: pixelated;"></iframe>
+            </div>
+
+            <h2 class="text-4xl font-bold text-center mb-16" data-aos="fade-up" style="letter-spacing: 0;">OUR PLUGINS</h2>
+            
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <!-- Plugin 1 -->
+                <div class="server-card p-4" data-aos="fade-up" data-aos-delay="100" style="border-width: 4px;">
+                    <img src="images/better.png" alt="Better Gamemode" class="w-full h-48 object-cover mb-4 border-4 border-green-500" style="image-rendering: pixelated;">
+                    <h3 class="text-2xl font-bold mb-2">Better Gamemode</h3>
+                    <p class="mb-4">Enhanced gamemode switching with permissions</p>
+                    <a href="https://www.curseforge.com/minecraft/mc-mods/better-gamemode" target="_blank" class="minecraft-button inline-block py-2 px-4 rounded">View Plugin</a>
+                </div>
+
+                <!-- Plugin 2 -->
+                <div class="server-card p-4" data-aos="fade-up" data-aos-delay="200" style="border-width: 4px;">
+                    <img src="images/sethome.png" alt="EssentialHomes" class="w-full h-48 object-cover mb-4 border-4 border-green-500" style="image-rendering: pixelated;">
+                    <h3 class="text-2xl font-bold mb-2">EssentialHomes</h3>
+                    <p class="mb-4">Set and teleport to multiple home locations</p>
+                    <a href="https://www.curseforge.com/minecraft/mc-mods/essentialhomes" target="_blank" class="minecraft-button inline-block py-2 px-4 rounded">View Plugin</a>
+                </div>
+
+                <!-- Plugin 3 -->
+                <div class="server-card p-4" data-aos="fade-up" data-aos-delay="300" style="border-width: 4px;">
+                    <img src="images/tpa.png" alt="Teleportation" class="w-full h-48 object-cover mb-4 border-4 border-green-500" style="image-rendering: pixelated;">
+                    <h3 class="text-2xl font-bold mb-2">Teleportation</h3>
+                    <p class="mb-4">TPA requests and teleportation features</p>
+                    <a href="https://www.curseforge.com/minecraft/mc-mods/teletransportation-accept-tpa" target="_blank" class="minecraft-button inline-block py-2 px-4 rounded">View Plugin</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-black py-6 px-6 text-center">
+        <div class="text-gray-400 text-sm">
+            &copy; 2025 Minecraft Server. Not affiliated with Mojang or Microsoft.
+        </div>
+    </footer>
+
+    <script>
+        AOS.init({
+            duration: 800,
+            easing: 'ease-in-out',
+            once: true
+        });
+        
+        feather.replace();
+        
+        // Mute toggle functionality
+        const muteToggle = document.getElementById('mute-toggle');
+        const bgVideo = document.getElementById('bg-video');
+        let isMuted = false;
+
+        muteToggle.addEventListener('click', () => {
+            isMuted = !isMuted;
+            const src = bgVideo.src;
+            if (isMuted) {
+                bgVideo.src = src.replace('mute=0', 'mute=1');
+                muteToggle.innerHTML = '<i data-feather="volume-x" class="w-6 h-6"></i>';
+            } else {
+                bgVideo.src = src.replace('mute=1', 'mute=0');
+                muteToggle.innerHTML = '<i data-feather="volume-2" class="w-6 h-6"></i>';
+            }
+            feather.replace();
+        });
+    </script>
+</body>
+</html>
+
+
