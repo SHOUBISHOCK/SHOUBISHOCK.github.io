@@ -1,119 +1,557 @@
-<!DOCTYPE HTML>
-<!--
-	Hyperspace by HTML5 UP
-	html5up.net | @ajlkn
-	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
--->
-<html>
-	<head>
-		<title>Military Conflict: Vietnam</title>
-		<meta property="og:title" content="Military Conflict: Vietnam">
-		<meta property="og:type" content="website">
-		<meta property="og:image" content="https://mygamingedge.online/images/mcv.jpg">
-		<meta property="og:url" content="https://mygamingedge.online/">
-		<meta property="og:description" content="A hosting group consisting of players who deserve respect for both their skills and integrity.">
-		<meta charset="utf-8" />
-		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
-		<link rel="stylesheet" href="assets/css/main.css" />
-		<noscript><link rel="stylesheet" href="assets/css/noscript.css" /></noscript>
-		<link rel="icon" type="image/x-icon" href="images/favicon.ico">
-	</head>
-	<body class="is-preload">
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta property="og:title" content="Military Conflict: Vietnam">
+    <meta property="og:type" content="website">
+    <meta property="og:image" content="https://mygamingedge.online/images/mcv.jpg">
+    <meta property="og:url" content="https://mygamingedge.online/">
+    <meta property="og:description" content="A hosting group consisting of players who deserve respect for both their skills and integrity.">
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+    <link rel="icon" type="image/x-icon" href="images/favicon.ico">
+    <title>Military Conflict: Vietnam - Rainforest 24/7</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Shrikhand&family=Courier+Prime:wght@400;700&family=Chewy&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        :root {
+            --psychedelic-orange: #FF6B35;
+            --psychedelic-pink: #F7931E;
+            --psychedelic-green: #8FBC8F;
+            --psychedelic-purple: #9B59B6;
+            --vintage-cream: #F4E4C1;
+            --vintage-brown: #5D4E37;
+            --vintage-olive: #6B8E23;
+        }
 
-		<!-- Header -->
-			<header id="header">
-				<a href="index.html" class="title">Military Conflict: Vietnam</a>
-				<nav>
-					<ul>
-						<li><a href="index.html">Home</a></li>
-						<!--<li><a href="generic.html" class="active">Generic</a></li></li>-->
-						<!--<li><a href="elements.html">Elements</a></li>-->
-					</ul>
-				</nav>
-			</header>
-			
-			
-		<!-- Sidebar -->
-			<section id="sidebar">
-				<div class="inner">
-					<nav>
-						<ul>
-							<li><a href="#intro">Custom map!</a></li>
-							<li><a href="#mcv">Synopsis</a></li>
-						</ul>
-					</nav>
-				</div>
-			</section>
+        body {
+            font-family: 'Courier Prime', monospace;
+            background-color: #1a1a1a;
+            overflow-x: hidden;
+        }
 
+        .font-psychedelic {
+            font-family: 'Shrikhand', cursive;
+            text-shadow: 3px 3px 0px var(--psychedelic-purple), 
+                         -2px -2px 0px var(--psychedelic-orange);
+        }
 
-		<!-- Wrapper -->
-			<div id="wrapper">
+        .font-groovy {
+            font-family: 'Chewy', cursive;
+        }
 
-				<!-- Intro -->
-					<section id="intro" class="wrapper style1 fullscreen fade-up">
-						<div class="inner">
-							
-<a href="https://militaryconflictvietnam.com/" class="image"><img src="https://militaryconflictvietnam.com/assets/images/logos/logo_mcv_medium.webp" alt="logo" width="auto" height="auto" data-position="center center" /></a>
-							
-<iframe width="1280" height="720" src="https://www.youtube.com/embed/fE64jrYVDHo" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>					
-					
-					</section>
+        /* Rain Effect */
+        .rain-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 50;
+            overflow: hidden;
+        }
 
-				<!-- Main -->
-					<section id="mcv" class="wrapper style2 spotlights">
-						<div class="inner">
-							<h1 class="major">24/7 Rainforest!</h1>
-										
-<section id="intro" class="wrapper style2 spotlights">
-<div class="content">
-<div class="inner">
-<h2>Modded server!</h2>
-<p>
-Welcome to Rainforest 24/7!
-<a href="https://gamemonitoring.net/servers/11182136" target="_blank">
-  <img src="https://widgets.gamemonitoring.net/servers/11182136/560x95.png" alt="My Gaming Edge.online - Rainforest 24/7" title="My Gaming Edge.online - Rainforest 24/7" />
-</a>
-</p>
-<h2>Synopsis</h2>
-<p>
-With the help of MCV community , i've decided to host a temporary server to stay tuned at mcv roadmap!<br>
-<br><br>
+        .rain-drop {
+            position: absolute;
+            width: 2px;
+            height: 20px;
+            background: linear-gradient(to bottom, transparent, rgba(173, 216, 230, 0.6));
+            animation: fall linear infinite;
+        }
 
-		<pre>
-Useful plugins commands summary:
+        @keyframes fall {
+            to {
+                transform: translateY(100vh);
+            }
+        }
 
-!votemusic (Jukebox 3 votes cast per player!)
-!tp (only useful if you like play MCV in thirdperson using your controller!)
-!fp (revert back too first person view..)
-more to come WIP!..
-		</pre>		
-</p>
+        /* Jungle Background with Parallax */
+        .jungle-bg {
+            background-image: url('http://static.photos/nature/1200x630/42'), 
+                              linear-gradient(to bottom, rgba(0,0,0,0.3), rgba(0,0,0,0.7));
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            background-blend-mode: multiply;
+        }
 
-Want host your own server try our ./SSM tool!:<br>
-<a href="https://steamcommunity.com/sharedfiles/filedetails/?id=2947210305" class="image"><img src="https://steamuserimages-a.akamaihd.net/ugc/2055369491836068568/34017D52BC49C420093378DF32D5C7C65D7CF6C0/" alt="" width="auto" height="auto" data-position="center center" /></a>
-</p>
-</div>
+        /* Vintage Paper Texture */
+        .vintage-paper {
+            background-color: var(--vintage-cream);
+            background-image: url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100' height='100' filter='url(%23noise)' opacity='0.15'/%3E%3C/svg%3E");
+            box-shadow: inset 0 0 60px rgba(93, 78, 55, 0.3);
+            border: 3px solid var(--vintage-brown);
+            position: relative;
+        }
 
-<script src="https://static.elfsight.com/platform/platform.js" data-use-service-core defer></script>
-<div class="elfsight-app-7b50746d-5be3-46f1-aa75-d76922c7d6bf" data-elfsight-app-lazy></div>
+        .vintage-paper::before {
+            content: '';
+            position: absolute;
+            top: -5px;
+            left: -5px;
+            right: -5px;
+            bottom: -5px;
+            background: linear-gradient(45deg, var(--psychedelic-orange), var(--psychedelic-purple), var(--psychedelic-green));
+            z-index: -1;
+            filter: blur(10px);
+            opacity: 0.7;
+        }
 
+        /* Peace Sign Animation */
+        @keyframes spin-slow {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
 
+        .peace-spin {
+            animation: spin-slow 20s linear infinite;
+        }
 
+        /* Retro Glitch Effect */
+        .retro-glitch {
+            position: relative;
+        }
 
-</section>
+        .retro-glitch::before,
+        .retro-glitch::after {
+            content: attr(data-text);
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
 
+        .retro-glitch::before {
+            left: 2px;
+            text-shadow: -2px 0 var(--psychedelic-pink);
+            clip: rect(44px, 450px, 56px, 0);
+            animation: glitch-anim 5s infinite linear alternate-reverse;
+        }
 
+        .retro-glitch::after {
+            left: -2px;
+            text-shadow: -2px 0 var(--psychedelic-green);
+            clip: rect(44px, 450px, 56px, 0);
+            animation: glitch-anim2 5s infinite linear alternate-reverse;
+        }
 
+        @keyframes glitch-anim {
+            0% { clip: rect(30px, 9999px, 10px, 0); }
+            20% { clip: rect(80px, 9999px, 90px, 0); }
+            40% { clip: rect(10px, 9999px, 50px, 0); }
+            60% { clip: rect(60px, 9999px, 20px, 0); }
+            80% { clip: rect(40px, 9999px, 70px, 0); }
+            100% { clip: rect(90px, 9999px, 30px, 0); }
+        }
 
-		<!-- Scripts -->
-			<script src="assets/js/jquery.min.js"></script>
-			<script src="assets/js/jquery.scrollex.min.js"></script>
-			<script src="assets/js/jquery.scrolly.min.js"></script>
-			<script src="assets/js/browser.min.js"></script>
-			<script src="assets/js/breakpoints.min.js"></script>
-			<script src="assets/js/util.js"></script>
-			<script src="assets/js/main.js"></script>
+        @keyframes glitch-anim2 {
+            0% { clip: rect(60px, 9999px, 20px, 0); }
+            20% { clip: rect(10px, 9999px, 80px, 0); }
+            40% { clip: rect(50px, 9999px, 30px, 0); }
+            60% { clip: rect(20px, 9999px, 60px, 0); }
+            80% { clip: rect(70px, 9999px, 40px, 0); }
+            100% { clip: rect(30px, 9999px, 90px, 0); }
+        }
 
-	</body>
+        /* Terminal Style */
+        .terminal-line {
+            border-left: 4px solid var(--psychedelic-green);
+            background: rgba(0, 0, 0, 0.8);
+            color: #33ff33;
+            font-family: 'Courier Prime', monospace;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .terminal-line::before {
+            content: '>';
+            color: var(--psychedelic-orange);
+            margin-right: 8px;
+            font-weight: bold;
+        }
+
+        .terminal-line:hover {
+            background: rgba(0, 20, 0, 0.9);
+            border-left-color: var(--psychedelic-pink);
+            transform: translateX(5px);
+            transition: all 0.3s ease;
+        }
+
+        /* Hover Groovy Effect */
+        .groovy-hover:hover {
+            transform: scale(1.05) rotate(-2deg);
+            box-shadow: 0 10px 30px rgba(255, 107, 53, 0.4);
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 12px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: var(--vintage-brown);
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: linear-gradient(to bottom, var(--psychedelic-orange), var(--psychedelic-purple));
+            border: 2px solid var(--vintage-brown);
+        }
+
+        /* Flashing Warning */
+        @keyframes flash {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.3; }
+        }
+
+        .flash-warning {
+            animation: flash 2s infinite;
+        }
+
+        /* Tape Effect */
+        .tape {
+            position: absolute;
+            top: -15px;
+            left: 50%;
+            transform: translateX(-50%) rotate(-3deg);
+            width: 120px;
+            height: 40px;
+            background: rgba(255, 255, 255, 0.6);
+            box-shadow: 0 1px 3px rgba(0,0,0,0.2);
+            z-index: 10;
+        }
+    </style>
+</head>
+<body class="jungle-bg min-h-screen relative">
+
+    <!-- Rain Effect Container -->
+    <div id="rain-container" class="rain-container"></div>
+
+    <!-- Main Content -->
+    <div class="relative z-10 container mx-auto px-4 py-8 max-w-5xl">
+        
+        <!-- Header Section with Psychedelic Title -->
+        <header class="text-center mb-12 relative">
+            <a href="https://mygamingedge.online/index.html" class="absolute top-4 left-4 w-20 h-20 peace-spin opacity-90 hover:opacity-100 hover:scale-110 transition-all duration-300 z-20 group" title="Back to Home">
+                <svg viewBox="0 0 100 100" class="w-full h-full drop-shadow-[0_0_10px_rgba(155,89,182,0.8)]">
+                    <defs>
+                        <linearGradient id="peaceGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                            <stop offset="0%" style="stop-color:#FF6B35;stop-opacity:1" />
+                            <stop offset="50%" style="stop-color:#FFD700;stop-opacity:1" />
+                            <stop offset="100%" style="stop-color:#9B59B6;stop-opacity:1" />
+                        </linearGradient>
+                    </defs>
+                    <path d="M50 5 L50 35 M50 65 L50 95 M50 50 L20 20 M50 50 L80 20 M50 50 L20 80 M50 50 L80 80" stroke="url(#peaceGradient)" stroke-width="8" stroke-linecap="round" fill="none"/>
+                    <circle cx="50" cy="50" r="45" fill="none" stroke="url(#peaceGradient)" stroke-width="8"/>
+                </svg>
+                <span class="absolute -bottom-8 left-1/2 transform -translate-x-1/2 text-xs font-groovy text-yellow-300 opacity-0 group-hover:opacity-100 transition-opacity duration-300 whitespace-nowrap bg-black/60 px-3 py-1 rounded-full border border-yellow-400 shadow-lg">☮ Home ☮</span>
+            </a>
+            
+            <h1 class="font-psychedelic text-5xl md:text-7xl text-yellow-300 mb-4 tracking-wider retro-glitch" data-text="Military Conflict: Vietnam">
+                Military Conflict: Vietnam
+            </h1>
+            <div class="inline-block bg-black/60 backdrop-blur-sm px-6 py-2 rounded-full border-2 border-yellow-400 flash-warning">
+                <span class="text-yellow-300 font-groovy text-xl md:text-2xl tracking-widest">☮ PEACE & LOVE SERVER ☮</span>
+            </div>
+        </header>
+
+        <!-- Server Status Card -->
+        <section class="vintage-paper rounded-lg p-6 md:p-8 mb-8 groovy-hover transition-all duration-300 transform">
+            <div class="tape"></div>
+            <h2 class="font-psychedelic text-3xl md:text-4xl text-red-600 mb-4 flex items-center gap-3">
+                <i data-lucide="radio" class="w-8 h-8"></i>
+                Modded Server!
+            </h2>
+            <p class="text-lg md:text-xl text-gray-800 mb-6 font-bold border-b-2 border-dashed border-gray-400 pb-4">
+                Welcome to Rainforest 24/7! 
+                <span class="text-green-700 font-groovy text-2xl ml-2">✌ Stay Groovy ✌</span>
+            </p>
+            
+            <div class="relative group cursor-pointer transform transition-transform hover:scale-[1.02]">
+                <a href="https://gamemonitoring.net/servers/11182136" target="_blank" class="block relative">
+                    <div class="absolute -inset-1 bg-gradient-to-r from-orange-400 via-purple-500 to-green-500 rounded-lg blur opacity-25 group-hover:opacity-75 transition duration-1000 group-hover:duration-200"></div>
+                    <img src="https://widgets.gamemonitoring.net/servers/11182136/560x95.png" 
+                         alt="My Gaming Edge.online - Rainforest 24/7" 
+                         class="relative w-full max-w-lg mx-auto rounded border-4 border-gray-800 shadow-2xl hover:border-yellow-500 transition-colors duration-300">
+                    <div class="absolute -bottom-3 left-1/2 transform -translate-x-1/2 bg-yellow-400 text-black px-4 py-1 rounded-full font-bold text-sm shadow-lg">
+                        CLICK TO JOIN THE VIBE!
+                    </div>
+                </a>
+            </div>
+        </section>
+
+        <!-- Synopsis Section -->
+        <section class="vintage-paper rounded-lg p-6 md:p-8 mb-8 relative overflow-hidden">
+            <div class="tape" style="transform: translateX(-50%) rotate(2deg); left: 30%;"></div>
+            <h2 class="font-psychedelic text-3xl md:text-4xl text-purple-700 mb-4 flex items-center gap-3">
+                <i data-lucide="book-open" class="w-8 h-8"></i>
+                Synopsis
+            </h2>
+            <div class="prose max-w-none">
+                <p class="text-lg md:text-xl text-gray-800 leading-relaxed mb-4 font-semibold">
+                    With the help of <span class="bg-yellow-200 px-1 transform -rotate-2 inline-block border border-yellow-600">MCV community</span>, I've decided to host a temporary server to stay tuned at mcv roadmap!
+                </p>
+                <div class="bg-green-100 border-l-4 border-green-600 p-4 my-4 rounded-r-lg">
+                    <p class="text-green-800 font-bold flex items-center gap-2">
+                        <i data-lucide="leaf" class="w-5 h-5"></i>
+                        Currently grooving in the Rainforest!
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Video Section - Groovy Tunes with Fog -->
+        <section class="vintage-paper rounded-lg p-6 md:p-8 mb-8 relative overflow-hidden">
+            <div class="tape" style="transform: translateX(-50%) rotate(1deg); left: 45%;"></div>
+            <h2 class="font-psychedelic text-3xl md:text-4xl text-purple-700 mb-4 flex items-center gap-3">
+                <i data-lucide="film" class="w-8 h-8"></i>
+                Groovy Tunes
+            </h2>
+            <p class="text-gray-800 mb-4 font-groovy text-lg">Drop out and tune in! 🎸</p>
+            
+            <div class="relative w-full" style="padding-bottom: 56.25%;">
+                <!-- YouTube Embed -->
+                <iframe 
+                    class="absolute top-0 left-0 w-full h-full rounded-lg border-4 border-gray-800 shadow-2xl"
+                    src="https://www.youtube.com/embed/fE64jrYVDHo" 
+                    title="YouTube video player" 
+                    frameborder="0" 
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+                    allowfullscreen>
+                </iframe>
+                
+                <!-- Animated Fog Overlay -->
+                <div class="absolute top-0 left-0 w-full h-full pointer-events-none overflow-hidden rounded-lg">
+                    <div class="fog-layer fog-layer-1"></div>
+                    <div class="fog-layer fog-layer-2"></div>
+                    <div class="fog-layer fog-layer-3"></div>
+                </div>
+            </div>
+            
+            <style>
+                /* Fog Animation Styles */
+                .fog-layer {
+                    position: absolute;
+                    width: 200%;
+                    height: 100%;
+                    background: radial-gradient(ellipse at center, 
+                        rgba(255, 255, 255, 0.3) 0%, 
+                        rgba(143, 188, 143, 0.2) 40%, 
+                        transparent 70%);
+                    filter: blur(20px);
+                    opacity: 0.4;
+                }
+                
+                .fog-layer-1 {
+                    animation: drift 25s infinite linear;
+                    top: -20%;
+                    left: -50%;
+                }
+                
+                .fog-layer-2 {
+                    animation: drift 35s infinite linear reverse;
+                    top: 20%;
+                    left: -30%;
+                    background: radial-gradient(ellipse at center, 
+                        rgba(255, 107, 53, 0.15) 0%, 
+                        rgba(155, 89, 182, 0.1) 50%, 
+                        transparent 70%);
+                    animation-delay: -5s;
+                }
+                
+                .fog-layer-3 {
+                    animation: drift 45s infinite linear;
+                    top: 60%;
+                    left: -70%;
+                    background: radial-gradient(ellipse at center, 
+                        rgba(244, 228, 193, 0.25) 0%, 
+                        transparent 60%);
+                    filter: blur(30px);
+                    animation-delay: -10s;
+                }
+                
+                @keyframes drift {
+                    0% {
+                        transform: translateX(-25%) translateY(0);
+                    }
+                    50% {
+                        transform: translateX(25%) translateY(-10px);
+                    }
+                    100% {
+                        transform: translateX(-25%) translateY(0);
+                    }
+                }
+            </style>
+        </section>
+
+        <!-- Commands Section - Terminal Style -->
+        <section class="mb-8">
+            <div class="bg-gray-900 rounded-t-lg px-4 py-2 flex items-center gap-2 border-b-2 border-gray-700">
+                <div class="w-3 h-3 rounded-full bg-red-500"></div>
+                <div class="w-3 h-3 rounded-full bg-yellow-500"></div>
+                <div class="w-3 h-3 rounded-full bg-green-500"></div>
+                <span class="text-gray-400 text-sm ml-2 font-mono">rainforest_terminal.exe</span>
+            </div>
+            <div class="bg-black/90 rounded-b-lg p-6 border-4 border-gray-700 shadow-2xl">
+                <h3 class="text-green-400 font-groovy text-2xl mb-4 flex items-center gap-2">
+                    <i data-lucide="terminal" class="w-6 h-6"></i>
+                    Useful plugins commands summary:
+                </h3>
+                
+                <div class="space-y-3">
+                    <div class="terminal-line p-3 rounded cursor-pointer group">
+                        <span class="text-yellow-400 font-bold">!votemusic</span>
+                        <span class="text-gray-400 mx-2">//</span>
+                        <span class="text-green-300 group-hover:text-white transition-colors">Jukebox 3 votes cast per player!</span>
+                        <i data-lucide="music" class="w-4 h-4 inline ml-2 text-pink-400"></i>
+                    </div>
+                    
+                    <div class="terminal-line p-3 rounded cursor-pointer group">
+                        <span class="text-yellow-400 font-bold">!tp</span>
+                        <span class="text-gray-400 mx-2">//</span>
+                        <span class="text-green-300 group-hover:text-white transition-colors">only useful if you like play MCV in thirdperson using your controller!</span>
+                        <i data-lucide="gamepad-2" class="w-4 h-4 inline ml-2 text-blue-400"></i>
+                    </div>
+                    
+                    <div class="terminal-line p-3 rounded cursor-pointer group">
+                        <span class="text-yellow-400 font-bold">!fp</span>
+                        <span class="text-gray-400 mx-2">//</span>
+                        <span class="text-green-300 group-hover:text-white transition-colors">revert back too first person view..</span>
+                        <i data-lucide="eye" class="w-4 h-4 inline ml-2 text-orange-400"></i>
+                    </div>
+                    
+                    <div class="text-gray-500 italic mt-4 border-t border-gray-800 pt-3">
+                        > more to come WIP!..
+                        <span class="animate-pulse">_</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SSM Tool Section -->
+        <section class="vintage-paper rounded-lg p-6 md:p-8 mb-8 text-center">
+            <div class="tape" style="transform: translateX(-50%) rotate(-2deg); left: 70%;"></div>
+            <h2 class="font-psychedelic text-3xl md:text-4xl text-orange-600 mb-6">
+                Host Your Own Server!
+            </h2>
+            <p class="text-lg text-gray-800 mb-6 font-bold">
+                Want host your own server try our <span class="bg-orange-200 px-2 py-1 rounded border-2 border-orange-400 font-mono">./SSM</span> tool!:
+            </p>
+            
+            <div class="relative inline-block group">
+                <a href="https://steamcommunity.com/sharedfiles/filedetails/?id=2947210305" target="_blank" class="block relative">
+                    <div class="absolute -inset-2 bg-gradient-to-r from-blue-400 via-purple-500 to-pink-500 rounded-lg blur opacity-0 group-hover:opacity-60 transition duration-500"></div>
+                    <div class="relative bg-gray-800 p-2 rounded-lg border-4 border-gray-600 group-hover:border-yellow-400 transition-colors duration-300 transform group-hover:rotate-1">
+                        <img src="https://steamuserimages-a.akamaihd.net/ugc/2055369491836068568/34017D52BC49C420093378DF32D5C7C65D7CF6C0/" 
+                             alt="SSM Tool" 
+                             class="w-full max-w-md rounded shadow-lg">
+                        <div class="absolute top-2 right-2 bg-red-600 text-white text-xs font-bold px-2 py-1 rounded animate-pulse">
+                            NEW!
+                        </div>
+                    </div>
+                </a>
+                <p class="mt-3 text-sm text-gray-600 font-mono flex items-center justify-center gap-1">
+                    <i data-lucide="external-link" class="w-4 h-4"></i>
+                    Click image to open Steam Workshop
+                </p>
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <footer class="text-center text-yellow-200/80 mt-12 pb-8">
+            <div class="flex justify-center gap-4 mb-4">
+                <i data-lucide="flower-2" class="w-8 h-8 text-pink-400 peace-spin"></i>
+                <i data-lucide="peace" class="w-8 h-8 text-yellow-400"></i>
+                <i data-lucide="flower-2" class="w-8 h-8 text-pink-400 peace-spin" style="animation-direction: reverse;"></i>
+            </div>
+            <p class="font-groovy text-lg">
+                ☮ Make Love Not War ☮ | Rainforest 24/7 | Est. 2026
+            </p>
+            <p class="text-sm mt-2 opacity-70 font-mono">
+                Groovy vibes only • Keep it chill • Stay golden
+            </p>
+            <script src="https://static.elfsight.com/platform/platform.js" data-use-service-core defer></script>
+            <div class="elfsight-app-7b50746d-5be3-46f1-aa75-d76922c7d6bf" data-elfsight-app-lazy></div>
+        </footer>
+    </div>
+
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script>
+        // Initialize Lucide Icons
+        lucide.createIcons();
+
+        // Rain Effect Generator
+        function createRain() {
+            const container = document.getElementById('rain-container');
+            const dropCount = 100; // Number of rain drops
+            
+            for (let i = 0; i < dropCount; i++) {
+                const drop = document.createElement('div');
+                drop.className = 'rain-drop';
+                
+                // Random positioning and timing
+                drop.style.left = Math.random() * 100 + '%';
+                drop.style.animationDuration = (Math.random() * 1 + 0.5) + 's';
+                drop.style.animationDelay = Math.random() * 2 + 's';
+                drop.style.opacity = Math.random() * 0.5 + 0.2;
+                
+                // Random length for variation
+                const length = Math.random() * 20 + 10;
+                drop.style.height = length + 'px';
+                
+                container.appendChild(drop);
+            }
+        }
+
+        // Create lightning effect occasionally
+        function createLightning() {
+            const body = document.body;
+            setInterval(() => {
+                if (Math.random() > 0.95) { // 5% chance every check
+                    body.style.filter = 'brightness(1.3)';
+                    setTimeout(() => {
+                        body.style.filter = 'brightness(1)';
+                    }, 100);
+                }
+            }, 2000);
+        }
+
+        // Parallax effect on scroll
+        function initParallax() {
+            window.addEventListener('scroll', () => {
+                const scrolled = window.pageYOffset;
+                const parallax = document.querySelector('.jungle-bg');
+                const speed = scrolled * 0.5;
+                parallax.style.backgroundPositionY = `calc(center + ${speed}px)`;
+            });
+        }
+
+        // Initialize everything when DOM is ready
+        document.addEventListener('DOMContentLoaded', () => {
+            createRain();
+            createLightning();
+            initParallax();
+            
+            // Add sound effect simulation (visual only)
+            const terminalLines = document.querySelectorAll('.terminal-line');
+            terminalLines.forEach(line => {
+                line.addEventListener('mouseenter', () => {
+                    line.style.textShadow = '0 0 10px #33ff33';
+                });
+                line.addEventListener('mouseleave', () => {
+                    line.style.textShadow = 'none';
+                });
+            });
+        });
+
+        // Add retro console log
+        console.log('%c☮ Welcome to the Rainforest, soldier! ☮', 'color: #8FBC8F; font-size: 20px; font-weight: bold;');
+        console.log('%cKeep it groovy and make peace not war!', 'color: #FF6B35; font-size: 14px;');
+    </script>
+</body>
 </html>
-
