@@ -1,187 +1,601 @@
-<!doctype html>
-<html lang="en">
-
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DZ:RV - Revolution Mod for Insurgency</title>
+    <meta name="description" content="Revolution is a brand new mod for Insurgency that gives the game a third-person perspective and provides a SOCOM-like experience.">
     <meta property="og:title" content="DZ:RV">
 	<meta property="og:type" content="website">
 	<meta property="og:image" content="https://raw.githubusercontent.com/SHOUBISHOCK/SHOUBISHOCK.github.io/refs/heads/main/images/rev.png">
 	<meta property="og:url" content="https://mygamingedge.online/revolution.html">
 	<meta property="og:description" content="Welcome to DarkZero:Revolution">
-	<meta charset="utf-8" />
-	<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
-	<link rel="icon" type="image/x-icon" href="images/favicon_dz.ico">
-
-    <title>LupinWulf & Tollski stuff!</title>
-
-    <!-- CSS FILES -->
+    <link rel="icon" type="image/x-icon" href="images/favicon_dz.ico">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
-
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-
-    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@100;200;400;700&display=swap" rel="stylesheet">
-
-    <link href="css/bootstrap.min.css" rel="stylesheet">
-
-    <link href="css/bootstrap-icons.css" rel="stylesheet">
-
-    <link href="css/templatemo-festava-live.css" rel="stylesheet">
-    
-    
-
-
-
-
-    <!--
-
-TemplateMo 583 Festava Live
-
-https://templatemo.com/tm-583-festava-live
-
--->
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Rajdhani:wght@300;500;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #ff6b00;
+            --secondary: #ff9500;
+            --dark: #0a0a0a;
+            --glass: rgba(10, 10, 10, 0.85);
+        }
+        
+        body {
+            font-family: 'Rajdhani', sans-serif;
+            background-color: var(--dark);
+            overflow-x: hidden;
+        }
+        
+        .font-orbitron {
+            font-family: 'Orbitron', sans-serif;
+        }
+        
+        .video-background {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            z-index: -2;
+            opacity: 0.6;
+        }
+        
+        .overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(to bottom, rgba(0,0,0,0.3) 0%, rgba(0,0,0,0.8) 100%);
+            z-index: -1;
+        }
+        
+        .glass-panel {
+            background: var(--glass);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 107, 0, 0.2);
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+        }
+        
+        .neon-text {
+            text-shadow: 0 0 10px rgba(255, 107, 0, 0.5), 0 0 20px rgba(255, 107, 0, 0.3);
+        }
+        
+        .hover-glow:hover {
+            box-shadow: 0 0 20px rgba(255, 107, 0, 0.4);
+            border-color: rgba(255, 107, 0, 0.6);
+        }
+        
+        .soundcloud-widget {
+            position: fixed;
+            bottom: 20px;
+            left: 20px;
+            z-index: 50;
+            width: 300px;
+            height: 120px;
+            transition: all 0.3s ease;
+        }
+        
+        .soundcloud-widget.minimized {
+            width: 60px;
+            height: 60px;
+            overflow: hidden;
+            border-radius: 50%;
+        }
+        
+        .server-status-glow {
+            animation: pulse-glow 2s infinite;
+        }
+        
+        @keyframes pulse-glow {
+            0%, 100% { box-shadow: 0 0 5px rgba(255, 107, 0, 0.5); }
+            50% { box-shadow: 0 0 20px rgba(255, 107, 0, 0.8); }
+        }
+        
+        .twitch-embed {
+            position: relative;
+            padding-bottom: 56.25%;
+            height: 0;
+            overflow: hidden;
+            border-radius: 12px;
+        }
+        
+        .twitch-embed iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
+        
+        .gradient-text {
+            background: linear-gradient(135deg, #ff6b00 0%, #ff9500 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .feature-card {
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .feature-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 40px rgba(255, 107, 0, 0.2);
+        }
+        
+        @media (max-width: 768px) {
+            .soundcloud-widget {
+                width: calc(100% - 40px);
+                left: 20px;
+                right: 20px;
+            }
+        }
+    </style>
 </head>
+<body class="text-gray-100 antialiased">
 
-<body>
+    <!-- Background Video -->
+    <video class="video-background" autoplay muted loop playsinline>
+        <source src="video/dzrv.mp4" type="video/mp4">
+        Your browser does not support the video tag.
+    </video>
+    
+    <div class="overlay"></div>
 
-    <main>
-
-        <header class="site-header">
-            <div class="container">
-                <div class="row">
-
-                    <div class="col-lg-12 col-12 d-flex flex-wrap">
-                        <p class="d-flex me-4 mb-0">
-                            <strong class="text-dark">Welcome to DarkZero:Revolution seeking for donors!</strong>
-                        </p>
-                    </div>
-
+    <!-- Navigation -->
+    <nav class="fixed top-0 w-full z-40 glass-panel border-b border-orange-500/20">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-16">
+                <div class="flex items-center space-x-3">
+                    <i data-lucide="crosshair" class="w-8 h-8 text-orange-500"></i>
+                    <span class="font-orbitron text-2xl font-bold tracking-wider text-white">
+                        DZ:<span class="text-orange-500">RV</span>
+                    </span>
                 </div>
-            </div>
-        </header>
-
-
-        <nav class="navbar navbar-expand-lg">
-            <div class="container">
-                <a class="navbar-brand" href="index.html">
-                    DarkZero:Revolution
-                </a>
-
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
-                    aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
+                <div class="hidden md:flex items-center space-x-8">
+                    <a href="#about" class="hover:text-orange-500 transition-colors font-medium tracking-wide">About</a>
+                    <a href="#livestreams" class="hover:text-orange-500 transition-colors font-medium tracking-wide">Livestreams</a>
+                    <a href="#support" class="hover:text-orange-500 transition-colors font-medium tracking-wide">Support</a>
+                    <a href="https://discord.gg/JW8FPry9Sg" target="_blank" class="flex items-center space-x-2 bg-indigo-600 hover:bg-indigo-700 px-4 py-2 rounded-lg transition-all hover-glow">
+                        <i data-lucide="message-circle" class="w-4 h-4"></i>
+                        <span class="font-bold">Join Discord</span>
+                    </a>
+                </div>
+                <button id="mobile-menu-btn" class="md:hidden text-white hover:text-orange-500">
+                    <i data-lucide="menu" class="w-6 h-6"></i>
                 </button>
+            </div>
+        </div>
+        <!-- Mobile Menu -->
+        <div id="mobile-menu" class="hidden md:hidden glass-panel border-t border-orange-500/20">
+            <div class="px-4 pt-2 pb-4 space-y-2">
+                <a href="#about" class="block py-2 hover:text-orange-500">About</a>
+                <a href="#livestreams" class="block py-2 hover:text-orange-500">Livestreams</a>
+                <a href="#support" class="block py-2 hover:text-orange-500">Support</a>
+                <a href="https://discord.gg/JW8FPry9Sg" target="_blank" class="block py-2 text-indigo-400">Join Discord</a>
+            </div>
+        </div>
+    </nav>
 
-                <div class="collapse navbar-collapse" id="navbarNav">
-                    <ul class="navbar-nav align-items-lg-center ms-auto me-lg-5">
-                        <li class="nav-item">
-                            <a class="nav-link click-scroll" href="#section_1">Home</a>
-                        </li>
+    <!-- Hero Section -->
+    <section class="relative min-h-screen flex items-center justify-center pt-16">
+        <div class="text-center px-4 max-w-5xl mx-auto">
+            <div class="mb-6 inline-block">
+                <span class="px-4 py-1 rounded-full bg-orange-500/20 border border-orange-500/50 text-orange-400 text-sm font-bold tracking-wider uppercase">
+                    Now Available
+                </span>
+            </div>
+            <h1 class="font-orbitron text-5xl md:text-7xl lg:text-8xl font-black mb-6 tracking-tight neon-text">
+                DARK<span class="gradient-text">ZERO</span>:REVOLUTION
+            </h1>
+            <p class="text-xl md:text-2xl text-gray-300 mb-8 max-w-2xl mx-auto font-light leading-relaxed">
+                The ultimate <span class="text-orange-500 font-bold">SOCOM-like</span> experience for Insurgency. 
+                Third-person tactical warfare redefined.
+            </p>
+            
+            <div class="flex flex-col sm:flex-row items-center justify-center gap-4 mb-12">
+                <a href="steam://connect/108.61.239.40:27015" class="group relative px-8 py-4 bg-orange-600 hover:bg-orange-700 rounded-lg font-bold text-lg transition-all hover-glow flex items-center space-x-3">
+                    <i data-lucide="play" class="w-5 h-5"></i>
+                    <span>Join Server</span>
+                    <span class="text-xs opacity-75 font-mono block sm:inline mt-1 sm:mt-0">108.61.239.40:27015</span>
+                </a>
+                <button onclick="copyIP()" class="px-8 py-4 glass-panel hover:bg-white/10 rounded-lg font-bold text-lg transition-all border border-white/20 hover:border-orange-500/50 flex items-center space-x-3">
+                    <i data-lucide="copy" class="w-5 h-5"></i>
+                    <span id="copy-text">Copy IP</span>
+                </button>
+            </div>
 
-                        <li class="nav-item">
-                            <a class="nav-link click-scroll" href="#section_2">About/Server Info</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link click-scroll" href="#section_3">Support us</a>
-                        </li>
-                            <li class="nav-item">
-                            <a class="nav-link click-scroll" href="#section_4">Music ON/OFF</a>
-                        </li>
-                    </ul>
+            <!-- Server Status Banner -->
+            <div class="glass-panel rounded-xl p-4 max-w-lg mx-auto server-status-glow border-orange-500/30">
+                <a href="https://www.gametracker.com/server_info/108.61.239.40:27015/" target="_blank" class="block hover:opacity-90 transition-opacity">
+                    <img src="https://cache.gametracker.com/server_info/108.61.239.40:27015/b_560_95_1.png" alt="Server Status" class="w-full rounded-lg">
+                </a>
+            </div>
+        </div>
+        
+        <div class="absolute bottom-8 left-1/2 transform -translate-x-1/2 animate-bounce">
+            <i data-lucide="chevron-down" class="w-8 h-8 text-orange-500"></i>
+        </div>
+    </section>
 
+    <!-- About Section -->
+    <section id="about" class="relative py-20 px-4">
+        <div class="max-w-6xl mx-auto">
+            <div class="glass-panel rounded-2xl p-8 md:p-12 mb-12">
+                <div class="flex items-center space-x-3 mb-8">
+                    <i data-lucide="info" class="w-8 h-8 text-orange-500"></i>
+                    <h2 class="font-orbitron text-3xl md:text-4xl font-bold">About Revolution</h2>
                 </div>
-            </div>
-        </nav>
+                
+                <div class="grid md:grid-cols-2 gap-8 items-center">
+                    <div class="space-y-6">
+                        <p class="text-lg text-gray-300 leading-relaxed">
+                            Revolution is a brand new mod for <span class="text-orange-400 font-bold">Insurgency (2014)</span> 
+                            (NOT Insurgency: Sandstorm) that transforms the game with a third-person perspective, 
+                            delivering an authentic SOCOM-like tactical experience.
+                        </p>
+                        
+                        <div class="space-y-4">
+                            <div class="flex items-start space-x-3">
+                                <i data-lucide="user" class="w-5 h-5 text-orange-500 mt-1 flex-shrink-0"></i>
+                                <div>
+                                    <p class="font-bold text-white">Tollski</p>
+                                    <p class="text-gray-400 text-sm">Made the mod release</p>
+                                </div>
+                            </div>
+                            <div class="flex items-start space-x-3">
+                                <i data-lucide="code" class="w-5 h-5 text-orange-500 mt-1 flex-shrink-0"></i>
+                                <div>
+                                    <p class="font-bold text-white">LupinWulf</p>
+                                    <p class="text-gray-400 text-sm">Added sandbox-ish side to it!</p>
+                                </div>
+                            </div>
+                        </div>
 
-
-        <section class="hero-section" id="section_1">
-            <div class="section-overlay"></div>
-
-            <div class="container d-flex justify-content-center align-items-center">
-                <div class="row">
-                </div>
-            </div>
-
-            <div class="video-wrap">
-                <video autoplay="" loop="" muted="" class="custom-video" poster="">
-                    <source src="video/dzrv.mp4" type="video/mp4">
-                    Your browser does not support the video tag.
-                </video>
-            </div>
-        </section>
-
-
-        <section class="about-section section-padding" id="section_2">
-            <div class="container">
-					        <h2 class="text-white mb-4">About Us</h2>
-
-
-<a href="https://www.gametracker.com/server_info/108.61.239.40:27015/" target="_blank"><img src="https://cache.gametracker.com/server_info/108.61.239.40:27015/b_560_95_1.png" border="0" width="560" height="95" alt=""/></a>		
-		    
-                            <p class="text-white mt-4">Revolution is a brand new mod for Insurgency (from 2014, NOT Insurgency: Sandstorm) that gives the game a third-person perspective and attempts to provide a SOCOM-like experience.</p>
-
-                            <h6 class="text-white mt-4">Tollski made the mod release, LupinWulf added a sandbox-ish side to it!</h6>
-
-                            <p class="text-white mt-4">With features like bullet time, firesupport, dismemberment and so much more without unbalance things!</p>
-
-                            <h6 class="text-white mt-4">Feel free to join the Discord and follow livestreams!</h6>
-
-                            <p class="text-white mt-4">Please tell your friends about our server IP: 108.61.239.40:27015 and feel free to add it to your favorites!</p>
-
-                            
-<iframe src="https://discord.com/widget?id=954794267895795763&theme=dark" width="350" height="500" allowtransparency="true" frameborder="0" sandbox="allow-popups allow-popups-to-escape-sandbox allow-same-origin allow-scripts"></iframe>
- <h2 class="text-white mb-4">Livestreams</h2> 
-<span class="image"><a href="https://www.twitch.tv/lupin_wulf"><img src="https://i.imgur.com/ymlz497.gif" class="center-dzrv" alt="dzrv" width="720" height="350" /></a></span>
-
- <section class="about-section section-padding" id="section_3">
-	  <div class="container">
-    <h2 class="text-white mb-4"> Help us to keep server alive! </h2> 
-<span class="image"><a href="https://ins2u.online/"><img src="images/cash.jpg" class="center-dzrv" alt="cash" width="512" height="531" /></a></span>
-
-<p class="text-white mt-4">We currently seeking for donors to help us covering hosting cost.</p>
-
-                            <h6 class="text-white mt-4">Use your favorite Cash App! Scan QR CODE using your phone camera!</h6>
-
-                            <p class="text-white mt-4">This will directly help DarkZero:Revolution project to be maintained over those hard times..</p>
-
-<!--
- <section class="about-section section-padding" id="section_3">   
-   <div class="container">
-    <h2 class="text-white mb-4">Burning Love Patreons!</h2> 
-<span class="image"><a href="https://www.patreon.com/insdarkzero"><img src="https://i.imgur.com/046KCSB.gif" class="center-dzrv" alt="dzrv" width="720" height="350" /></a></span> 
-</div>
--->
-
-	   
-
-	
-		</section> 
- <section class="about-section section-padding" id="section_4"> 
-	 <h2 class="text-white mb-4">Background audio</h2> 		
-					<iframe width="50%" height="166" scrolling="no" frameborder="no" allow="autoplay" src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/35288595&color=%23ff5500&auto_play=true&hide_related=false&show_comments=true&show_user=true&show_reposts=false&show_teaser=true"></iframe><div style="font-size: 10px; color: #cccccc;line-break: anywhere;word-break: normal;overflow: hidden;white-space: nowrap;text-overflow: ellipsis; font-family: Interstate,Lucida Grande,Lucida Sans Unicode,Lucida Sans,Garuda,Verdana,Tahoma,sans-serif;font-weight: 100;"><a href="https://soundcloud.com/inonzur" title="InonZur" target="_blank" style="color: #cccccc; text-decoration: none;">InonZur</a> · <a href="https://soundcloud.com/inonzur/socom-2-theme" title="SOCOM 2 Theme" target="_blank" style="color: #cccccc; text-decoration: none;">SOCOM 2 Theme</a></div>                      
-			 
-			 </div>
-			   </section>
-					</div>
-
+                        <div class="pt-4 border-t border-white/10">
+                            <p class="text-gray-400 text-sm mb-4">Key Features:</p>
+                            <div class="flex flex-wrap gap-2">
+                                <span class="px-3 py-1 bg-orange-500/20 border border-orange-500/30 rounded-full text-sm text-orange-400">Bullet Time</span>
+                                <span class="px-3 py-1 bg-orange-500/20 border border-orange-500/30 rounded-full text-sm text-orange-400">Fire Support</span>
+                                <span class="px-3 py-1 bg-orange-500/20 border border-orange-500/30 rounded-full text-sm text-orange-400">Dismemberment</span>
+                                <span class="px-3 py-1 bg-orange-500/20 border border-orange-500/30 rounded-full text-sm text-orange-400">Balanced Gameplay</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="relative">
+                        <div class="aspect-video rounded-xl overflow-hidden border-2 border-orange-500/30 shadow-2xl shadow-orange-500/20">
+                            <img src="https://mygamingedge.online/images/revolution_icon.png" alt="Revolution Gameplay" class="w-full h-full object-cover hover:scale-105 transition-transform duration-500">
+                            <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent flex items-end p-4">
+                                <span class="text-sm font-bold text-white flex items-center space-x-2">
+                                    <i data-lucide="video" class="w-4 h-4"></i>
+                                    <span>Gameplay Preview</span>
+                                </span>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </section>
-    </main>
 
-    <!--
+            <!-- Discord CTA -->
+            <div class="glass-panel rounded-2xl p-8 text-center border-indigo-500/30 hover:border-indigo-500/60 transition-all cursor-pointer group" onclick="window.open('https://discord.gg/JW8FPry9Sg', '_blank')">
+                <div class="inline-flex items-center justify-center w-16 h-16 bg-indigo-600 rounded-full mb-4 group-hover:scale-110 transition-transform">
+                    <i data-lucide="message-circle" class="w-8 h-8 text-white"></i>
+                </div>
+                <h3 class="font-orbitron text-2xl font-bold mb-2">Join Our Community</h3>
+                <p class="text-gray-400 mb-4">Connect with players, get support, and follow livestreams!</p>
+                <span class="text-indigo-400 font-bold flex items-center justify-center space-x-2 group-hover:text-indigo-300">
+                    <span>Join Discord Server</span>
+                    <i data-lucide="external-link" class="w-4 h-4"></i>
+                </span>
+            </div>
+        </div>
+    </section>
 
-T e m p l a t e M o
+    <!-- Livestreams Section -->
+    <section id="livestreams" class="relative py-20 px-4 bg-black/40">
+        <div class="max-w-6xl mx-auto">
+            <div class="flex items-center space-x-3 mb-8 justify-center">
+                <i data-lucide="radio" class="w-8 h-8 text-purple-500"></i>
+                <h2 class="font-orbitron text-3xl md:text-4xl font-bold">Livestreams</h2>
+            </div>
 
--->
+            <div class="grid md:grid-cols-2 gap-8">
+                <!-- Twitch Embed -->
+                <div class="glass-panel rounded-2xl p-6 border-purple-500/20">
+                    <div class="flex items-center justify-between mb-4">
+                        <div class="flex items-center space-x-3">
+                            <div class="w-3 h-3 bg-red-500 rounded-full animate-pulse"></div>
+                            <span class="font-bold text-lg">Lupin_Wulf</span>
+                        </div>
+                        <a href="https://www.twitch.tv/lupin_wulf" target="_blank" class="text-purple-400 hover:text-purple-300 flex items-center space-x-1 text-sm">
+                            <span>Watch on Twitch</span>
+                            <i data-lucide="external-link" class="w-4 h-4"></i>
+                        </a>
+                    </div>
+                    <div class="twitch-embed bg-black rounded-lg overflow-hidden">
+                        <iframe
+                            src="https://player.twitch.tv/?channel=lupin_wulf&parent=mygamingedge.online&autoplay=false"
+                            frameborder="0"
+                            scrolling="no"
+                            allowfullscreen="true"
+                            height="300"
+                            width="100%">
+                        </iframe>
+                    </div>
+                    <div class="mt-4 flex items-center space-x-3">
+                        <img src="https://i.imgur.com/ymlz497.gif" alt="DZRV" class="w-16 h-16 rounded-lg object-cover border border-purple-500/30">
+                        <div>
+                            <p class="text-sm text-gray-400">Stream Preview</p>
+                            <p class="font-bold">Live gameplay & updates</p>
+                        </div>
+                    </div>
+                </div>
 
-    <!-- JAVASCRIPT FILES -->
-    <script src="js/jquery.min.js"></script>
-    <script src="js/bootstrap.min.js"></script>
-    <script src="js/jquery.sticky.js"></script>
-    <script src="js/click-scroll.js"></script>
-    <script src="js/custom.js"></script>
+                <!-- Stream Info -->
+                <div class="space-y-4">
+                    <div class="glass-panel rounded-xl p-6 border-purple-500/20 hover:border-purple-500/40 transition-all">
+                        <h3 class="font-bold text-xl mb-3 flex items-center space-x-2">
+                            <i data-lucide="calendar" class="w-5 h-5 text-purple-500"></i>
+                            <span>Stream Schedule</span>
+                        </h3>
+                        <p class="text-gray-400">Follow Lupin_Wulf on Twitch for live development updates, gameplay sessions, and community events.</p>
+                    </div>
 
+                    <div class="glass-panel rounded-xl p-6 border-orange-500/20 hover:border-orange-500/40 transition-all">
+                        <h3 class="font-bold text-xl mb-3 flex items-center space-x-2">
+                            <i data-lucide="bell" class="w-5 h-5 text-orange-500"></i>
+                            <span>Get Notified</span>
+                        </h3>
+                        <p class="text-gray-400 mb-4">Join our Discord to get notified when we go live!</p>
+                        <a href="https://discord.gg/JW8FPry9Sg" target="_blank" class="inline-flex items-center space-x-2 text-indigo-400 hover:text-indigo-300 font-bold">
+                            <span>Discord Notifications</span>
+                            <i data-lucide="arrow-right" class="w-4 h-4"></i>
+                        </a>
+                    </div>
+
+                    <div class="glass-panel rounded-xl p-6 bg-gradient-to-r from-purple-900/20 to-orange-900/20 border-purple-500/20">
+                        <p class="text-center font-orbitron text-lg font-bold italic">
+                            "Feel free to join the Discord and follow livestreams!"
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Support Section -->
+    <section id="support" class="relative py-20 px-4">
+        <div class="max-w-4xl mx-auto">
+            <div class="glass-panel rounded-2xl p-8 md:p-12 border-green-500/30 text-center">
+                <div class="inline-flex items-center justify-center w-20 h-20 bg-green-600/20 rounded-full mb-6 border-2 border-green-500/50">
+                    <i data-lucide="heart" class="w-10 h-10 text-green-500"></i>
+                </div>
+                
+                <h2 class="font-orbitron text-3xl md:text-4xl font-bold mb-4">Help Us Keep the Server Alive!</h2>
+                
+                <p class="text-lg text-gray-300 mb-8 max-w-2xl mx-auto">
+                    We are currently seeking donors to help us cover hosting costs. 
+                    Your support directly helps the <span class="text-orange-400 font-bold">DarkZero:Revolution</span> project 
+                    to be maintained during these challenging times.
+                </p>
+
+                <div class="grid md:grid-cols-2 gap-8 items-center mb-8">
+                    <div class="relative group cursor-pointer" onclick="window.open('https://mygamingedge.online/', '_blank')">
+                        <div class="absolute -inset-1 bg-gradient-to-r from-green-600 to-emerald-600 rounded-xl blur opacity-25 group-hover:opacity-75 transition duration-1000 group-hover:duration-200"></div>
+                        <div class="relative glass-panel rounded-xl p-4 border-green-500/30 hover:border-green-500/60 transition-all">
+                            <img src="https://mygamingedge.online/images/cash.jpg" alt="Donation QR Code" class="w-full rounded-lg mb-4">
+                            <p class="text-sm text-gray-400 mb-2">Scan QR Code with your phone camera</p>
+                            <p class="font-bold text-green-400">Click to visit donation page</p>
+                        </div>
+                    </div>
+                    
+                    <div class="text-left space-y-6">
+                        <div>
+                            <h3 class="font-bold text-xl mb-3 flex items-center space-x-2">
+                                <i data-lucide="wallet" class="w-5 h-5 text-green-500"></i>
+                                <span>Support Methods</span>
+                            </h3>
+                            <ul class="space-y-3 text-gray-400">
+                                <li class="flex items-center space-x-3">
+                                    <i data-lucide="check-circle" class="w-5 h-5 text-green-500 flex-shrink-0"></i>
+                                    <span>Use your favorite Cash App</span>
+                                </li>
+                                <li class="flex items-center space-x-3">
+                                    <i data-lucide="check-circle" class="w-5 h-5 text-green-500 flex-shrink-0"></i>
+                                    <span>Scan QR Code using phone camera</span>
+                                </li>
+                                <li class="flex items-center space-x-3">
+                                    <i data-lucide="check-circle" class="w-5 h-5 text-green-500 flex-shrink-0"></i>
+                                    <span>Direct contribution to server costs</span>
+                                </li>
+                            </ul>
+                        </div>
+                        
+                        <a href="https://mygamingedge.online/" target="_blank" class="inline-flex items-center justify-center w-full px-6 py-4 bg-green-600 hover:bg-green-700 rounded-lg font-bold text-lg transition-all hover-glow group">
+                            <i data-lucide="external-link" class="w-5 h-5 mr-2"></i>
+                            <span>Visit Donation Page</span>
+                        </a>
+                        
+                        <p class="text-xs text-gray-500 text-center">
+                            Every donation helps keep the revolution alive! 🙏
+                        </p>
+                    </div>
+                </div>
+
+                <div class="border-t border-white/10 pt-6">
+                    <p class="text-sm text-gray-400">
+                        Please tell your friends about our server and feel free to add it to your favorites!
+                    </p>
+                    <p class="font-mono text-orange-400 font-bold mt-2 text-lg">108.61.239.40:27015</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="relative bg-black/80 border-t border-white/10 py-12 px-4">
+        <div class="max-w-6xl mx-auto">
+            <div class="grid md:grid-cols-4 gap-8 mb-8">
+                <div class="col-span-2">
+                    <div class="flex items-center space-x-3 mb-4">
+                        <i data-lucide="crosshair" class="w-6 h-6 text-orange-500"></i>
+                        <span class="font-orbitron text-xl font-bold">DZ:<span class="text-orange-500">RV</span></span>
+                    </div>
+                    <p class="text-gray-400 text-sm leading-relaxed">
+                        Revolution mod for Insurgency 2014. Third-person tactical warfare 
+                        with SOCOM-like experience. Join the fight today!
+                    </p>
+                </div>
+                
+                <div>
+                    <h4 class="font-bold mb-4 text-orange-400">Quick Links</h4>
+                    <ul class="space-y-2 text-sm">
+                        <li><a href="https://www.gametracker.com/server_info/108.61.239.40:27015/" target="_blank" class="hover:text-orange-500 transition-colors">Server Status</a></li>
+                        <li><a href="https://www.twitch.tv/lupin_wulf" target="_blank" class="hover:text-orange-500 transition-colors">Twitch</a></li>
+                        <li><a href="https://discord.gg/JW8FPry9Sg" target="_blank" class="hover:text-orange-500 transition-colors">Discord</a></li>
+                        <li><a href="https://mygamingedge.online/" target="_blank" class="hover:text-orange-500 transition-colors">Donate</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h4 class="font-bold mb-4 text-orange-400">Connect</h4>
+                    <div class="flex space-x-4">
+                        <a href="https://discord.gg/JW8FPry9Sg" target="_blank" class="w-10 h-10 rounded-full bg-indigo-600/20 border border-indigo-500/30 flex items-center justify-center hover:bg-indigo-600/40 transition-all hover:scale-110">
+                            <i data-lucide="message-circle" class="w-5 h-5 text-indigo-400"></i>
+                        </a>
+                        <a href="https://www.twitch.tv/lupin_wulf" target="_blank" class="w-10 h-10 rounded-full bg-purple-600/20 border border-purple-500/30 flex items-center justify-center hover:bg-purple-600/40 transition-all hover:scale-110">
+                            <i data-lucide="twitch" class="w-5 h-5 text-purple-400"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="border-t border-white/10 pt-8 text-center text-sm text-gray-500">
+                <p>&copy; 2026 DarkZero:Revolution. Not affiliated with New World Interactive.</p>
+                <p class="mt-2">Server IP: 108.61.239.40:27015</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- SoundCloud Widget (Fixed Bottom Left) -->
+    <div id="soundcloud-container" class="soundcloud-widget glass-panel rounded-xl overflow-hidden border-orange-500/30">
+        <div class="flex items-center justify-between px-3 py-2 bg-black/40 border-b border-white/10 cursor-pointer" onclick="toggleSoundCloud()">
+            <div class="flex items-center space-x-2">
+                <i data-lucide="music" class="w-4 h-4 text-orange-500"></i>
+                <span class="text-xs font-bold uppercase tracking-wider">Background Audio</span>
+            </div>
+            <button id="sc-toggle" class="text-gray-400 hover:text-white">
+                <i data-lucide="minus" class="w-4 h-4"></i>
+            </button>
+        </div>
+        <iframe 
+            width="100%" 
+            height="90" 
+            scrolling="no" 
+            frameborder="no" 
+            allow="autoplay" 
+            src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/35288595&color=%23ff5500&auto_play=true&hide_related=false&show_comments=true&show_user=true&show_reposts=false&show_teaser=true">
+        </iframe>
+    </div>
+
+    <!-- Audio Control Button (Alternative if SoundCloud fails) -->
+    <button onclick="toggleMute()" class="fixed bottom-20 right-4 z-50 w-12 h-12 rounded-full glass-panel border-orange-500/30 flex items-center justify-center hover:bg-orange-500/20 transition-all hover:scale-110 group">
+        <i id="mute-icon" data-lucide="volume-2" class="w-5 h-5 text-orange-500"></i>
+    </button>
+
+    <script>
+        // Initialize Lucide Icons
+        lucide.createIcons();
+
+        // Mobile Menu Toggle
+        const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+        
+        mobileMenuBtn.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+        });
+
+        // Copy IP Function
+        function copyIP() {
+            const ip = '108.61.239.40:27015';
+            navigator.clipboard.writeText(ip).then(() => {
+                const copyText = document.getElementById('copy-text');
+                const originalText = copyText.textContent;
+                copyText.textContent = 'Copied!';
+                setTimeout(() => {
+                    copyText.textContent = originalText;
+                }, 2000);
+            });
+        }
+
+        // SoundCloud Widget Toggle
+        let isMinimized = false;
+        function toggleSoundCloud() {
+            const container = document.getElementById('soundcloud-container');
+            const toggleBtn = document.getElementById('sc-toggle');
+            isMinimized = !isMinimized;
+            
+            if (isMinimized) {
+                container.classList.add('minimized');
+                toggleBtn.innerHTML = '<i data-lucide="maximize-2" class="w-4 h-4"></i>';
+            } else {
+                container.classList.remove('minimized');
+                toggleBtn.innerHTML = '<i data-lucide="minus" class="w-4 h-4"></i>';
+            }
+            lucide.createIcons();
+        }
+
+        // Background Video Mute Toggle
+        const video = document.querySelector('.video-background');
+        let isMuted = true;
+        
+        function toggleMute() {
+            isMuted = !isMuted;
+            video.muted = isMuted;
+            const icon = document.getElementById('mute-icon');
+            if (isMuted) {
+                icon.setAttribute('data-lucide', 'volume-x');
+            } else {
+                icon.setAttribute('data-lucide', 'volume-2');
+            }
+            lucide.createIcons();
+        }
+
+        // Smooth scroll for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                    // Close mobile menu if open
+                    mobileMenu.classList.add('hidden');
+                }
+            });
+        });
+
+        // Add parallax effect to video on scroll
+        window.addEventListener('scroll', () => {
+            const scrolled = window.pageYOffset;
+            video.style.transform = `translateY(${scrolled * 0.5}px)`;
+        });
+
+        // Attempt to unmute video on user interaction (browser policy)
+        document.addEventListener('click', () => {
+            if (video.muted && isMuted === false) {
+                video.muted = false;
+            }
+        }, { once: true });
+    </script>
 </body>
-
 </html>
