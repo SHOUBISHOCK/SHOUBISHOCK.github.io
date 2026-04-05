@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fistful of Frags</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Rye&family=Special+Elite&family=Playfair+Display:ital,wght@0,700;1,400&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="fof.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta property="og:title" content="Fistful of Frags">
+	<meta property="og:type" content="website">
+	<meta property="og:image" content="https://raw.githubusercontent.com/SHOUBISHOCK/SHOUBISHOCK.github.io/refs/heads/main/images/fof_logo.png">
+	<meta property="og:url" content="https://mygamingedge.online/">
+	<meta property="og:description" content="A hosting group consisting of players who deserve respect for both their skills and integrity.">
+    <link rel="icon" type="image/x-icon" href="images/favicon.ico">
+</head>
+<body>
+
+    <!-- ═══════════════════════════════════════════ -->
+    <!--  CANVAS PARTICLE LAYER (embers)             -->
+    <!-- ═══════════════════════════════════════════ -->
+    <canvas id="emberCanvas" class="fixed inset-0 z-[2] pointer-events-none"></canvas>
+
+    <!-- ═══════════════════════════════════════════ -->
+    <!--  CINEMATIC OVERLAYS                         -->
+    <!-- ═══════════════════════════════════════════ -->
+    <div class="vignette fixed inset-0 z-[3] pointer-events-none"></div>
+    <div class="scanlines fixed inset-0 z-[3] pointer-events-none"></div>
+    <div class="film-grain fixed inset-0 z-[3] pointer-events-none"></div>
+
+    <!-- Dust particles (CSS only) -->
+    <div class="dust-field fixed inset-0 z-[2] pointer-events-none" id="dustField"></div>
+
+    <!-- ═══════════════════════════════════════════ -->
+    <!--  VIDEO BACKGROUND                           -->
+    <!-- ═══════════════════════════════════════════ -->
+    <div class="fixed inset-0 z-[1] overflow-hidden bg-stone-950">
+        <video id="bgVideo" autoplay muted loop playsinline
+               class="w-full h-full object-cover video-filter">
+            <source src="video/fof.mp4" type="video/mp4">
+        </video>
+        <!-- Gradient cinematic bars + bleed -->
+        <div class="absolute inset-0 bg-gradient-to-b from-black/30 via-transparent to-black/40"></div>
+        <div class="absolute inset-0 bg-gradient-to-r from-black/20 via-transparent to-black/20"></div>
+    </div>
+
+    <!-- ═══════════════════════════════════════════ -->
+    <!--  NAVIGATION                                 -->
+    <!-- ═══════════════════════════════════════════ -->
+    <nav class="fof-nav relative z-40">
+        <div class="nav-inner max-w-7xl mx-auto px-6">
+            <div class="flex items-center justify-between h-18 py-4">
+                <div class="flex items-center gap-4">
+                    <div class="logo-badge">
+                        <i data-lucide="target" class="w-6 h-6 text-amber-200"></i>
+                    </div>
+                    <div class="logo-text">
+                        <span class="logo-title">FISTFUL OF FRAGS</span>
+                        <span class="logo-sub">Tribute</span>
+                    </div>
+                </div>
+                <a href="https://steamcommunity.com/groups/fof" target="_blank" class="steam-nav-btn">
+                    <i data-lucide="external-link" class="w-4 h-4"></i>
+                    <span>JOIN POSSE</span>
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- ═══════════════════════════════════════════ -->
+    <!--  HERO                                       -->
+    <!-- ═══════════════════════════════════════════ -->
+    <header class="hero relative z-30 min-h-screen flex items-center justify-center px-4">
+
+        <!-- Side rope ornaments -->
+        <div class="rope-left hidden lg:block"></div>
+        <div class="rope-right hidden lg:block"></div>
+
+        <!-- Bullet holes scattered -->
+        <div class="bullet fixed" style="top:18%;left:7%;width:10px;height:10px"></div>
+        <div class="bullet fixed" style="top:43%;right:9%;width:7px;height:7px"></div>
+        <div class="bullet fixed" style="bottom:28%;left:18%;width:12px;height:12px"></div>
+        <div class="bullet fixed" style="top:65%;right:22%;width:8px;height:8px"></div>
+
+        <div class="hero-center text-center">
+
+            <!-- WANTED POSTER -->
+            <div class="wanted-poster-wrap" id="posterWrap">
+                <div class="wanted-poster">
+                    <!-- Corner brackets -->
+                    <span class="corner tl"></span>
+                    <span class="corner tr"></span>
+                    <span class="corner bl"></span>
+                    <span class="corner br"></span>
+
+                    <!-- Nail dots -->
+                    <span class="nail" style="top:10px;left:10px"></span>
+                    <span class="nail" style="top:10px;right:10px"></span>
+
+                    <div class="poster-inner">
+                        <div class="poster-stars">
+                            <i data-lucide="star" class="w-5 h-5 fill-amber-500 text-amber-500 star-glow"></i>
+                            <i data-lucide="star" class="w-7 h-7 fill-amber-400 text-amber-400 star-glow" style="animation-delay:.25s"></i>
+                            <i data-lucide="star" class="w-5 h-5 fill-amber-500 text-amber-500 star-glow" style="animation-delay:.5s"></i>
+                        </div>
+                        <p class="poster-eyebrow">&#9679; THE FRONTIER AWAITS &#9679;</p>
+                        <h1 class="poster-wanted">WANTED</h1>
+                        <div class="poster-rule"></div>
+                        <h2 class="poster-dead">DEAD OR ALIVE</h2>
+                        <div class="poster-divider">
+                            <span></span><i data-lucide="crosshair" class="w-4 h-4 text-amber-700"></i><span></span>
+                        </div>
+                        <p class="poster-tagline">"The most dangerous gunslingers<br>west of the Mississippi"</p>
+                        <div class="poster-reward">
+                            <span class="reward-label">REWARD</span>
+                            <span class="reward-amount">$1,000</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- CTA Buttons -->
+            <div class="cta-group">
+                <a href="https://steamcommunity.com/groups/fof" target="_blank" class="cta-primary">
+                    <span class="cta-shine"></span>
+                    <i data-lucide="users" class="w-5 h-5"></i>
+                    <span>JOIN THE POSSE</span>
+                </a>
+                <a href="#frontier-skills" class="cta-secondary">
+                    <i data-lucide="chevron-down" class="w-5 h-5"></i>
+                    <span>LEARN MORE</span>
+                </a>
+            </div>
+
+            <!-- Scroll indicator -->
+            <div class="scroll-hint">
+                <div class="scroll-line"></div>
+            </div>
+        </div>
+    </header>
+
+    <!-- ═══════════════════════════════════════════ -->
+    <!--  FEATURES / FRONTIER SKILLS                 -->
+    <!-- ═══════════════════════════════════════════ -->
+    <section id="frontier-skills" class="features-section relative z-30 py-28 px-4">
+        <div class="section-rule top"></div>
+
+        <div class="max-w-6xl mx-auto">
+            <div class="section-header">
+                <div class="section-deco"></div>
+                <h2 class="section-title">Frontier Skills</h2>
+                <div class="section-deco"></div>
+            </div>
+
+            <div class="features-grid">
+
+                <div class="feat-card" data-delay="0">
+                    <div class="feat-glow amber"></div>
+                    <div class="feat-icon amber">
+                        <i data-lucide="crosshair" class="w-8 h-8 text-amber-300"></i>
+                    </div>
+                    <h3 class="feat-title amber">DEAD EYE</h3>
+                    <div class="feat-rule amber"></div>
+                    <p class="feat-desc">Precision shooting mechanics forged in the heat of classic western duels at high noon — every bullet counts.</p>
+                    <div class="feat-corner tl amber"></div>
+                    <div class="feat-corner br amber"></div>
+                </div>
+
+                <div class="feat-card" data-delay="100">
+                    <div class="feat-glow gold"></div>
+                    <div class="feat-icon gold">
+                        <i data-lucide="users" class="w-8 h-8 text-yellow-300"></i>
+                    </div>
+                    <h3 class="feat-title gold">POSSE UP</h3>
+                    <div class="feat-rule gold"></div>
+                    <p class="feat-desc">Team-based frontier combat with distinct outlaw classes — ride together, fight together, or die alone.</p>
+                    <div class="feat-corner tl gold"></div>
+                    <div class="feat-corner br gold"></div>
+                </div>
+
+                <div class="feat-card" data-delay="200">
+                    <div class="feat-glow red"></div>
+                    <div class="feat-icon red">
+                        <i data-lucide="flame" class="w-8 h-8 text-red-300"></i>
+                    </div>
+                    <h3 class="feat-title red">DYNAMITE</h3>
+                    <div class="feat-rule red"></div>
+                    <p class="feat-desc">Explosive period-authentic destruction — blow the saloon doors off with frontier arsenal built for chaos.</p>
+                    <div class="feat-corner tl red"></div>
+                    <div class="feat-corner br red"></div>
+                </div>
+
+            </div>
+        </div>
+
+        <div class="section-rule bottom"></div>
+    </section>
+
+    <!-- ═══════════════════════════════════════════ -->
+    <!--  SERVER INFO                                 -->
+    <!-- ═══════════════════════════════════════════ -->
+    <section id="server-info" class="servers-section relative z-30 py-28 px-4">
+        <div class="section-rule top"></div>
+
+        <div class="max-w-6xl mx-auto">
+            <div class="section-header">
+                <div class="section-deco"></div>
+                <h2 class="section-title">Frontier Servers</h2>
+                <div class="section-deco"></div>
+            </div>
+
+            <div class="servers-grid">
+
+                <!-- PVP COLUMN -->
+                <div class="server-col pvp">
+                    <div class="server-col-header pvp">
+                        <div class="server-col-icon pvp">
+                            <i data-lucide="sword" class="w-7 h-7 text-red-300"></i>
+                        </div>
+                        <h3 class="server-col-title pvp">PvP</h3>
+                        <p class="server-col-sub">Player vs Player</p>
+                    </div>
+
+                    <div class="server-list">
+
+                        <div class="server-card pvp" data-delay="0">
+                            <div class="server-status online"></div>
+                            <div class="server-info">
+                                <span class="server-name">[WL] FoF 3.9 OAF Edition</span>
+                            </div>
+                            <div class="server-meta">
+                                <span class="server-players">20 <span class="server-max"> slots</span></span>
+                            </div>
+                        </div>
+
+                        <div class="server-card pvp" data-delay="60">
+                            <div class="server-status online"></div>
+                            <div class="server-info">
+                                <span class="server-name">Fister Sisters 3.9 #1 | EU Vanilla+</span>
+                            </div>
+                            <div class="server-meta">
+                                <span class="server-players">20<span class="server-max"> slots</span></span>
+                            </div>
+                        </div>
+
+                        <div class="server-card pvp" data-delay="120">
+                            <div class="server-status online"></div>
+                            <div class="server-info">
+                                <span class="server-name">Fister Sisters 3.9 #2 | EU Modded</span>
+                            </div>
+                            <div class="server-meta">
+                                <span class="server-players">20 <span class="server-max"> slots</span></span>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div class="server-col-footer pvp">
+                        <i data-lucide="crosshair" class="w-3 h-3"></i>
+                        <span>3 · servers  </span>
+                    </div>
+                </div>
+
+                <!-- DIVIDER -->
+                <div class="servers-divider">
+                    <div class="divider-line"></div>
+                    <div class="divider-badge">
+                        <i data-lucide="star" class="w-4 h-4 fill-amber-700 text-amber-700"></i>
+                    </div>
+                    <div class="divider-line"></div>
+                </div>
+
+                <!-- COOPERATIVE COLUMN -->
+                <div class="server-col coop">
+                    <div class="server-col-header coop">
+                        <div class="server-col-icon coop">
+                            <i data-lucide="shield" class="w-7 h-7 text-amber-300"></i>
+                        </div>
+                        <h3 class="server-col-title coop">Co-Op</h3>
+                        <p class="server-col-sub">Cooperative</p>
+                    </div>
+
+                    <div class="server-list">
+
+                        <div class="server-card coop" data-delay="0">
+                            <div class="server-status online"></div>
+                            <div class="server-info">
+                                <span class="server-name">My Gaming Edge.online - Cooperative</span>
+                            </div>
+                            <div class="server-meta">
+                                <span class="server-players">8<span class="server-max"> slots</span></span>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div class="server-col-footer coop">
+                        <i data-lucide="shield" class="w-3 h-3"></i>
+                        <span>1 · servers</span>
+                    </div>
+                </div>
+
+            </div><!-- /servers-grid -->
+        </div>
+
+        <div class="section-rule bottom"></div>
+    </section>
+
+    <!-- ═══════════════════════════════════════════ -->
+    <!--  STEAM CTA / SALOON                         -->
+    <!-- ═══════════════════════════════════════════ -->
+    <section class="saloon-section relative z-30 py-32 px-4">
+        <div class="max-w-3xl mx-auto text-center">
+            <div class="saloon-card">
+                <div class="saloon-top-rule"></div>
+                <div class="saloon-bottom-rule"></div>
+                <div class="saloon-woodgrain"></div>
+
+                <div class="relative z-10 py-14 px-8">
+                    <div class="saloon-icon-wrap">
+                        <i data-lucide="door-open" class="w-10 h-10 text-amber-400 saloon-icon"></i>
+                    </div>
+                    <h2 class="saloon-title">ENTER THE SALOON</h2>
+                    <div class="saloon-rule"></div>
+                    <p class="saloon-quote">"Connect with outlaws, lawmen, and gunslingers<br>in the official Steam frontier community"</p>
+                    <a href="https://steamcommunity.com/groups/fof" target="_blank" class="steam-cta-btn">
+                        <span class="steam-cta-shine"></span>
+                        <i data-lucide="external-link" class="w-5 h-5 text-[#66c0f4]"></i>
+                        <span>JOIN ON STEAM</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ═══════════════════════════════════════════ -->
+    <!--  FOOTER                                     -->
+    <!-- ═══════════════════════════════════════════ -->
+    <footer class="fof-footer relative z-30 py-10 px-4">
+        <div class="footer-rule"></div>
+        <div class="max-w-7xl mx-auto text-center mt-8">
+            <div class="footer-ornament">
+                <div class="h-px flex-1 bg-gradient-to-r from-transparent to-amber-800/50"></div>
+                <i data-lucide="star" class="w-4 h-4 text-amber-700 fill-amber-800 mx-3 star-glow"></i>
+                <i data-lucide="target" class="w-5 h-5 text-amber-600 mx-2"></i>
+                <i data-lucide="star" class="w-4 h-4 text-amber-700 fill-amber-800 mx-3 star-glow" style="animation-delay:.4s"></i>
+                <div class="h-px flex-1 bg-gradient-to-l from-transparent to-amber-800/50"></div>
+            </div>
+            <p class="footer-text">BUILT WITH GRIT &amp; GUNPOWDER FOR FISTFUL OF FRAGS</p>
+            <p class="footer-sub">EST. 1865 &bull; FRONTIER TERRITORY &bull; ALL RIGHTS RESERVED</p>
+        </div>
+    </footer>
+
+    <script src="fof.js"></script>
+</body>
+</html>
