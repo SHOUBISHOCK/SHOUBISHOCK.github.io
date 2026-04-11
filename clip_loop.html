@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Video Loop</title>
+  <style>
+    *, *::before, *::after {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html, body {
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      background: #000;
+    }
+
+    .video-container {
+      position: fixed;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+    }
+
+    video {
+      width: 100%;
+      height: 100%;
+
+      /* Cover the entire screen, crop edges if needed */
+      object-fit: cover;
+
+      /* Alternatively, use "contain" to letterbox/pillarbox without cropping */
+      /* object-fit: contain; */
+
+      display: block;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="video-container">
+    <!--
+      Replace "your-video.mp4" with your actual video file path or URL.
+      Add multiple <source> tags for browser compatibility.
+      The "autoplay", "muted", "loop", and "playsinline" attributes ensure
+      the video starts automatically, loops endlessly, and plays on mobile.
+      Browsers require "muted" for autoplay to work without user interaction.
+    -->
+    <video
+      autoplay
+      muted
+      loop
+      playsinline
+      preload="auto"
+    >
+      <source src="https://mygamingedge.online/video/chaos_theory.mp4" type="video/mp4" />
+      Your browser does not support the video tag.
+    </video>
+  </div>
+
+</body>
+</html>
