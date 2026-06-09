@@ -1,120 +1,277 @@
-<!DOCTYPE HTML>
-<!--
-	Hyperspace by HTML5 UP
-	html5up.net | @ajlkn
-	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
--->
-<html>
-	<head>
-		<title>My Gaming Edge</title>
-		<meta property="og:title" content="My Gaming Edge">
-		<meta property="og:type" content="website">
-		<meta property="og:image" content="https://mygamingedge.online/images/support.gif">
-		<meta property="og:url" content="https://mygamingedge.online/">
-		<meta property="og:description" content="A hosting group consisting of players who deserve respect for both their skills and integrity.">
-		<meta charset="utf-8" />
-		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
-		<link rel="stylesheet" href="assets/css/main.css" />
-		<noscript><link rel="stylesheet" href="assets/css/noscript.css" /></noscript>
-		<link rel="icon" type="image/x-icon" href="images/favicon.ico">
-	</head>
-	<body class="is-preload">
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta property="og:title" content="My Gaming Edge">
+	<meta property="og:type" content="website">
+	<meta property="og:image" content="https://mygamingedge.online/images/donator.png">
+	<meta property="og:url" content="https://mygamingedge.online/">
+	<meta property="og:description" content="A hosting group consisting of players who deserve respect for both their skills and integrity.">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>Wall of Fame | My Gaming Edge</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&display=swap" rel="stylesheet">
+  <link rel="icon" type="image/x-icon" href="images/favicon.ico">
+  <style>
+    body {
+      background: radial-gradient(ellipse at center, #0f0c29, #302b63, #24243e);
+      background-attachment: fixed;
+      font-family: 'Orbitron', sans-serif;
+      color: #e2e8f0;
+      min-height: 100vh;
+      margin: 0;
+      overflow-x: hidden;
+    }
+    /* Floating stars background */
+    .stars {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 0;
+    }
+    .star {
+      position: absolute;
+      background: white;
+      border-radius: 50%;
+      animation: float linear infinite;
+    }
+    @keyframes float {
+      0% { transform: translateY(0) translateX(0); opacity: 0.7; }
+      100% { transform: translateY(-100vh) translateX(20px); opacity: 0; }
+    }
+    /* Glowing card for each donor */
+    .donor-card {
+      background: rgba(255, 255, 255, 0.05);
+      backdrop-filter: blur(8px);
+      border: 1px solid rgba(255, 215, 0, 0.3);
+      border-radius: 16px;
+      transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      position: relative;
+      overflow: hidden;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: 100px;
+      padding: 1.5rem 1rem;
+      cursor: default;
+      z-index: 1;
+    }
+    .donor-card:hover {
+      transform: translateY(-6px) scale(1.05);
+      box-shadow: 0 12px 30px rgba(255, 215, 0, 0.4), 0 0 20px rgba(255, 200, 0, 0.3);
+      border-color: gold;
+      background: rgba(255, 255, 255, 0.1);
+    }
+    .donor-card::before {
+      content: '';
+      position: absolute;
+      top: -50%;
+      left: -50%;
+      width: 200%;
+      height: 200%;
+      background: radial-gradient(circle, rgba(255,215,0,0.1) 0%, transparent 70%);
+      opacity: 0;
+      transition: opacity 0.4s;
+      pointer-events: none;
+    }
+    .donor-card:hover::before {
+      opacity: 1;
+    }
+    .donor-name {
+      font-weight: 700;
+      font-size: 1.25rem;
+      text-shadow: 0 0 8px rgba(255,215,0,0.6);
+      text-align: center;
+      word-break: break-word;
+    }
+    .dynamic-message {
+      font-size: 0.8rem;
+      color: #fbbf24;
+      text-shadow: 0 0 6px rgba(251,191,36,0.8);
+      margin-top: 0.5rem;
+      opacity: 0;
+      max-height: 0;
+      overflow: hidden;
+      transition: all 0.4s ease;
+      text-align: center;
+    }
+    .donor-card:hover .dynamic-message {
+      opacity: 1;
+      max-height: 2.5rem;
+      margin-top: 0.75rem;
+    }
+    /* Patreon image styling */
+    .patreon-link img {
+      transition: transform 0.3s, filter 0.3s;
+      filter: drop-shadow(0 0 10px rgba(255,215,0,0.6));
+    }
+    .patreon-link:hover img {
+      transform: scale(1.05);
+      filter: drop-shadow(0 0 20px rgba(255,215,0,0.9));
+    }
+    h1 {
+      text-shadow: 0 0 20px rgba(255,215,0,0.8);
+    }
+    /* Responsive grid */
+    .donor-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+      gap: 1.5rem;
+      width: 100%;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 2rem 1rem;
+    }
+    @media (max-width: 640px) {
+      .donor-grid {
+        grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+        gap: 1rem;
+      }
+      .donor-card {
+        min-height: 80px;
+        padding: 1rem 0.75rem;
+      }
+      .donor-name {
+        font-size: 1rem;
+      }
+    }
+  </style>
+</head>
+<body class="flex flex-col items-center justify-start min-h-screen relative">
 
-		<!-- Header -->
-			<header id="header">
-				<a href="index.html" class="title">My Gaming Edge</a>
-				<nav>
-					<ul>
-						<li><a href="index.html">Home</a></li>
-						<!--<li><a href="generic.html" class="active">Generic</a></li></li>-->
-						<!--<li><a href="elements.html">Elements</a></li>-->
-					</ul>
-				</nav>
-			</header>
+  <!-- Animated star background -->
+  <div class="stars" id="stars"></div>
 
-		<!-- Wrapper -->
-			<div id="wrapper">
+  <!-- Main content -->
+  <div class="relative z-10 w-full flex flex-col items-center pt-10 px-4">
 
-				<!-- Main -->
-					<section id="main" class="wrapper">
-						<div class="inner">
-							<h1 class="major">Wall of Fame</h1>
-							<span class="image fit"><a href="https://www.patreon.com/mygamingedge"><img src="images/support.gif" alt="" /></a></span>
-							<pre style="color:GoldenRod;font-size:21px;">
-'Dora' 
-'eafitman' 
-'Older' 
-'MisterReaper' 
-'Ragnar El SpoutniK_' 
-'Rich Douglas' 
-'Shadow Rage' 
-'Cthulhu' 
-'Skeep' 
-'Marcel the Virginian' 
-'PetiteSalade' 
-'Comrade Rashka' 
-'3700X(CF RX580)Linux'
-'Tomx271' 
-'Pippin' 
-'RedRogueXIII' 
-'Legatus' 
-'LupinWulf ' 
-'[Mossad] No Name' 
-'The Kommissar' 
-'Crimson Dragon' 
-'tokrishi' 
-'ZACH!?#5381'
-'Laantu' 
-'Grim' 
-'Nat' 
-'Major Anticlimax'
-'VanWilson'
-'Tollski'
-'Igor Bogdanoff'
-'Adam Bayonetmaaaaan!'
-'Raccie!'
-'FluX!'
-'ChubbiestPecker'
-'Smaïn'
-'❟❛❟ NB1318 ❟❛❟'
-'rye'
-'Velkotrix'
-'Steeve'
-'paollus'
-'Your Favorite Clown'
-'MsieuLeBreton'
-'Clee'
-'Pivades'
-'Lt. Boink Mc Zoink'
-'boxogon'
-'DNARNAMODIFICATION'
-'dog style'
-'Ginzu'
-'2RV'
-</pre>
-						</div>
-					</section>
-<script src="https://static.elfsight.com/platform/platform.js" data-use-service-core defer></script>
+    <!-- Header with Patreon support image -->
+    <a href="https://mygamingedge.online/index.html" class="self-start mb-4 text-yellow-400 hover:text-yellow-300 font-bold inline-flex items-center gap-2 transition-colors">
+      <i data-lucide="home" class="w-5 h-5"></i> Home
+    </a>
+    <a href="https://www.patreon.com/mygamingedge" target="_blank" rel="noopener noreferrer" class="patreon-link mb-8">
+      <img src="https://mygamingedge.online/images/support.gif" alt="Support us on Patreon" class="max-w-[280px] h-auto mx-auto rounded-2xl">
+    </a>
+
+    <h1 class="text-4xl md:text-5xl font-black text-yellow-300 mb-2 text-center tracking-wider">
+      ⚔️ WALL OF FAME ⚔️
+    </h1>
+    <p class="text-lg text-purple-300 mb-10 font-light tracking-wide">Legends who fuel the edge</p>
+
+    <!-- Donor grid (populated by JS) -->
+    <div id="donorGrid" class="donor-grid"></div>
+    <footer class="mt-12 text-sm text-purple-300 opacity-80 text-center">
+      No rights reserved. 🚀
+    </footer>
+	<script src="https://static.elfsight.com/platform/platform.js" data-use-service-core defer></script>
 <div class="elfsight-app-7b50746d-5be3-46f1-aa75-d76922c7d6bf" data-elfsight-app-lazy></div>
-			</div>
 
-		<!-- Footer -->
-			<footer id="footer" class="wrapper alt">
-				<div class="inner">
-					<ul class="menu">
-						<li>Copyright © 2019 - 2026 | My Gaming Edge - No Rights Reserved. Built upon Hyperspace site template designed by html5up.net </li>
-					</ul>
-				</div>
-			</footer>
+  </div>
 
-		<!-- Scripts -->
-			<script src="assets/js/jquery.min.js"></script>
-			<script src="assets/js/jquery.scrollex.min.js"></script>
-			<script src="assets/js/jquery.scrolly.min.js"></script>
-			<script src="assets/js/browser.min.js"></script>
-			<script src="assets/js/breakpoints.min.js"></script>
-			<script src="assets/js/util.js"></script>
-			<script src="assets/js/main.js"></script>
+  <!-- Lucide Icons -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <script>
+    lucide.createIcons();
+  </script>
 
-	</body>
+  <script>
+    (function() {
+      // List of donors from original page (cleaned)
+      const donors = [
+        'Dora', 'eafitman', 'Older', 'MisterReaper', 'Ragnar El SpoutniK_',
+        'Rich Douglas', 'Shadow Rage', 'Cthulhu', 'Skeep', 'Marcel the Virginian',
+        'PetiteSalade', 'Comrade Rashka', '3700X(CF RX580)Linux', 'Tomx271',
+        'Pippin', 'RedRogueXIII', 'Legatus', 'LupinWulf', '[Mossad] No Name',
+        'The Kommissar', 'Crimson Dragon', 'tokrishi', 'ZACH!?#5381', 'Laantu',
+        'Grim', 'Nat', 'Major Anticlimax', 'VanWilson', 'Tollski',
+        'Igor Bogdanoff', 'Adam Bayonetmaaaaan!', 'Raccie!', 'FluX!',
+        'ChubbiestPecker', 'Smaïn', '❟❛❟ NB1318 ❟❛❟', 'rye', 'Velkotrix',
+        'Steeve', 'paollus', 'Your Favorite Clown', 'MsieuLeBreton', 'Clee',
+        'Pivades', 'Lt. Boink Mc Zoink', 'boxogon', 'DNARNAMODIFICATION',
+        'dog style', 'Ginzu', '2RV'
+      ];
+
+      // Dynamic messages pool
+      const messages = [
+        "Legendary Support!", "Power Up!", "Game Changer!", "Critical Hit!",
+        "Ultimate Donor!", "S++ Tier Backer!", "Boss Level!",
+        "Ace in the Hole!", "XP Boosted!", "Next Level!",
+        "High Score!", "No Scope!", "GG WP!", "Headshot!",
+        "Full Armor!", "MVP!", "Savior of the Realm!",
+        "Dragon Slayer!", "Loot Goblin!", "Crit Rate Up!",
+        "Thanks, Commander!", "You're a Wizard!", "Spartan Defender!",
+        "Top Tier!", "Elite Operative!", "True Gamer!",
+        "Respect +100", "Magic Find!", "Double XP!"
+      ];
+
+      // Function to pick random message
+      function randomMessage() {
+        return messages[Math.floor(Math.random() * messages.length)];
+      }
+
+      // Shuffle donors for random order each load (optional, original had specific order but we can keep)
+      // We'll keep original order to respect "same content"
+      const grid = document.getElementById('donorGrid');
+
+      donors.forEach(donor => {
+        const card = document.createElement('div');
+        card.className = 'donor-card';
+
+        const iconSpan = document.createElement('span');
+        iconSpan.className = 'mb-1 text-yellow-400';
+        iconSpan.innerHTML = '<i data-lucide="star" class="w-5 h-5 inline-block"></i>';
+        // Lucide icons need to be recreated after insert, but we'll add after.
+
+        const nameSpan = document.createElement('span');
+        nameSpan.className = 'donor-name';
+        nameSpan.textContent = donor;
+
+        const messageSpan = document.createElement('span');
+        messageSpan.className = 'dynamic-message';
+        messageSpan.textContent = randomMessage();
+
+        card.appendChild(iconSpan);
+        card.appendChild(nameSpan);
+        card.appendChild(messageSpan);
+        grid.appendChild(card);
+      });
+
+      // Re-initialize lucide icons for dynamically added elements
+      lucide.createIcons();
+
+      // Optionally shuffle messages on click? No, they are assigned once.
+      // We can add a button to refresh messages? Not required, but fun.
+      // For more eye candy we could add a "reroll messages" button, but let's keep simple.
+    })();
+  </script>
+
+  <!-- Starfield background animation script -->
+  <script>
+    (function() {
+      const starsContainer = document.getElementById('stars');
+      const starCount = 100;
+      for (let i = 0; i < starCount; i++) {
+        const star = document.createElement('div');
+        star.className = 'star';
+        const size = Math.random() * 3 + 1;
+        star.style.width = size + 'px';
+        star.style.height = size + 'px';
+        star.style.left = Math.random() * 100 + '%';
+        star.style.top = Math.random() * 100 + '%';
+        star.style.animationDuration = Math.random() * 10 + 8 + 's';
+        star.style.animationDelay = Math.random() * 5 + 's';
+        star.style.opacity = Math.random() * 0.7 + 0.3;
+        starsContainer.appendChild(star);
+      }
+    })();
+  </script>
+<script src="https://deepsite.hf.co/deepsite-badge.js"></script>
+</body>
 </html>
