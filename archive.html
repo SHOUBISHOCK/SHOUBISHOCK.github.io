@@ -138,15 +138,18 @@
         .project-card:hover::before {
             transform: translateX(100%);
         }
+
         .video-panel {
-            height: 0;
+            max-height: 0;
             overflow: hidden;
-            transition: height 0.5s ease;
+            transition: max-height 0.5s ease;
         }
+
         .video-panel.active {
-            height: auto;
+            max-height: 1200px; /* tall enough for 2 videos + ASSETS/CONS grid */
             padding-bottom: 1rem;
         }
+
         .video-container {
             position: relative;
             padding-bottom: 56.25%; /* 16:9 Aspect Ratio */
