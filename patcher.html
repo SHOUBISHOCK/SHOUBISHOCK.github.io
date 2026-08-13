@@ -190,6 +190,12 @@ On top of this they will fake any information they can, different map names, ser
 And during the times less HL2DM players are online their effect is amplified since it will be harder for steam's server to detect which server has legitimate players online.<br>
 
 Because they constantly change their details and the ports the servers run on blocking them using the in game blocking buttons is almost impossible.<br> This method you can use to block the spam properly. </p>
+
+<p>Make usage of the <a href="https://steamdb.info/app/222880/config/" target="_blank" rel="noopener noreferrer">x64 bit version architecture of INS</a> (default is 32-bit), which crashes on specific custom maps due to an ancient Source engine problem called an <strong>Engine Hunk Overflow</strong>.</p>
+
+<p>Due to differences in memory limits between the 32-bit and 64-bit versions, this issue is practically only seen in the 32-bit game client or server. Thus, it's recommended to use the 64-bit game client or add <code>+r_hunkalloclightmaps 0</code> to your game launch options.</p>
+
+<p>The same issue has been reported for DOI and has been fixed by Saber/NWI: <a href="https://steamdb.info/app/447820/history/?changeid=33187052" target="_blank" rel="noopener noreferrer">SteamDB change history</a></p>
                 </div>
                 </div>
     <section id="features" class="py-20 bg-dark-800">
