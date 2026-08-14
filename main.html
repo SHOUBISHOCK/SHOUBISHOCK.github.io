@@ -339,7 +339,14 @@
     }
     var activeThumb = thumbEls[current];
     if (activeThumb) {
-      activeThumb.scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' });
+      // Scroll only the thumbnail strip horizontally — never the page.
+      // (scrollIntoView is intentionally NOT used here: it can decide the
+      // "nearest" scroll container is the whole document and yank the
+      // page back to the top, which is the bug this replaces.)
+      var target = activeThumb.offsetLeft
+        - (thumbs.clientWidth / 2)
+        + (activeThumb.clientWidth / 2);
+      thumbs.scrollTo({ left: target, behavior: 'smooth' });
     }
   }
 
