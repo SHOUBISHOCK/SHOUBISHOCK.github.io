@@ -98,8 +98,317 @@
         <!-- Intro -->
         <section id="ms" class="wrapper style1 fullscreen fade-up">
             <div class="inner">
-                <script src="https://static.elfsight.com/platform/platform.js" data-use-service-core defer></script>
-                <div class="elfsight-app-73d4f989-eb62-419d-b120-ad14c44eb958" data-elfsight-app-lazy></div>
+
+<!-- ============================================================
+     My Gaming Edge — Screenshot/GIF Slider (raw GitHub images)
+     Drop this in place of the old Elfsight <script>/<div> block.
+     No external dependencies. Matches the dark theme already used
+     on the page (section-card / glow-hover / #3b82f6 accent).
+============================================================= -->
+<style>
+  .mge-slider {
+    --mge-border: #2a2a2a;
+    --mge-accent: #3b82f6;
+    background: linear-gradient(145deg, #1a1a1a 0%, #141414 100%);
+    border: 1px solid var(--mge-border);
+    border-radius: 0.5rem;
+    padding: 1rem;
+    max-width: 100%;
+  }
+  .mge-slider__viewer {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    background: #000;
+    border-radius: 0.375rem;
+    overflow: hidden;
+    border: 1px solid var(--mge-border);
+  }
+  .mge-slider__track {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    height: 100%;
+    transition: transform 0.4s ease;
+    will-change: transform;
+  }
+  .mge-slider__slide {
+    flex: 0 0 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .mge-slider__slide img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    background: #000;
+    cursor: zoom-in;
+  }
+  .mge-slider__nav {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: rgba(0,0,0,0.55);
+    color: #e0e0e0;
+    border: 1px solid var(--mge-border);
+    width: 2.25rem;
+    height: 2.25rem;
+    border-radius: 9999px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    font-size: 1.1rem;
+    line-height: 1;
+    user-select: none;
+    transition: all 0.2s ease;
+    z-index: 2;
+  }
+  .mge-slider__nav:hover {
+    background: rgba(0,0,0,0.8);
+    border-color: var(--mge-accent);
+    color: var(--mge-accent);
+  }
+  .mge-slider__nav--prev { left: 0.6rem; }
+  .mge-slider__nav--next { right: 0.6rem; }
+  .mge-slider__counter {
+    position: absolute;
+    bottom: 0.6rem;
+    right: 0.75rem;
+    background: rgba(0,0,0,0.55);
+    color: #cfcfcf;
+    font-size: 0.7rem;
+    padding: 0.15rem 0.5rem;
+    border-radius: 9999px;
+    border: 1px solid var(--mge-border);
+    z-index: 2;
+  }
+  .mge-slider__badge {
+    position: absolute;
+    top: 0.6rem;
+    left: 0.6rem;
+    background: rgba(59,130,246,0.85);
+    color: #fff;
+    font-size: 0.65rem;
+    font-weight: 600;
+    letter-spacing: 0.03em;
+    padding: 0.15rem 0.45rem;
+    border-radius: 0.25rem;
+    z-index: 2;
+    text-transform: uppercase;
+  }
+  .mge-slider__thumbs {
+    display: flex;
+    gap: 0.4rem;
+    overflow-x: auto;
+    margin-top: 0.75rem;
+    padding-bottom: 0.25rem;
+    scrollbar-width: thin;
+    scrollbar-color: #333 transparent;
+  }
+  .mge-slider__thumbs::-webkit-scrollbar { height: 6px; }
+  .mge-slider__thumbs::-webkit-scrollbar-thumb { background: #333; border-radius: 4px; }
+  .mge-slider__thumb {
+    flex: 0 0 auto;
+    width: 3.75rem;
+    height: 2.4rem;
+    border-radius: 0.25rem;
+    overflow: hidden;
+    border: 2px solid transparent;
+    cursor: pointer;
+    opacity: 0.55;
+    transition: opacity 0.2s ease, border-color 0.2s ease;
+  }
+  .mge-slider__thumb img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .mge-slider__thumb:hover { opacity: 0.85; }
+  .mge-slider__thumb.is-active {
+    opacity: 1;
+    border-color: var(--mge-accent);
+  }
+  .mge-slider__lightbox {
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.9);
+    display: none;
+    align-items: center;
+    justify-content: center;
+    z-index: 9999;
+    padding: 2rem;
+    cursor: zoom-out;
+  }
+  .mge-slider__lightbox.is-open { display: flex; }
+  .mge-slider__lightbox img {
+    max-width: 100%;
+    max-height: 100%;
+    border-radius: 0.375rem;
+    box-shadow: 0 10px 40px rgba(0,0,0,0.6);
+  }
+  .mge-slider__lightbox-close {
+    position: absolute;
+    top: 1rem;
+    right: 1.25rem;
+    color: #e0e0e0;
+    font-size: 1.75rem;
+    cursor: pointer;
+    line-height: 1;
+  }
+</style>
+
+<div class="mge-slider" id="mgeSlider">
+  <div class="mge-slider__viewer">
+    <span class="mge-slider__badge" id="mgeSliderBadge">JPG</span>
+    <div class="mge-slider__track" id="mgeSliderTrack"></div>
+    <div class="mge-slider__nav mge-slider__nav--prev" id="mgeSliderPrev">&#10094;</div>
+    <div class="mge-slider__nav mge-slider__nav--next" id="mgeSliderNext">&#10095;</div>
+    <span class="mge-slider__counter" id="mgeSliderCounter">1 / 1</span>
+  </div>
+  <div class="mge-slider__thumbs" id="mgeSliderThumbs"></div>
+</div>
+
+<div class="mge-slider__lightbox" id="mgeSliderLightbox">
+  <span class="mge-slider__lightbox-close">&times;</span>
+  <img id="mgeSliderLightboxImg" src="" alt="">
+</div>
+
+<script>
+(function () {
+  // ---- CONFIG -------------------------------------------------
+  // Base raw-image path. Adjust the owner/repo if this isn't right —
+  // it currently points at the images/slider/main folder shown in
+  // your GitHub Pages repo.
+  var BASE_URL = 'https://shoubishock.github.io/images/slider/main/';
+
+  // Filenames exactly as they appear in the folder (jpg + gif mixed).
+  var FILES = [
+    '1.jpg', '2.jpg', '3.jpg', '4.jpg',
+    '5.gif', '6.gif', '7.gif', '8.gif', '9.gif',
+    '10.jpg', '11.jpg', '12.jpg', '13.jpg',
+    '14.gif',
+    '15.jpg', '16.jpg', '17.jpg', '18.jpg', '19.jpg'
+  ];
+
+  var AUTOPLAY_MS = 4500;
+  // ---------------------------------------------------------------
+
+  var track = document.getElementById('mgeSliderTrack');
+  var thumbs = document.getElementById('mgeSliderThumbs');
+  var counter = document.getElementById('mgeSliderCounter');
+  var badge = document.getElementById('mgeSliderBadge');
+  var prevBtn = document.getElementById('mgeSliderPrev');
+  var nextBtn = document.getElementById('mgeSliderNext');
+  var slider = document.getElementById('mgeSlider');
+  var lightbox = document.getElementById('mgeSliderLightbox');
+  var lightboxImg = document.getElementById('mgeSliderLightboxImg');
+  var lightboxClose = lightbox.querySelector('.mge-slider__lightbox-close');
+
+  var current = 0;
+  var timer = null;
+
+  FILES.forEach(function (file, i) {
+    var url = BASE_URL + file;
+
+    var slide = document.createElement('div');
+    slide.className = 'mge-slider__slide';
+    var img = document.createElement('img');
+    img.src = url;
+    img.alt = 'Screenshot ' + (i + 1);
+    img.loading = i === 0 ? 'eager' : 'lazy';
+    img.addEventListener('click', function () { openLightbox(url); });
+    slide.appendChild(img);
+    track.appendChild(slide);
+
+    var thumb = document.createElement('div');
+    thumb.className = 'mge-slider__thumb';
+    var tImg = document.createElement('img');
+    tImg.src = url;
+    tImg.loading = 'lazy';
+    tImg.alt = 'Thumbnail ' + (i + 1);
+    thumb.appendChild(tImg);
+    thumb.addEventListener('click', function () { goTo(i); resetAutoplay(); });
+    thumbs.appendChild(thumb);
+  });
+
+  function update() {
+    track.style.transform = 'translateX(-' + (current * 100) + '%)';
+    counter.textContent = (current + 1) + ' / ' + FILES.length;
+    badge.textContent = FILES[current].split('.').pop().toUpperCase();
+
+    var thumbEls = thumbs.children;
+    for (var i = 0; i < thumbEls.length; i++) {
+      thumbEls[i].classList.toggle('is-active', i === current);
+    }
+    var activeThumb = thumbEls[current];
+    if (activeThumb) {
+      activeThumb.scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' });
+    }
+  }
+
+  function goTo(i) {
+    current = (i + FILES.length) % FILES.length;
+    update();
+  }
+
+  function next() { goTo(current + 1); }
+  function prev() { goTo(current - 1); }
+
+  function startAutoplay() {
+    timer = setInterval(next, AUTOPLAY_MS);
+  }
+  function resetAutoplay() {
+    clearInterval(timer);
+    startAutoplay();
+  }
+
+  prevBtn.addEventListener('click', function () { prev(); resetAutoplay(); });
+  nextBtn.addEventListener('click', function () { next(); resetAutoplay(); });
+
+  slider.addEventListener('mouseenter', function () { clearInterval(timer); });
+  slider.addEventListener('mouseleave', function () { startAutoplay(); });
+
+  // Touch swipe
+  var touchStartX = null;
+  track.addEventListener('touchstart', function (e) {
+    touchStartX = e.touches[0].clientX;
+  }, { passive: true });
+  track.addEventListener('touchend', function (e) {
+    if (touchStartX === null) return;
+    var dx = e.changedTouches[0].clientX - touchStartX;
+    if (Math.abs(dx) > 40) { dx < 0 ? next() : prev(); resetAutoplay(); }
+    touchStartX = null;
+  });
+
+  // Keyboard nav when the slider has focus
+  slider.setAttribute('tabindex', '0');
+  slider.addEventListener('keydown', function (e) {
+    if (e.key === 'ArrowLeft') { prev(); resetAutoplay(); }
+    if (e.key === 'ArrowRight') { next(); resetAutoplay(); }
+  });
+
+  function openLightbox(url) {
+    lightboxImg.src = url;
+    lightbox.classList.add('is-open');
+    clearInterval(timer);
+  }
+  function closeLightbox() {
+    lightbox.classList.remove('is-open');
+    lightboxImg.src = '';
+    startAutoplay();
+  }
+  lightboxClose.addEventListener('click', closeLightbox);
+  lightbox.addEventListener('click', function (e) {
+    if (e.target === lightbox) closeLightbox();
+  });
+  document.addEventListener('keydown', function (e) {
+    if (e.key === 'Escape' && lightbox.classList.contains('is-open')) closeLightbox();
+  });
+
+  update();
+  startAutoplay();
+})();
+</script>
+				
                 <iframe src="https://discord.com/widget?id=815707365101404210&theme=dark" width="350" height="500" allowtransparency="true" frameborder="0" sandbox="allow-popups allow-popups-to-escape-sandbox allow-same-origin allow-scripts"></iframe>
             </div>
         </section>
