@@ -1,0 +1,516 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Hosting Cost Requisition — My Gaming Edge</title>
+<meta name="robots" content="noindex">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Stencil:wght@500;700;900&family=Oswald:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  /* ============================================================
+     Scoped, prefixed styles — this page is fully self-contained
+     and does not rely on / interact with any site-wide CSS.
+     ============================================================ */
+
+  .mge-cost-page, .mge-cost-page *, .mge-cost-page *::before, .mge-cost-page *::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
+
+  .mge-cost-page {
+    --mge-ink:        #1a1c14;
+    --mge-panel:       #22251a;
+    --mge-panel-2:     #262a1c;
+    --mge-line:        #47492f;
+    --mge-line-dim:    #34361f;
+    --mge-khaki:       #d9d3ba;
+    --mge-khaki-dim:   #98957f;
+    --mge-amber:       #e2a63c;
+    --mge-amber-dim:   #a97e33;
+    --mge-red:         #c1584a;
+    --mge-green:       #7f9a5e;
+
+    --mge-font-display: 'Big Shoulders Stencil', sans-serif;
+    --mge-font-head:    'Oswald', sans-serif;
+    --mge-font-mono:    'JetBrains Mono', monospace;
+
+    background: var(--mge-ink);
+    background-image:
+      radial-gradient(circle at 15% 8%, rgba(226,166,60,0.05), transparent 40%),
+      repeating-linear-gradient(0deg, rgba(255,255,255,0.012) 0px, rgba(255,255,255,0.012) 1px, transparent 1px, transparent 3px);
+    color: var(--mge-khaki);
+    font-family: var(--mge-font-head);
+    min-height: 100vh;
+    padding: 48px 20px 80px;
+    line-height: 1.5;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  .mge-cost-wrap {
+    max-width: 980px;
+    margin: 0 auto;
+  }
+
+  /* ---------- Header ---------- */
+  .mge-cost-eyebrow {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-family: var(--mge-font-mono);
+    font-size: 11px;
+    letter-spacing: 0.28em;
+    text-transform: uppercase;
+    color: var(--mge-amber);
+    margin-bottom: 18px;
+  }
+  .mge-cost-eyebrow::before {
+    content: "";
+    width: 8px;
+    height: 8px;
+    background: var(--mge-amber);
+    display: inline-block;
+    transform: rotate(45deg);
+    flex: none;
+  }
+  .mge-cost-eyebrow-line {
+    flex: 1;
+    height: 1px;
+    background: var(--mge-line);
+  }
+
+  .mge-cost-title {
+    font-family: var(--mge-font-display);
+    font-weight: 700;
+    font-size: clamp(40px, 7vw, 74px);
+    line-height: 0.92;
+    letter-spacing: 0.01em;
+    color: var(--mge-khaki);
+    text-transform: uppercase;
+  }
+  .mge-cost-title span {
+    color: var(--mge-amber);
+  }
+
+  .mge-cost-sub {
+    margin-top: 14px;
+    max-width: 620px;
+    color: var(--mge-khaki-dim);
+    font-size: 15px;
+  }
+  .mge-cost-sub b { color: var(--mge-khaki); font-weight: 600; }
+
+  .mge-cost-meta {
+    margin-top: 22px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px 26px;
+    font-family: var(--mge-font-mono);
+    font-size: 11px;
+    letter-spacing: 0.05em;
+    color: var(--mge-khaki-dim);
+    border-top: 1px dashed var(--mge-line);
+    padding-top: 14px;
+  }
+  .mge-cost-meta span b { color: var(--mge-amber); font-weight: 600; }
+
+  /* ---------- Comparator ---------- */
+  .mge-cost-comparator {
+    position: relative;
+    margin-top: 40px;
+    border: 1px solid var(--mge-line);
+    background: var(--mge-panel);
+    user-select: none;
+    isolation: isolate;
+  }
+  .mge-cost-comparator::before {
+    /* corner ticks, dossier folder feel */
+    content: "";
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    border: 1px solid transparent;
+    background:
+      linear-gradient(var(--mge-panel), var(--mge-panel)) padding-box,
+      repeating-linear-gradient(90deg, var(--mge-line-dim) 0 10px, transparent 10px 20px) 0 0 / 100% 1px no-repeat;
+    background-position: top;
+  }
+
+  .mge-cost-stamp {
+    position: absolute;
+    top: 14px;
+    right: 16px;
+    z-index: 5;
+    font-family: var(--mge-font-mono);
+    font-size: 10px;
+    letter-spacing: 0.22em;
+    color: var(--mge-khaki-dim);
+    border: 1px solid var(--mge-line);
+    padding: 4px 8px;
+    transform: rotate(2deg);
+    pointer-events: none;
+  }
+
+  .mge-cost-layer {
+    padding: 30px 24px 26px;
+  }
+
+  .mge-cost-layer-tag {
+    display: inline-block;
+    font-family: var(--mge-font-mono);
+    font-size: 11px;
+    letter-spacing: 0.24em;
+    text-transform: uppercase;
+    padding: 3px 9px;
+    border: 1px solid currentColor;
+    margin-bottom: 20px;
+  }
+
+  .mge-cost-section-label {
+    font-family: var(--mge-font-mono);
+    font-size: 11px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--mge-khaki-dim);
+    margin: 22px 0 8px;
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+  }
+  .mge-cost-section-label span.mge-cost-unchanged {
+    color: var(--mge-khaki-dim);
+    font-style: italic;
+    letter-spacing: 0.05em;
+    text-transform: none;
+  }
+
+  table.mge-cost-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-family: var(--mge-font-mono);
+    font-size: 13.5px;
+  }
+  .mge-cost-table th {
+    text-align: left;
+    font-weight: 500;
+    color: var(--mge-khaki-dim);
+    font-size: 10.5px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    padding-bottom: 6px;
+    border-bottom: 1px solid var(--mge-line);
+  }
+  .mge-cost-table th:not(:first-child),
+  .mge-cost-table td:not(:first-child) {
+    text-align: right;
+    width: 110px;
+  }
+  .mge-cost-table td {
+    padding: 8px 0;
+    border-bottom: 1px solid var(--mge-line-dim);
+    color: var(--mge-khaki);
+  }
+  .mge-cost-table tr.mge-cost-row-total td {
+    border-bottom: none;
+    border-top: 1px solid var(--mge-line);
+    padding-top: 9px;
+    font-weight: 700;
+    color: var(--mge-amber);
+  }
+  /* ---------- Dynamic highlight (driven by slider position) ---------- */
+  .mge-cost-hl-before {
+    background: rgba(193,88,74, var(--mge-glow-before, 0.12));
+    box-shadow: inset 0 0 0 1px rgba(193,88,74, calc(var(--mge-glow-before, 0.12) + 0.25));
+    color: var(--mge-red);
+  }
+  .mge-cost-hl-after {
+    background: rgba(127,154,94, var(--mge-glow-after, 0.12));
+    box-shadow: inset 0 0 0 1px rgba(127,154,94, calc(var(--mge-glow-after, 0.12) + 0.25));
+    color: var(--mge-green);
+  }
+  @media (prefers-reduced-motion: no-preference) {
+    .mge-cost-hl-before, .mge-cost-hl-after { transition: background 0.05s linear, box-shadow 0.05s linear; }
+  }
+
+  .mge-cost-totals {
+    margin-top: 24px;
+    padding-top: 16px;
+    border-top: 1px dashed var(--mge-line);
+    font-family: var(--mge-font-mono);
+    font-size: 13px;
+  }
+  .mge-cost-totals-row {
+    display: flex;
+    justify-content: space-between;
+    padding: 5px 0;
+    color: var(--mge-khaki-dim);
+  }
+  .mge-cost-totals-row b { color: var(--mge-khaki); font-weight: 600; }
+  .mge-cost-totals-row.mge-cost-net {
+    margin-top: 6px;
+    padding-top: 10px;
+    border-top: 1px solid var(--mge-line);
+    color: var(--mge-khaki);
+    font-size: 15px;
+  }
+  .mge-cost-totals-row.mge-cost-net b {
+    color: var(--mge-amber);
+    font-family: var(--mge-font-display);
+    font-size: 22px;
+    letter-spacing: 0.02em;
+  }
+
+  /* Layers stacked: BEFORE is the base, AFTER sits on top and gets clipped */
+  .mge-cost-layer-before {
+    color: var(--mge-khaki-dim);
+  }
+  .mge-cost-layer-before .mge-cost-layer-tag {
+    color: var(--mge-khaki-dim);
+  }
+
+  .mge-cost-layer-after {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: var(--mge-panel);
+    clip-path: inset(0 0 0 var(--mge-clip, 50%));
+    border-left: 1px solid var(--mge-amber);
+  }
+  .mge-cost-layer-after .mge-cost-layer-tag {
+    color: var(--mge-amber);
+    border-color: var(--mge-amber);
+  }
+
+  .mge-cost-stack {
+    position: relative;
+  }
+
+  /* ---------- Slider control ---------- */
+  .mge-cost-slider-track {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: var(--mge-clip, 50%);
+    width: 0;
+    z-index: 6;
+    pointer-events: none;
+  }
+  .mge-cost-slider-handle {
+    position: absolute;
+    top: 50%;
+    left: 0;
+    transform: translate(-50%, -50%);
+    width: 46px;
+    height: 46px;
+    border-radius: 50%;
+    background: var(--mge-panel-2);
+    border: 2px solid var(--mge-amber);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 0 0 6px rgba(20,21,14,0.55), 0 4px 14px rgba(0,0,0,0.5);
+    pointer-events: none;
+  }
+  .mge-cost-slider-handle::before {
+    content: "◂ ▸";
+    font-family: var(--mge-font-mono);
+    font-size: 11px;
+    letter-spacing: 2px;
+    color: var(--mge-amber);
+  }
+
+  .mge-cost-range {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    z-index: 7;
+    opacity: 0;
+    cursor: ew-resize;
+    -webkit-appearance: none;
+    appearance: none;
+  }
+  .mge-cost-range::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    width: 46px;
+    height: 100%;
+  }
+  .mge-cost-range::-moz-range-thumb {
+    width: 46px;
+    height: 100%;
+    border: none;
+    background: transparent;
+  }
+
+  .mge-cost-flags {
+    display: flex;
+    justify-content: space-between;
+    padding: 0 24px;
+    margin-top: -1px;
+    position: relative;
+    z-index: 4;
+    pointer-events: none;
+  }
+  .mge-cost-flags span {
+    font-family: var(--mge-font-mono);
+    font-size: 10px;
+    letter-spacing: 0.2em;
+    color: var(--mge-khaki-dim);
+    padding: 6px 0;
+  }
+
+  /* ---------- Footer ---------- */
+    margin-top: 28px;
+    font-family: var(--mge-font-mono);
+    font-size: 10.5px;
+    color: var(--mge-khaki-dim);
+    letter-spacing: 0.04em;
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 8px;
+    border-top: 1px dashed var(--mge-line);
+    padding-top: 14px;
+  }
+
+  @media (max-width: 620px) {
+    .mge-cost-table th:not(:first-child), .mge-cost-table td:not(:first-child) { width: auto; }
+    .mge-cost-layer { padding: 24px 16px 20px; }
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    .mge-cost-layer-after { transition: clip-path 0.05s linear; }
+  }
+</style>
+</head>
+<body>
+<div class="mge-cost-page">
+  <div class="mge-cost-wrap">
+
+    <div class="mge-cost-eyebrow">OPS / BUDGET LEDGER<span class="mge-cost-eyebrow-line"></span>MY GAMING EDGE</div>
+    <h1 class="mge-cost-title">Hosting Cost<br><span>Requisition</span></h1>
+    <p class="mge-cost-sub">
+      Drag the divider to compare the <b>previous</b> hosting budget against the <b>current</b> figures after the Elfsight plan downgrade.
+    </p>
+    <div class="mge-cost-meta">
+      <span>Scope: <b>VPS hosting + website</b></span>
+      <span>Period: <b>annual</b></span>
+      <span>Revision: <b>Elfsight 124.42 € → 62.22 €</b></span>
+    </div>
+
+    <div class="mge-cost-comparator" id="mgeCostComparator">
+      <div class="mge-cost-stamp">FY26 · REV.1</div>
+
+      <div class="mge-cost-stack" id="mgeCostStack">
+        <!-- BEFORE / PREVIOUS (base layer) -->
+        <div class="mge-cost-layer mge-cost-layer-before">
+          <span class="mge-cost-layer-tag">Previous</span>
+
+          <div class="mge-cost-section-label">Core project — VPS hosting</div>
+          <table class="mge-cost-table">
+            <thead><tr><th>Item</th><th>Monthly</th><th>Yearly</th></tr></thead>
+            <tbody>
+              <tr><td>XLIFE.me VPS #1 (PH24)</td><td>14 €</td><td>168 €</td></tr>
+              <tr><td>MODDING.me VPS #2 (PH24)</td><td>12.95 €</td><td>155.40 €</td></tr>
+              <tr class="mge-cost-row-total"><td>Subtotal</td><td>26.95 €</td><td>323.40 €</td></tr>
+            </tbody>
+          </table>
+
+          <div class="mge-cost-section-label">Website</div>
+          <table class="mge-cost-table">
+            <thead><tr><th>Item</th><th>Cost</th></tr></thead>
+            <tbody>
+              <tr><td>Elfsight widgets</td><td class="mge-cost-hl-before">124.42 €</td></tr>
+              <tr><td>GoDaddy DNS</td><td>65.85 €</td></tr>
+              <tr class="mge-cost-row-total"><td>Subtotal</td><td>190.27 €/yr</td></tr>
+            </tbody>
+          </table>
+
+          <div class="mge-cost-totals">
+            <div class="mge-cost-totals-row"><span>Gross total</span><b>513.67 €/yr</b></div>
+            <div class="mge-cost-totals-row"><span>Patreon income</span><b>46.80 €/yr</b></div>
+            <div class="mge-cost-totals-row mge-cost-net"><span>Net cost</span><b>466.87 €/yr</b></div>
+          </div>
+        </div>
+
+        <!-- AFTER / CURRENT (clipped overlay) -->
+        <div class="mge-cost-layer mge-cost-layer-after" id="mgeCostAfter">
+          <span class="mge-cost-layer-tag">Current</span>
+
+          <div class="mge-cost-section-label">Core project — VPS hosting <span class="mge-cost-unchanged">unchanged</span></div>
+          <table class="mge-cost-table">
+            <thead><tr><th>Item</th><th>Monthly</th><th>Yearly</th></tr></thead>
+            <tbody>
+              <tr><td>XLIFE.me VPS #1 (PH24)</td><td>14 €</td><td>168 €</td></tr>
+              <tr><td>MODDING.me VPS #2 (PH24)</td><td>12.95 €</td><td>155.40 €</td></tr>
+              <tr class="mge-cost-row-total"><td>Subtotal</td><td>26.95 €</td><td>323.40 €</td></tr>
+            </tbody>
+          </table>
+
+          <div class="mge-cost-section-label">Website</div>
+          <table class="mge-cost-table">
+            <thead><tr><th>Item</th><th>Cost</th></tr></thead>
+            <tbody>
+              <tr><td>Elfsight widgets (basic, 3 widgets)</td><td class="mge-cost-hl-after">62.22 €</td></tr>
+              <tr><td>GoDaddy DNS</td><td>65.85 €</td></tr>
+              <tr class="mge-cost-row-total"><td>Subtotal</td><td>128.07 €/yr</td></tr>
+            </tbody>
+          </table>
+
+          <div class="mge-cost-totals">
+            <div class="mge-cost-totals-row"><span>Gross total</span><b>451.47 €/yr</b></div>
+            <div class="mge-cost-totals-row"><span>Patreon income</span><b>46.80 €/yr</b></div>
+            <div class="mge-cost-totals-row mge-cost-net"><span>Net cost</span><b>404.67 €/yr</b></div>
+          </div>
+        </div>
+
+        <div class="mge-cost-slider-track">
+          <div class="mge-cost-slider-handle"></div>
+        </div>
+        <input type="range" min="0" max="100" value="50" class="mge-cost-range" id="mgeCostRange" aria-label="Drag to compare before and after hosting costs">
+      </div>
+
+      <div class="mge-cost-flags">
+        <span>◂ PREVIOUS</span>
+        <span>CURRENT ▸</span>
+      </div>
+    </div>
+
+    <div class="mge-cost-footer">
+      <span>mygamingedge.online — internal budget reference</span>
+      <span>figures in EUR</span>
+    </div>
+
+  </div>
+</div>
+
+<script>
+(function () {
+  var stack = document.getElementById('mgeCostStack');
+  var range = document.getElementById('mgeCostRange');
+
+  function apply(val) {
+    var v = Number(val);
+    stack.style.setProperty('--mge-clip', v + '%');
+
+    // Reveal fraction of each panel (0..1), drives live glow intensity
+    var beforeReveal = v / 100;          // how much of "previous" is showing (left side)
+    var afterReveal = (100 - v) / 100;   // how much of "current" is showing (right side)
+
+    stack.style.setProperty('--mge-glow-before', (0.08 + beforeReveal * 0.55).toFixed(3));
+    stack.style.setProperty('--mge-glow-after', (0.08 + afterReveal * 0.55).toFixed(3));
+  }
+
+  apply(range.value);
+  range.addEventListener('input', function () {
+    apply(range.value);
+  });
+})();
+</script>
+</body>
+</html>
