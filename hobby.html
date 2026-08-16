@@ -297,9 +297,55 @@
     *{animation-duration:0.001ms !important; animation-iteration-count:1 !important; transition-duration:0.001ms !important; scroll-behavior:auto !important;}
     .entry{opacity:1; transform:none;}
   }
+
+  /* ---------- background video + sound toggle ---------- */
+  .video-bg-wrap{
+    position:fixed; inset:0; z-index:0; overflow:hidden; background:var(--void);
+  }
+  .video-bg-wrap #bgPlayer, .video-bg-wrap iframe{
+    position:absolute; top:50%; left:50%;
+    width:100vw; height:56.25vw;
+    min-height:100vh; min-width:177.78vh;
+    transform:translate(-50%,-50%);
+    pointer-events:none;
+  }
+  .video-bg-overlay{
+    position:absolute; inset:0;
+    background:linear-gradient(180deg, rgba(10,7,18,0.55) 0%, rgba(10,7,18,0.75) 60%, var(--void) 100%);
+  }
+  .sound-toggle{
+    position:fixed; bottom:1.4rem; right:1.4rem; z-index:20;
+    display:flex; align-items:center; gap:0.5rem;
+    background:rgba(10,7,18,0.75); border:1px solid var(--line);
+    color:var(--bone); font-family:'JetBrains Mono', monospace;
+    font-size:0.7rem; letter-spacing:0.12em; text-transform:uppercase;
+    padding:0.6rem 0.9rem; cursor:pointer;
+    backdrop-filter:blur(4px);
+    transition:border-color .2s ease, background .2s ease;
+  }
+  .sound-toggle:hover{border-color:var(--coral); background:rgba(255,59,92,0.12);}
+  .sound-toggle[aria-pressed="true"]{border-color:var(--gold); color:var(--gold);}
+  @media (max-width:860px){
+    .sound-toggle{bottom:1rem; right:1rem; padding:0.5rem 0.75rem;}
+    .sound-label{display:none;}
+  }
+  @media (prefers-reduced-motion: reduce){
+    .video-bg-wrap{display:none;}
+  }
 </style>
 </head>
 <body>
+
+<div class="video-bg-wrap" aria-hidden="true">
+  <div id="bgPlayer"></div>
+  <div class="video-bg-overlay"></div>
+</div>
+
+<button id="soundToggle" class="sound-toggle" aria-label="Toggle background video sound" aria-pressed="false">
+  <svg id="iconMuted" viewBox="0 0 24 24" width="16" height="16"><path fill="currentColor" d="M16.5 12c0-1.77-1.02-3.29-2.5-4.03v2.21l2.45 2.45c.03-.2.05-.42.05-.63zm2.5 0c0 .94-.2 1.82-.54 2.64l1.51 1.51C20.63 14.91 21 13.5 21 12c0-4.28-2.99-7.86-7-8.77v2.06c2.89.86 5 3.54 5 6.71zM4.27 3L3 4.27 7.73 9H3v6h4l5 5v-6.73l4.25 4.25c-.67.52-1.42.93-2.25 1.18v2.06a8.99 8.99 0 003.69-1.81L19.73 21 21 19.73l-9-9L4.27 3zM12 4L9.91 6.09 12 8.18V4z"/></svg>
+  <svg id="iconUnmuted" viewBox="0 0 24 24" width="16" height="16" style="display:none"><path fill="currentColor" d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z"/></svg>
+  <span class="sound-label">SOUND</span>
+</button>
 
 <svg width="0" height="0" style="position:absolute;">
   <filter id="noiseFilter">
@@ -515,6 +561,67 @@
   window.addEventListener('scroll', () => requestAnimationFrame(updateSpine), { passive: true });
   window.addEventListener('resize', updateSpine);
   updateSpine();
+</script>
+
+<script>
+  // Background video (loop) + sound toggle — skipped entirely if reduced motion is preferred
+  if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    var bgPlayer;
+    window.onYouTubeIframeAPIReady = function () {
+      bgPlayer = new YT.Player('bgPlayer', {
+        videoId: 'Z-vjthF0lPc',
+        playerVars: {
+          autoplay: 1,
+          mute: 1,
+          loop: 1,
+          playlist: 'Z-vjthF0lPc', // required by the API to loop a single video
+          controls: 0,
+          showinfo: 0,
+          rel: 0,
+          modestbranding: 1,
+          disablekb: 1,
+          playsinline: 1,
+          iv_load_policy: 3
+        },
+        events: {
+          onReady: function (e) { e.target.mute(); e.target.playVideo(); },
+          onStateChange: function (e) {
+            if (e.data === YT.PlayerState.ENDED) {
+              e.target.seekTo(0);
+              e.target.playVideo();
+            }
+          }
+        }
+      });
+    };
+    (function () {
+      var tag = document.createElement('script');
+      tag.src = 'https://www.youtube.com/iframe_api';
+      document.head.appendChild(tag);
+    })();
+
+    document.addEventListener('DOMContentLoaded', function () {
+      var btn = document.getElementById('soundToggle');
+      var iconMuted = document.getElementById('iconMuted');
+      var iconUnmuted = document.getElementById('iconUnmuted');
+      if (!btn) return;
+      btn.addEventListener('click', function () {
+        if (!bgPlayer || typeof bgPlayer.isMuted !== 'function') return;
+        if (bgPlayer.isMuted()) {
+          bgPlayer.unMute();
+          bgPlayer.setVolume(60);
+          btn.setAttribute('aria-pressed', 'true');
+          iconMuted.style.display = 'none';
+          iconUnmuted.style.display = '';
+        } else {
+          bgPlayer.mute();
+          btn.setAttribute('aria-pressed', 'false');
+          iconMuted.style.display = '';
+          iconUnmuted.style.display = 'none';
+        }
+      });
+    });
+  }
 </script>
 
 </body>
