@@ -545,6 +545,7 @@
       <div class="screw tl"></div><div class="screw tr"></div>
       <div class="money-screen"><div class="money-text">LOADS<br>OF<br>MONEY</div></div>
     </div>
+    <audio id="doshAudio" src="dosh.mp3" preload="auto" loop></audio>
     <p class="outro-caption">Elfsight downgrade nets <b>62.20 €</b> back into the project, per year.</p>
   </div>
 
@@ -658,12 +659,45 @@
              clientY > r.top - proximity && clientY < r.bottom + proximity;
     }
 
+    // dosh.mp3 — plays while the cursor is in the banknote zone, stops the moment it leaves
+    const doshAudio = document.getElementById('doshAudio');
+    let inZone = false;
+
+    function enterZone(){
+      if(inZone) return;
+      inZone = true;
+      if(doshAudio){
+        doshAudio.currentTime = 0;
+        doshAudio.play().catch(() => {}); // ignore autoplay-policy rejections
+      }
+    }
+
+    function exitZone(){
+      if(!inZone) return;
+      inZone = false;
+      if(doshAudio){
+        doshAudio.pause();
+        doshAudio.currentTime = 0;
+      }
+    }
+
     window.addEventListener('pointermove', (e) => {
-      if(!withinBadgeZone(e.clientX, e.clientY)) return;
-      const now = performance.now();
-      if(now - lastHoverSpawn < hoverGap) return;
-      lastHoverSpawn = now;
-      spawnBanknote(e.clientX, e.clientY);
+      const nowInZone = withinBadgeZone(e.clientX, e.clientY);
+      if(nowInZone){
+        enterZone();
+        const now = performance.now();
+        if(now - lastHoverSpawn < hoverGap) return;
+        lastHoverSpawn = now;
+        spawnBanknote(e.clientX, e.clientY);
+      } else {
+        exitZone();
+      }
+    });
+
+    // if the cursor leaves the window entirely, make sure the audio stops too
+    window.addEventListener('pointerleave', exitZone);
+    document.addEventListener('visibilitychange', () => {
+      if(document.hidden) exitZone();
     });
 
     window.addEventListener('pointerdown', (e) => {
