@@ -37,6 +37,29 @@
 
       display: block;
     }
+
+    .sound-toggle {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      z-index: 10;
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      border: none;
+      background: rgba(0, 0, 0, 0.5);
+      color: #fff;
+      font-size: 20px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      backdrop-filter: blur(4px);
+    }
+
+    .sound-toggle:hover {
+      background: rgba(0, 0, 0, 0.7);
+    }
   </style>
 </head>
 <body>
@@ -60,6 +83,18 @@
       Your browser does not support the video tag.
     </video>
   </div>
+
+  <button class="sound-toggle" id="soundToggle" aria-label="Toggle sound">🔇</button>
+
+  <script>
+    const video = document.querySelector('video');
+    const soundToggle = document.getElementById('soundToggle');
+
+    soundToggle.addEventListener('click', () => {
+      video.muted = !video.muted;
+      soundToggle.textContent = video.muted ? '🔇' : '🔊';
+    });
+  </script>
 
 </body>
 </html>
