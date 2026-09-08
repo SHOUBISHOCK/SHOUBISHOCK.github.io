@@ -341,9 +341,20 @@
     border:0;
   }
 
+  .video-grid{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:20px;
+  }
+  .video-grid .video-frame{
+    max-width:520px;
+    margin:0 auto;
+  }
+
   @media (max-width:820px){
     .kit{grid-template-columns:1fr;}
     .status-grid{grid-template-columns:1fr;}
+    .video-grid{grid-template-columns:1fr;}
   }
 
   /* ---------- Footer ---------- */
@@ -455,15 +466,27 @@
         <span class="idx">raw gameplay</span>
       </div>
 
-      <div class="video-frame">
-        <iframe
-          src="https://www.youtube.com/embed/bXh9CytSF4M"
-          title="MOH Coop raw gameplay footage"
-          frameborder="0"
-          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-          allowfullscreen
-          loading="lazy">
-        </iframe>
+      <div class="video-grid">
+        <div class="video-frame">
+          <iframe
+            src="https://www.youtube.com/embed/bXh9CytSF4M"
+            title="MOH Coop raw gameplay footage"
+            frameborder="0"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+            allowfullscreen
+            loading="lazy">
+          </iframe>
+        </div>
+        <div class="video-frame">
+          <iframe
+            src="https://www.youtube.com/embed/38j_uiFTA5U"
+            title="MOH Coop additional footage"
+            frameborder="0"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+            allowfullscreen
+            loading="lazy">
+          </iframe>
+        </div>
       </div>
     </div>
   </section>
