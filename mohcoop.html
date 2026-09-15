@@ -357,6 +357,52 @@
     .video-grid{grid-template-columns:1fr;}
   }
 
+  /* ---------- ModDB badge ---------- */
+  .moddb-box{
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    gap:22px;
+    flex-wrap:wrap;
+    border:1px solid var(--olive-line);
+    background:
+      radial-gradient(ellipse 500px 200px at 50% 0%, #262a1f 0%, transparent 70%),
+      var(--panel);
+    padding:30px 28px;
+    text-align:center;
+  }
+  .moddb-box a{
+    display:inline-flex;
+    line-height:0;
+    filter:saturate(0.9);
+    transition:transform 0.15s ease, filter 0.15s ease;
+  }
+  .moddb-box a:hover{
+    transform:translateY(-2px);
+    filter:saturate(1.15);
+  }
+  .moddb-box a img{
+    display:block;
+    border:1px solid var(--olive-line);
+  }
+  .moddb-copy{
+    display:flex;
+    flex-direction:column;
+    gap:4px;
+    align-items:flex-start;
+    text-align:left;
+  }
+  .moddb-copy .kit-title{font-size:21px;}
+  .moddb-copy .kit-desc{max-width:320px;}
+
+  .anniversary-banner{
+    display:block;
+    width:100%;
+    height:auto;
+    border:1px solid var(--olive-line);
+    margin:0 0 22px;
+  }
+
   /* ---------- Footer ---------- */
   footer{
     border-top:1px solid var(--olive-line);
@@ -426,6 +472,31 @@
       </div>
     </div>
   </header>
+
+
+  <section id="moddb">
+    <div class="wrap">
+      <div class="section-head">
+        <h2>Rated on ModDB</h2>
+        <span class="idx">community popularity</span>
+      </div>
+
+      <img class="anniversary-banner" src="images/HaZardModding20YearsBannerWideDiscord.jpg" alt="20 Years of HaZardModding — 2006-2026">
+
+      <div class="moddb-box">
+        <div class="moddb-copy">
+          <span class="kit-num">TRACK RECORD</span>
+          <span class="kit-title">HaZardModding Coop Mod</span>
+          <span class="kit-desc">Follow the mod's standing and grab release updates straight from its ModDB profile.</span>
+        </div>
+        <a href="https://www.moddb.com/mods/medal-of-honor-coop-hazardmodding" title="View HaZardModding Coop: Medal of Honor on ModDB" target="_blank" rel="noopener">
+          <img src="https://button.moddb.com/popularity/medium/mods/41200.png" alt="HaZardModding Coop: Medal of Honor">
+        </a>
+      </div>
+    </div>
+  </section>
+
+
 
   <section id="kit">
     <div class="wrap">
