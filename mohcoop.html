@@ -419,19 +419,32 @@
     .video-grid{grid-template-columns:1fr;}
   }
 
-  /* ---------- ModDB badge ---------- */
+  /* ---------- ModDB badge (banner as background, transparent overlay) ---------- */
   .moddb-box{
+    position:relative;
     display:flex;
     align-items:center;
     justify-content:center;
     gap:22px;
     flex-wrap:wrap;
     border:1px solid var(--olive-line);
-    background:
-      radial-gradient(ellipse 500px 200px at 50% 0%, #262a1f 0%, transparent 70%),
-      var(--panel);
-    padding:30px 28px;
+    background-image:url('images/HaZardModding20YearsBannerWideDiscord.jpg');
+    background-size:cover;
+    background-position:center;
+    padding:64px 28px 34px;
     text-align:center;
+    overflow:hidden;
+  }
+  .moddb-box::before{
+    content:"";
+    position:absolute;
+    inset:0;
+    background:linear-gradient(180deg, rgba(15,16,11,0.15) 0%, rgba(15,16,11,0.55) 55%, rgba(15,16,11,0.88) 100%);
+    z-index:0;
+  }
+  .moddb-box > *{
+    position:relative;
+    z-index:1;
   }
   .moddb-box a{
     display:inline-flex;
@@ -446,6 +459,7 @@
   .moddb-box a img{
     display:block;
     border:1px solid var(--olive-line);
+    background:rgba(20,22,15,0.85);
   }
   .moddb-copy{
     display:flex;
@@ -453,16 +467,15 @@
     gap:4px;
     align-items:flex-start;
     text-align:left;
+    background:rgba(15,16,11,0.55);
+    padding:10px 14px;
+    backdrop-filter:blur(2px);
   }
   .moddb-copy .kit-title{font-size:21px;}
   .moddb-copy .kit-desc{max-width:320px;}
 
-  .anniversary-banner{
-    display:block;
-    width:100%;
-    height:auto;
-    border:1px solid var(--olive-line);
-    margin:0 0 22px;
+  @media (max-width:600px){
+    .moddb-box{padding:44px 20px 26px;}
   }
 
   /* ---------- Footer ---------- */
@@ -567,8 +580,6 @@
         <h2>Rated on ModDB</h2>
         <span class="idx">community popularity</span>
       </div>
-
-      <img class="anniversary-banner" src="images/HaZardModding20YearsBannerWideDiscord.jpg" alt="20 Years of HaZardModding — 2006-2026">
 
       <div class="moddb-box">
         <div class="moddb-copy">
