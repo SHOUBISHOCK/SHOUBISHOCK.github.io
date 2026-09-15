@@ -33,12 +33,74 @@
   body{
     margin:0;
     background:
-      radial-gradient(ellipse 1200px 600px at 15% -10%, #24281c 0%, transparent 60%),
-      var(--bg);
+      radial-gradient(ellipse 1200px 600px at 15% -10%, rgba(36,40,28,0.7) 0%, transparent 60%),
+      rgba(24,26,20,0.55);
     color:var(--paper);
     font-family:'IBM Plex Mono', monospace;
     font-size:15px;
     line-height:1.65;
+    position:relative;
+  }
+
+  /* ---------- Fixed background video ---------- */
+  .bg-video{
+    position:fixed;
+    inset:0;
+    z-index:-2;
+    overflow:hidden;
+    background:var(--bg);
+  }
+  .bg-video iframe{
+    position:absolute;
+    top:50%;left:50%;
+    width:100vw;
+    height:56.25vw; /* 16:9 */
+    min-height:100vh;
+    min-width:177.78vh; /* 16:9 */
+    transform:translate(-50%, -50%);
+    border:0;
+    pointer-events:none;
+  }
+  .bg-video-overlay{
+    position:fixed;
+    inset:0;
+    z-index:-1;
+    background:linear-gradient(180deg, rgba(15,16,11,0.72) 0%, rgba(15,16,11,0.55) 40%, rgba(15,16,11,0.8) 100%);
+  }
+
+  .sound-toggle{
+    position:fixed;
+    right:20px;
+    bottom:20px;
+    z-index:50;
+    display:inline-flex;
+    align-items:center;
+    gap:9px;
+    padding:10px 16px;
+    border:1px solid var(--khaki-dim);
+    background:rgba(32,35,27,0.92);
+    color:var(--paper);
+    font-family:'IBM Plex Mono', monospace;
+    font-size:12.5px;
+    font-weight:600;
+    letter-spacing:0.03em;
+    cursor:pointer;
+    backdrop-filter:blur(4px);
+    transition:background 0.15s ease, border-color 0.15s ease, transform 0.15s ease;
+  }
+  .sound-toggle:hover{
+    background:var(--panel-raised);
+    border-color:var(--khaki);
+    transform:translateY(-1px);
+  }
+  .sound-toggle svg{
+    width:16px;height:16px;
+    color:var(--khaki);
+    flex:0 0 auto;
+  }
+
+  @media (max-width:600px){
+    .sound-toggle{right:14px;bottom:14px;padding:9px 13px;font-size:11.5px;}
   }
 
   a{color:var(--khaki);}
@@ -430,10 +492,35 @@
 </head>
 <body>
 
+  <div class="bg-video">
+    <iframe
+      id="bgVideoFrame"
+      src="https://www.youtube.com/embed/RUPUAq6GCek?autoplay=1&mute=1&loop=1&playlist=RUPUAq6GCek&controls=0&showinfo=0&rel=0&modestbranding=1&playsinline=1&enablejsapi=1"
+      title="Background footage"
+      frameborder="0"
+      allow="autoplay; encrypted-media"
+      loading="eager">
+    </iframe>
+  </div>
+  <div class="bg-video-overlay"></div>
+
+  <button type="button" class="sound-toggle" id="soundToggle" aria-pressed="false">
+    <svg id="soundIconOff" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon>
+      <line x1="23" y1="9" x2="17" y2="15"></line>
+      <line x1="17" y1="9" x2="23" y2="15"></line>
+    </svg>
+    <svg id="soundIconOn" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:none;">
+      <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon>
+      <path d="M15.54 8.46a5 5 0 0 1 0 7.07"></path>
+      <path d="M19.07 4.93a10 10 0 0 1 0 14.14"></path>
+    </svg>
+    <span id="soundLabel">SOUND: OFF</span>
+  </button>
+
   <div class="topstrip">
     <div class="wrap">
       <span><span class="status-dot"></span>Server <span class="unit">ONLINE</span> — Breakthrough / HZM Coop</span>
-      <span>45.142.115.169:12203</span>
     </div>
   </div>
 
@@ -559,6 +646,8 @@
           </iframe>
         </div>
       </div>
+
+      <p class="connect-hint" style="margin-top:14px;">Compatibility with <a href="https://www.openmohaa.org/" target="_blank" rel="noopener">openmohaa.org</a> is coming in the near future.</p>
     </div>
   </section>
 
@@ -598,7 +687,7 @@
             </div>
           </div>
 
-          <div class="connect-line">connect 45.142.115.169:12203</div>
+          <div class="connect-line">45.142.115.169:12203</div>
           <p class="connect-hint">Open the in-game console and paste the line above, or use Join Game → Join Internet Game → Connect to I.P. Address.</p>
         </div>
 
@@ -613,10 +702,43 @@
 
   <footer>
     <div class="wrap">
-      <span>MOH Coop — community server, unaffiliated with EA Games or 2015 Inc.</span>
+      <span>MOH Coop — community server, unaffiliated with EA Games.</span>
       <span>Built on OpenMoHAA &amp; the HaZardModding Coop Mod</span>
     </div>
   </footer>
+
+  <script>
+    (function(){
+      var frame = document.getElementById('bgVideoFrame');
+      var btn = document.getElementById('soundToggle');
+      var iconOff = document.getElementById('soundIconOff');
+      var iconOn = document.getElementById('soundIconOn');
+      var label = document.getElementById('soundLabel');
+      var soundOn = false;
+
+      function postToPlayer(func, args){
+        frame.contentWindow.postMessage(JSON.stringify({
+          event:'command',
+          func:func,
+          args: args || []
+        }), '*');
+      }
+
+      btn.addEventListener('click', function(){
+        soundOn = !soundOn;
+        if(soundOn){
+          postToPlayer('unMute');
+          postToPlayer('setVolume', [70]);
+        } else {
+          postToPlayer('mute');
+        }
+        btn.setAttribute('aria-pressed', String(soundOn));
+        iconOff.style.display = soundOn ? 'none' : '';
+        iconOn.style.display = soundOn ? '' : 'none';
+        label.textContent = soundOn ? 'SOUND: ON' : 'SOUND: OFF';
+      });
+    })();
+  </script>
 
 </body>
 </html>
